@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF"
+    android:orientation="vertical" >
+   
+    <RelativeLayout 
+        android:id="@+id/image_lay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:background="@drawable/file_menu_selector">
+        <ImageView 
+            android:id="@+id/ic_image"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_select_file_image"
+            android:layout_marginLeft="14dp"
+            />
+        
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="图片"
+             android:layout_marginLeft="14dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/ic_image"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/go_next_selector"
+            />
+        
+    </RelativeLayout>
+    
+    <View 
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#DDD"/>
+    <RelativeLayout 
+        android:id="@+id/video_lay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:background="@drawable/file_menu_selector">
+        <ImageView 
+            android:id="@+id/ic_video"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_select_file_video"
+             android:layout_marginLeft="14dp"
+            />
+        
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="媒体"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/ic_video"
+             android:layout_marginLeft="14dp"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/go_next_selector"
+            />
+        
+    </RelativeLayout>
+    
+    <View 
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#DDD"/>
+    <RelativeLayout 
+        android:id="@+id/audio_lay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:background="@drawable/file_menu_selector"
+        android:paddingBottom="10dp">
+        <ImageView 
+            android:id="@+id/ic_audio"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_select_file_music"
+             android:layout_marginLeft="14dp"
+            />
+        
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="音乐"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/ic_audio"
+             android:layout_marginLeft="14dp"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/go_next_selector"
+            />
+        
+    </RelativeLayout>
+    
+    <View 
+        android:layout_width="match_parent"
+        android:layout_height="20px"
+        android:background="#EEE"/>
+    <RelativeLayout 
+        android:id="@+id/sdcard_lay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:background="@drawable/file_menu_selector"
+        android:paddingBottom="10dp">
+        <ImageView 
+            android:id="@+id/ic_sdcard"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_select_file_sdcard0"
+             android:layout_marginLeft="14dp"
+            />
+        
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="手机内存"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/ic_sdcard"
+             android:layout_marginLeft="14dp"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/go_next_selector"
+            />
+        
+    </RelativeLayout>
+    
+    <View 
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#DDD"/>
+    <RelativeLayout 
+        android:id="@+id/sdcard1_lay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:background="@drawable/file_menu_selector"
+        android:paddingBottom="10dp">
+        <ImageView 
+            android:id="@+id/ic_sdcard1"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_select_file_sdcard1"
+             android:layout_marginLeft="14dp"
+            />
+        
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SD卡内存"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/ic_sdcard1"
+             android:layout_marginLeft="14dp"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/go_next_selector"
+            />
+        
+    </RelativeLayout>
+    
+    <View 
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#DDD"/>
+</LinearLayout>

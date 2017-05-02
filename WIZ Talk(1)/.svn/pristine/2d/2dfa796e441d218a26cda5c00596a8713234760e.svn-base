@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/base_bg"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_h" >
+
+        <EditText
+            android:id="@+id/etSearch"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:paddingRight="50dp"
+            android:singleLine="true" 
+            android:paddingLeft="10dp"
+            android:background="@drawable/base_edit_input"
+            />
+
+        <ImageButton
+            android:id="@+id/btnSearch"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/etSearch"
+            android:layout_alignRight="@+id/etSearch"
+            android:layout_alignTop="@+id/etSearch"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:src="@drawable/abc_ic_search_api_holo_light" />
+
+        <View
+            style="@style/divider"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/id_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:cacheColorHint="#00000000"
+        android:scrollbarStyle="outsideOverlay"
+        android:scrollbars="none" />
+
+</LinearLayout>

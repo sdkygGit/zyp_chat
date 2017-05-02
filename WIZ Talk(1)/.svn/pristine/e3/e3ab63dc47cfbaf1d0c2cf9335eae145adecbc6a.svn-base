@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/divider_bar_h"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:background="@color/captionbgcolor"
+    >
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_bar_h"
+        android:layout_marginLeft="@dimen/spacing_horizontal"
+        android:layout_toLeftOf="@+id/cb"
+        android:gravity="center_vertical"
+        android:layout_centerVertical="true"
+        android:text="tv_name"
+        android:textColor="@color/captiontxtcolor" />
+
+    <CheckBox
+        android:id="@+id/cb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/spacing_horizontal"
+        android:layout_alignParentRight="true"
+        android:button="@drawable/login_btn_check"
+        android:visibility="visible" />
+
+    <View
+        android:id="@+id/viewGroupLineUp"
+        style="@style/divider"
+        android:background="@color/group_line"
+        android:layout_alignParentTop="true"/>
+    
+    <View
+        android:id="@+id/viewGroupLineDown"
+        style="@style/divider"
+        android:background="@color/group_line"
+        android:layout_alignParentBottom="true"/>
+    
+</RelativeLayout>

@@ -1,0 +1,488 @@
+package com.wiz.dev.wiztalk.apppush.view;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.EViewGroup;
+import org.androidannotations.annotations.LongClick;
+import org.androidannotations.annotations.ViewById;
+
+import android.content.Context;
+import android.graphics.drawable.BitmapDrawable;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.TextView;
+
+import com.epic.traverse.push.util.L;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.wiz.dev.wiztalk.DB.XmppMessage;
+import com.wiz.dev.wiztalk.DB.XmppMessageContentProvider;
+import com.wiz.dev.wiztalk.R;
+import com.wiz.dev.wiztalk.apppush.OnOperationClickListener;
+import com.wiz.dev.wiztalk.apppush.entity.AppPushEntity;
+import com.wiz.dev.wiztalk.utils.Utils;
+import com.wiz.dev.wiztalk.view.ChatItemView;
+import com.wiz.dev.wiztalk.view.WrapContentHeightGridView;
+import com.wiz.dev.wiztalk.view.WrapContentHeightListView;
+
+@EViewGroup(R.layout.list_item_chat_app_102)
+public class ChatItemApp102View extends ChatItemView implements OnItemClickListener {
+
+	public static final String TAG = "ChatItemApp102View";
+
+	@ViewById
+	LinearLayout layoutHead;
+
+	@ViewById
+	WrapContentHeightListView listBody;
+
+	// @ViewById
+	// HorizontalListView listOperation;
+
+	@ViewById
+	WrapContentHeightGridView gridOperation;
+
+	// @ViewById
+	// View viewDivider;
+
+	@ViewById
+	TextView tvStatus;
+	
+	BodyAdapter bodyAdapter;
+	OperationsAdapter2 operationsAdapter2;
+
+
+	@ViewById
+	View layoutMain;
+
+	public ChatItemApp102View(Context context) {
+		super(context);
+	}
+
+	@AfterViews
+	void afterViews() {
+		gridOperation.setOnItemClickListener(this);
+
+		initViewHolderHead(layoutHead);
+		bodyAdapter = new BodyAdapter();
+		listBody.setAdapter(bodyAdapter);
+		operationsAdapter2 = new OperationsAdapter2();
+		gridOperation.setAdapter(operationsAdapter2);
+	}
+
+	@Override
+	public void bindOther(XmppMessage message) {
+		
+		bindViewHolderHead();
+		String pushObjectContentBody = message.getPushObjectContentBody();
+		Type type = new TypeToken<ArrayList<AppPushEntity.ObjectContentEntity.BodyEntity>>(){}.getType();
+		List<AppPushEntity.ObjectContentEntity.BodyEntity> bodyEntity =  new Gson().fromJson
+				(pushObjectContentBody,type);
+		bodyAdapter.chageData(bodyEntity);
+
+		type = new TypeToken<ArrayList<AppPushEntity.ObjectContentEntity.OperationsEntity>>(){}.getType();
+		String pushObjectContentOeprations = message.getPushObjectContentOperations();
+		List<AppPushEntity.ObjectContentEntity.OperationsEntity> operationsEntities =  new Gson()
+				.fromJson
+				(pushObjectContentOeprations, type);
+
+		operationsAdapter2.chageData(operationsEntities);
+
+		if (operationsEntities == null || operationsEntities.size() == 0) {
+			gridOperation.setVisibility(View.GONE);
+		} else {
+			gridOperation.setVisibility(View.VISIBLE);
+		}
+		
+		L.d(TAG, "message.getPushStatusId():" + message.getPushStatusId());
+		L.d(TAG, "oc.statusFinish:" + (message != null ? message.getPushStatusId() : ""));
+		
+		tvStatus.setVisibility(TextUtils.isEmpty(message.getPushStatusId()) ? View.GONE : View.VISIBLE);
+		tvStatus.setText(/*(oc != null && oc.statusFinish) ? "已办" : */"待办");
+		// TODO: 2016/3/20  
+		tvStatus.setBackgroundResource(/*(oc != null && oc.statusFinish) ? R.drawable.ic_app102_finish_true :*/ R.drawable.ic_app102_finish_false);
+	}
+
+	@Click(R.id.iv_icon)
+	void onClickIcon(View view) {
+		/*ContactDetailActivity_.intent(getContext())
+				.userName(message.getExtRemoteUserName()).start();*/
+	}
+
+	private class BodyAdapter extends BaseAdapter {
+
+		private List<AppPushEntity.ObjectContentEntity.BodyEntity> body;
+
+		public BodyAdapter() {
+		}
+
+		public BodyAdapter(List<AppPushEntity.ObjectContentEntity.BodyEntity> body) {
+			this.body = body;
+			// this.body.addAll(this.body.subList(0, this.body.sizeBigger()));
+		}
+
+		public void chageData(List<AppPushEntity.ObjectContentEntity.BodyEntity> body) {
+			this.body = body;
+			this.notifyDataSetChanged();
+		}
+
+		@Override
+		public int getCount() {
+			return body == null ? 0 : body.size();
+		}
+
+		@Override
+		public Object getItem(int position) {
+			return body.get(position);
+		}
+
+		@Override
+		public long getItemId(int position) {
+			return position;
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			AppPushEntity.ObjectContentEntity.BodyEntity item = (AppPushEntity.ObjectContentEntity.BodyEntity) getItem(position);
+
+			App102BodyItem view = (App102BodyItem) convertView;
+			if (view == null) {
+				view = App102BodyItem_.build(parent.getContext());
+			}
+			
+			view.bind(item);
+			
+			return view;
+		}
+
+	}
+
+	// private class OperationsAdapter extends BaseAdapter {
+	//
+	// private List<Operation> operations;
+	//
+	// public OperationsAdapter(List<Operation> operations) {
+	// this.operations = operations;
+	// // this.operations.addAll(this.operations.subList(0,
+	// // this.operations.sizeBigger()));
+	// }
+	//
+	// private static final int MAX_COUNT = 3;
+	//
+	// @Override
+	// public int getCount() {
+	// // return this.operations == null ? 0 : this.operations.sizeBigger();
+	// return this.operations == null ? 0 : Math.min(
+	// this.operations.sizeBigger(), MAX_COUNT);
+	// }
+	//
+	// @Override
+	// public Object getItem(int position) {
+	// // return this.operations.get(position);
+	//
+	// Object obj = null;
+	// if (this.operations.sizeBigger() > MAX_COUNT) {
+	// if (position < MAX_COUNT - 1) {
+	// obj = this.operations.get(position);
+	// } else {
+	// obj = this.operations;
+	// }
+	// } else {
+	// obj = this.operations.get(position);
+	// }
+	// return obj;
+	// }
+	//
+	// @Override
+	// public long getItemId(int position) {
+	// return position;
+	// }
+	//
+	// @Override
+	// public View getView(int position, View convertView, ViewGroup parent) {
+	// App102Operation view;
+	//
+	// if (convertView == null) {
+	// view = App102Operation_.build(parent.getContext());
+	// setupLayoutParams(view, parent);
+	// } else {
+	// view = (App102Operation) convertView;
+	// }
+	//
+	// Object object = getItem(position);
+	// if (object instanceof Operation) {
+	// Operation operation = (Operation) object;
+	// // view.bind(position != 0, operation);
+	// view.bind(operation);
+	// } else if (object instanceof List) {
+	// // List<Operation> operations = (List<Operation>) object;
+	// Operation operation = new Operation();
+	// operation.content = "更多";
+	// // view.bind(position != 0, operation);
+	// view.bind(operation);
+	// }
+	//
+	// return view;
+	// }
+	//
+	// private void setupLayoutParams(View convertView, ViewGroup parent) {
+	// // Log.d(TAG, "getView() parent.getWidth():" + parent.getWidth());
+	// // Log.d(TAG,
+	// // "getView() parent.getMeasuredWidth():"
+	// // + parent.getMeasuredWidth());
+	//
+	// int N = getCount();
+	//
+	// ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(
+	// (parent.getWidth() - (N - 1) * 1) / getCount(),
+	// ViewGroup.LayoutParams.MATCH_PARENT);
+	// convertView.setLayoutParams(params);
+	// }
+	// }
+
+	private class OperationsAdapter2 extends BaseAdapter {
+		private boolean isShowMore;
+
+		private List<AppPushEntity.ObjectContentEntity.OperationsEntity> operations;
+
+		public OperationsAdapter2() {
+		}
+
+		public void chageData(List<AppPushEntity.ObjectContentEntity.OperationsEntity> operations) {
+			this.operations = operations;
+			this.notifyDataSetChanged();
+		}
+
+		public OperationsAdapter2(List<AppPushEntity.ObjectContentEntity.OperationsEntity> operations) {
+			this.operations = operations;
+		}
+
+		public boolean isShowMore() {
+			return isShowMore;
+		}
+
+		public void setShowMore(boolean isShowMore) {
+			this.isShowMore = isShowMore;
+			this.notifyDataSetChanged();
+		}
+
+		private static final int NUM_COLUMNS = 3;
+
+		public boolean positionIsShowMore(int position) {
+			return hasMore() && position == NUM_COLUMNS - 1;
+		}
+
+		public boolean positionInRealCount(int position) {
+			return position < getRealCount();
+		}
+		
+		private boolean hasMore() {
+			return operations.size() > NUM_COLUMNS;
+		}
+
+		@Override
+		public int getCount() {
+			int realCount = getRealCount();
+			return realCount + (NUM_COLUMNS - realCount % NUM_COLUMNS) % NUM_COLUMNS;
+		}
+		
+		private int getRealCount() {
+			if (operations == null) {
+				return 0;
+			}
+
+			if (!isShowMore) {
+				return Math.min(NUM_COLUMNS, operations.size());
+			} else {
+				int size = operations.size();
+				return size + 1;
+			}
+		}
+
+		@Override
+		public AppPushEntity.ObjectContentEntity.OperationsEntity getItem(int position) {
+			if (positionInRealCount(position)) {
+				if (hasMore()) {
+					if (position == NUM_COLUMNS - 1) {
+						AppPushEntity.ObjectContentEntity.OperationsEntity operation = new AppPushEntity.ObjectContentEntity.OperationsEntity();
+						operation.content = "更多";
+						return operation;
+					} else if (position < NUM_COLUMNS - 1) {
+						return operations.get(position);
+					} else if (position > NUM_COLUMNS - 1) {
+						return operations.get(position - 1);
+					}
+				} else {
+					return operations.get(position);
+				}
+			}
+			return null;
+		}
+
+		@Override
+		public long getItemId(int position) {
+			return position;
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			App102Operation view;
+
+			if (convertView == null) {
+				view = App102Operation_.build(parent.getContext());
+			} else {
+				view = (App102Operation) convertView;
+			}
+
+			view.bind(getItem(position));
+			view.bindStyle(NUM_COLUMNS, position);
+
+			return view;
+		}
+	}
+
+	private OnOperationClickListener mOnOperationClickListener;
+
+	public void setOnOperationClickListener(OnOperationClickListener l) {
+		mOnOperationClickListener = l;
+	}
+
+	// @ItemClick(R.id.listOperation)
+	// void onItemClickOperation(Object object) {
+	// if (object instanceof Operation) {
+	// Operation operation = (Operation) object;
+	// if (mOnOperationClickListener != null) {
+	// mOnOperationClickListener.onOperationClick(operation);
+	// }
+	// } else if (object instanceof List) {
+	// @SuppressWarnings("unchecked")
+	// List<Operation> operations = (List<Operation>) object;
+	// if (mOnOperationClickListener != null) {
+	// mOnOperationClickListener.onOperationsClick(operations);
+	// }
+	// }
+	// }
+
+	// ViewHolderHead
+	public TextView tvHeadContent;
+	public TextView tvHeadPubTime;
+
+	private void initViewHolderHead(LinearLayout layoutHead) {
+		tvHeadContent = (TextView) layoutHead.findViewById(R.id.tvHeadContent);
+		tvHeadPubTime = (TextView) layoutHead.findViewById(R.id.tvHeadPubTime);
+	}
+
+	private void bindViewHolderHead() {
+		tvHeadContent.setText(message.getPushContent());
+		tvHeadPubTime.setText(Utils
+				.format(message.getPushObjectContentPubTime(), "yyyy年MM月dd日 HH:mm:ss"));
+		
+	}
+
+	// private class ViewHolderHead {
+	// public TextView tvHeadContent;
+	// public TextView tvHeadPubTime;
+	//
+	// public ViewHolderHead(LinearLayout layoutHead) {
+	// tvHeadContent = (TextView) layoutHead
+	// .findViewById(R.id.tvHeadContent);
+	// tvHeadPubTime = (TextView) layoutHead
+	// .findViewById(R.id.tvHeadPubTime);
+	// }
+	//
+	// public void bind(Head head) {
+	// tvHeadContent.setText(head.content);
+	// tvHeadPubTime.setText(Utils.format(head.pubTime,
+	// "yyyy年MM月dd日 HH:mm:ss"));
+	// }
+	// }
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		OperationsAdapter2 adapter = (OperationsAdapter2) parent.getAdapter();
+
+		if (adapter.positionInRealCount(position)) {
+			if (adapter.positionIsShowMore(position)) {
+				adapter.setShowMore(!adapter.isShowMore());
+			} else {
+				if (mOnOperationClickListener != null) {
+					mOnOperationClickListener.onOperationClick(adapter
+							.getItem(position));
+				}
+			}
+		}
+	}
+
+
+	@LongClick(R.id.layoutMain)
+	public void layoutVoice() {
+		Log.d(TAG, "layout_voice()");
+		initPopupWindow();
+		showPopuWindow(layoutMain);
+	}
+	PopupWindow popWin;
+	protected View popView;
+	protected void initPopupWindow() {
+		if (popWin == null) {
+			popView = LayoutInflater.from(mContext).inflate(
+					R.layout.popup_list_item_long_click, null);
+
+			View copyLay = (View) popView.findViewById(R.id.tvCopy);
+			copyLay.setVisibility(View.GONE);
+			View line = (View) popView.findViewById(R.id.line);
+			line.setVisibility(View.GONE);
+
+			TextView tvDel = (TextView) popView.findViewById(R.id.tvDel);
+			tvDel.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					messageDao.delete(message);
+					mContext.getContentResolver().notifyChange(
+							XmppMessageContentProvider.CONTENT_URI, null);
+					popWin.dismiss();
+				}
+			});
+
+			popWin = new PopupWindow(popView,
+					ViewGroup.LayoutParams.WRAP_CONTENT,
+					ViewGroup.LayoutParams.WRAP_CONTENT);
+			popWin.setOutsideTouchable(true);
+			popView.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					popWin.dismiss();
+				}
+			});
+			// 如果不设置PopupWindow的背景，无论是点击外部区域还是Back键都无法dismiss弹框
+			// 我觉得这里是API的一个bug
+			popWin.setBackgroundDrawable(new BitmapDrawable());
+		}
+	}
+
+	protected void showPopuWindow(View iv) {
+		popView.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED);
+		int popupWidth = popView.getMeasuredWidth();
+		int popupHeight = popView.getMeasuredHeight();
+		int[] location = new int[2];
+		iv.getLocationOnScreen(location);
+		popWin.showAtLocation(iv, Gravity.NO_GRAVITY,
+				(location[0] + iv.getWidth() / 2) - popupWidth / 2, location[1]
+						- popupHeight);
+	}
+
+
+}

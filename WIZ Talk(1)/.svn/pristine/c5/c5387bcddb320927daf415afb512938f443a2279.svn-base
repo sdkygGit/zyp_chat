@@ -1,0 +1,18 @@
+package com.yxst.epic.unifyplatform.public_store;
+
+/**
+ * Created by Dong on 2016/3/13.
+ */
+public interface OpenfireConstDefine {
+
+    //openfire服务器相关
+//    String OPENFIRE_SERVER_HOST = "120.24.160.24";//10.180.120.63 http://192.168.31.243/ //120.24.160.24
+    String OPENFIRE_SERVER_HOST = "itime.vicp.cc";//10.180.120.63 http://192.168.31.243/ //10.180
+
+//    String OPENFIRE_SERVER_HOST = "192.168.1.18";//10.180.120.63 http://192.168.31.243/ //10.180
+    // .128.127
+//    String OPENFIRE_SERVER_HOST = "10.180.128.194";
+    String OPENFIRE_SERVER_NAME = "skysea.com";
+    int OPENFIRE_SERVER_PORT =5222;
+    String OPENFIRE_SERVER_RESOURCE_TAG = "Android";
+}

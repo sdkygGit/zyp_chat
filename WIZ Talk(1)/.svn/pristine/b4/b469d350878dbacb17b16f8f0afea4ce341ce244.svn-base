@@ -1,0 +1,9 @@
+package com.yxst.epic.unifyplatform.listener;
+
+
+import com.yxst.epic.unifyplatform.DB.Member;
+
+public interface OnMemberCheckedChangedListener {
+
+	public void onMemberCheckedChanged(Member member, boolean isChecked);
+}

@@ -1,0 +1,197 @@
+package com.yxst.epic.unifyplatform.activity;
+
+import android.annotation.TargetApi;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Build;
+import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.assist.ImageSize;
+import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingProgressListener;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+import com.yxst.epic.unifyplatform.MyApplication;
+import com.yxst.epic.unifyplatform.R;
+import com.yxst.epic.unifyplatform.utils.ImagerLoaderOptHelper;
+
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Extra;
+import org.androidannotations.annotations.ViewById;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpHost;
+import org.apache.http.HttpRequest;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.conn.ClientConnectionManager;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.HttpParams;
+import org.apache.http.protocol.HttpContext;
+import org.apache.http.util.EntityUtils;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import uk.co.senab.photoview.PhotoView;
+import uk.co.senab.photoview.PhotoViewAttacher.OnViewTapListener;
+
+@EActivity(R.layout.list_item_chat_item_imgs)
+public class XchatImageActivity extends ActionBarActivity {
+
+    private static final String TAG = "XchatImageActivity";
+
+    @ViewById(R.id.iv_photoview)
+    PhotoView mPhotoView;
+    @ViewById(R.id.Tv)
+    ImageView tv;
+
+    @ViewById(R.id.layout_loading)
+    LinearLayout mLayoutLoading;
+
+    @ViewById(R.id.pbloading)
+    ProgressBar mProgressBar;
+
+    @ViewById(R.id.tv_percent)
+    TextView mTvPercennt;
+
+    @Extra
+    String pathUrl;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        //		requestWindowFeature(Window.FEATURE_NO_TITLE);
+//		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        MyApplication.getInstance().addActivity(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        MyApplication.getInstance().removeActivity(this);
+        super.onDestroy();
+
+    }
+
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    @AfterViews
+    void afterViews() {
+        mPhotoView.setOnViewTapListener(new OnViewTapListener() {
+            @Override
+            public void onViewTap(View view, float x, float y) {
+                Log.i(TAG, "ChatImagesActivity finish");
+
+                finish();
+            }
+        });
+//file:///storage/emulated/0/yixin/image/out/1460447128504.jpg
+        try {
+
+//            mPhotoView.setImageBitmap(BitmapFactory.decodeFile(ImageLoader.getInstance().getDiskCache().get(pathUrl).getPath()));
+
+            mPhotoView.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), Uri.parse(pathUrl)));
+            mLayoutLoading.setVisibility(View.GONE);
+        } catch (Exception e) {
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        HttpClient httpclient = new DefaultHttpClient();
+                        HttpGet httpgets = new HttpGet(pathUrl);
+                        HttpResponse response = httpclient.execute(httpgets);
+                        HttpEntity entity = response.getEntity();
+                        if (entity != null) {
+                            InputStream instreams = null;
+                            instreams = entity.getContent();
+                            if (instreams != null)
+                                mPhotoView.setImageBitmap(BitmapFactory.decodeStream(instreams));
+                            mLayoutLoading.setVisibility(View.GONE);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+        }
+
+
+
+//		DisplayImageOptions options = new DisplayImageOptions.Builder()
+//				.showImageOnLoading(
+//						new ColorDrawable(Color.parseColor("#33000000")))
+//				.showImageForEmptyUri(R.drawable.card_photofail)
+//				.showImageOnFail(R.drawable.card_photofail).cacheInMemory(false)
+//				.cacheOnDisk(true)
+//				.imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
+//						.bitmapConfig(Bitmap.Config.ARGB_8888)
+//				.considerExifParams(true)
+//				.displayer(new SimpleBitmapDisplayer())
+//				.build();
+//
+		Log.i("sssssssssssssssss","urlPath :"+ImageLoader.getInstance().getDiskCache().get(pathUrl).getPath());
+//		ImageLoader.getInstance().displayImage(pathUrl, mPhotoView, options,
+//				callBack2, new ImageLoadingProgressListener() {
+//					@Override
+//					public void onProgressUpdate(String imageUri, View view,
+//							int current, int total) {
+//						int percent = (int) (100 * current / total);
+//						mTvPercennt.setText(String.valueOf(percent) + "%");
+//					}
+//				});
+
+    }
+
+    ImageLoadingListener callBack2 = new SimpleImageLoadingListener() {
+
+        @Override
+        public void onLoadingCancelled(String arg0, View arg1) {
+            mLayoutLoading.setVisibility(View.GONE);
+        }
+
+        @Override
+        public void onLoadingComplete(String arg0, View arg1, Bitmap arg2) {
+            mLayoutLoading.setVisibility(View.GONE);
+        }
+
+        @Override
+        public void onLoadingFailed(String arg0, View arg1, FailReason arg2) {
+            mLayoutLoading.setVisibility(View.GONE);
+        }
+
+        @Override
+        public void onLoadingStarted(String arg0, View arg1) {
+            mLayoutLoading.setVisibility(View.VISIBLE);
+        }
+
+    };
+
+}

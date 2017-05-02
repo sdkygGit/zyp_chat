@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\menu\\h5_bar.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\menu\\h5_bar.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\menu\\chat.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\menu\\chat.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\menu\\activity_contact_detail.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\menu\\activity_contact_detail.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\menu\\activity_chat_context_menu.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\menu\\activity_chat_context_menu.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\menu\\activity_contact_select.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\menu\\activity_contact_select.xml"
+    }
+]

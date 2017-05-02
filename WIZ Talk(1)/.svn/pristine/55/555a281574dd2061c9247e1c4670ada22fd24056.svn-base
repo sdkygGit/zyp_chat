@@ -1,0 +1,21 @@
+package com.yxst.epic.unifyplatform.dto.response;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.yxst.epic.unifyplatform.DB.Member;
+
+import java.util.List;
+
+public class SearchResponse extends Response {
+
+	private static final long serialVersionUID = -2369027069327315694L;
+
+	@JsonProperty(value = "count")
+	public int Count;
+
+	@JsonProperty(value = "memberListSize")
+	public int MemberListSize;
+
+	@JsonProperty(value = "memberList")
+	public List<Member> MemberList;
+}
+ 

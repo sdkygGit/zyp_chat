@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@android:color/holo_blue_dark"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+<Button android:id="@+id/btn_abc_ensure"
+    	android:layout_width="wrap_content"
+    	android:layout_height="40dp"
+        android:text="" 
+        android:background="@android:color/transparent"
+        android:textColor="@color/base_action_bar_title_color"
+        android:textSize="18sp"
+        android:layout_marginRight="5dp"/>
+</LinearLayout>

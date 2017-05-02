@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/mm_text_bg_trans" >
+
+    <ProgressBar
+        android:id="@+id/pb"
+        android:layout_width="14sp"
+        android:layout_height="14sp"
+        android:layout_alignBottom="@+id/tv"
+        android:layout_alignTop="@+id/tv" />
+
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/pb"
+        android:layout_centerHorizontal="true"
+        android:text="发送中..."
+        android:textColor="@android:color/white"
+        android:textSize="14sp" />
+
+</RelativeLayout>

@@ -1,0 +1,29 @@
+package com.wiz.dev.wiztalk.loader;
+
+import android.content.Context;
+import android.database.Cursor;
+import android.support.v4.content.CursorLoader;
+
+import com.wiz.dev.wiztalk.DB.XmppDbManager;
+
+/**
+ * 最近聊天项
+ * Created by Dong on 2015/10/13.
+ */
+public class RecentChatMsgLoader extends CursorLoader {
+
+
+    private String localUserJid ;
+    private Context mContext;
+    public RecentChatMsgLoader(Context context,String _localUserJid) {
+        super(context);
+        this.mContext = context;
+        this.localUserJid = _localUserJid;
+    }
+
+    @Override
+    public Cursor loadInBackground() {
+        Cursor cursor = XmppDbManager.getInstance(mContext).getRecentChatList(localUserJid);
+        return cursor;
+    }
+}

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true" >
+        <shape  >
+            <!-- 圆角 -->
+            <corners
+                android:radius="30dp"/>
+            <!-- 间隔 -->
+
+
+            <!-- 填充 -->
+            <solid android:color="#5fb840" />
+            <!-- 填充的颜色 -->
+        </shape>
+    </item>
+
+
+    <item >
+        <shape  >
+            <!-- 圆角 -->
+            <corners
+                android:radius="30dp"/>
+
+
+
+            <!-- 填充 -->
+            <solid android:color="#74cc56" />
+            <!-- 填充的颜色 -->
+        </shape>
+    </item>
+</selector>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/spacing_vertical"
+    android:paddingLeft="@dimen/spacing_horizontal_small"
+    android:paddingRight="@dimen/spacing_horizontal_small"
+    android:paddingTop="@dimen/spacing_vertical" >
+
+    <TextView
+        android:id="@+id/tv_time"
+        style="@style/chat_item_time"
+        android:text="晚上20:53" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_time"
+        android:background="@drawable/btn_white"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/spacing_vertical"
+        android:paddingLeft="@dimen/spacing_horizontal_small"
+        android:paddingRight="@dimen/spacing_horizontal_small"
+        android:paddingTop="@dimen/spacing_vertical" >
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="title"
+            android:textColor="@android:color/black" 
+            android:textSize="@dimen/textSizeChat"/>
+
+        <TextView
+            android:id="@+id/tvContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="content"
+            android:textColor="@android:color/darker_gray" />
+    </LinearLayout>
+
+</RelativeLayout>

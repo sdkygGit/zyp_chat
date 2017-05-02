@@ -1,0 +1,49 @@
+package com.yxst.epic.unifyplatform.apppush.view;
+
+import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.EViewGroup;
+import org.androidannotations.annotations.ViewById;
+
+import android.content.Context;
+import android.view.View;
+import android.widget.TextView;
+
+import com.yxst.epic.unifyplatform.DB.XmppMessage;
+import com.yxst.epic.unifyplatform.R;
+import com.yxst.epic.unifyplatform.view.ChatItemView;
+
+
+@EViewGroup(R.layout.list_item_chat_app_101)
+public class ChatItemApp101View extends ChatItemView {
+
+//	@ViewById(R.id.tv_time)
+//	TextView tvTime;
+
+	@ViewById
+	public TextView tvTitle;
+
+	@ViewById
+	public TextView tvContent;
+
+	public ChatItemApp101View(Context context) {
+		super(context);
+	}
+
+	@Override
+	public void bindOther(XmppMessage message) {
+
+		tvTitle.setText(message.getPushContent());
+		tvContent.setText(message.getPushContent());
+
+	}
+
+	@Click(R.id.iv_icon)
+	void onClickIcon(View view) {
+		/*ContactDetailActivity_.intent(getContext())
+				.userName(message.getExtRemoteUserName()).start();*/
+		// TODO: 2016/3/20 跳转应用 
+	}
+
+	public static final String TAG = "ChatItemApp101View";
+
+}

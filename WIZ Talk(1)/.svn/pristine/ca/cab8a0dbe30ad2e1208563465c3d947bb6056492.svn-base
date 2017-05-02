@@ -1,0 +1,92 @@
+apply plugin: 'com.android.application'
+apply plugin: 'android-apt'
+def AAVersion = '3.3.1'
+def PackageName = 'com.yxst.epic.unifyplatform'
+
+
+android {
+    compileSdkVersion 19
+    buildToolsVersion "22.0.1"
+
+    defaultConfig {
+        applicationId PackageName
+        minSdkVersion 16
+        targetSdkVersion 19
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/dependencies.txt'
+        exclude 'META-INF/LGPL2.1'
+    }
+    lintOptions {
+        abortOnError false
+    }
+}
+repositories {
+    flatDir {
+        dirs 'libs' //this way we can find the .aar file in libs folder
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile project(':fanninglibrary')
+    //    compile 'com.android.support:appcompat-v7:22.0.1'
+    //    compile 'com.android.support:support-v4:22.0.1'
+    compile 'com.android.support:appcompat-v7:19.1.0'
+    compile 'com.android.support:support-v4:19.1.0'
+    compile "org.androidannotations:androidannotations-api:$AAVersion"
+    apt "org.androidannotations:androidannotations:$AAVersion"
+    //AA spring rest ,现在不用了，使用retrofit了
+    compile 'org.springframework.android:spring-android-rest-template:2.0.0.M1'
+    //    compile 'com.fasterxml.jackson.core:jackson-databind:2.4.1.3'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.4+'
+    //json解析的
+    compile 'com.fasterxml.jackson.core:jackson-core:2.4.+'
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.4.+'
+    //图片加载
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
+    //Android Annotations //为了使用契约编程
+    compile 'com.android.support:support-annotations:19.1.0'
+    compile files('libs/xUtils-2.6.14.jar')
+    compile project(':smackpush')
+    //    compile project(':pullToRefreshlibrary')
+    //    compile project(':viewPagerIndicatorlibrary')
+    //    compile project(':photoViewlibrary')
+    //    compile project(':pinnedHeaderListViewlibrary')
+    //使用aar
+    compile(name: "photoViewlibrary-release", ext: "aar")
+    compile(name: "pinnedHeaderListViewlibrary-release", ext: "aar")
+    compile(name: "pullToRefreshlibrary-release", ext: "aar")
+    //    compile (name:"viewPagerIndicatorlibrary-release",ext:"aar")
+    compile(name: "hTML5WebView-release", ext: "aar")
+    compile project(':viewPagerIndicatorlibrary')
+    compile project(':captureActivity')
+    compile files('libs/android-viewbadger.jar')
+    compile files('libs/greendao-1.3.0-beta-1.jar')
+    compile files('libs/gson-2.2.4.jar')
+    compile files('libs/ZBarDecoder.jar')
+}
+apt {
+    arguments {
+//      androidManifestFile variant.processResources.manifestFile
+        androidManifestFile variant.outputs[0].processResources.manifestFile
+        resourcePackageName PackageName
+    }
+}
+

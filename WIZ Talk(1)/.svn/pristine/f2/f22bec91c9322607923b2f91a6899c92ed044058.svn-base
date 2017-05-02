@@ -1,0 +1,150 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/spacing_vertical"
+            android:paddingLeft="@dimen/spacing_horizontal"
+            android:paddingRight="@dimen/spacing_horizontal"
+            android:paddingTop="@dimen/spacing_vertical" >
+
+            <ImageView
+                android:id="@+id/ivAvatar"
+                android:layout_width="@dimen/icon_size_biggest"
+                android:layout_height="@dimen/icon_size_biggest"
+                android:layout_marginRight="@dimen/spacing_horizontal"
+                android:src="@drawable/ic_default_app" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_toRightOf="@+id/ivAvatar"
+                android:gravity="center_vertical"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/tvDisplayName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/black" />
+
+                <TextView
+                    android:id="@+id/tvNickName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/darker_gray" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white" >
+
+            <TextView
+                android:id="@+id/tvFunction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/spacing_horizontal"
+                android:gravity="center_vertical"
+                android:minHeight="@dimen/item_h"
+                android:paddingRight="@dimen/spacing_horizontal"
+                android:text="功能介绍"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/tvFunctionDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/spacing_horizontal"
+                android:layout_toRightOf="@+id/tvFunction"
+                android:gravity="center_vertical"
+                android:minHeight="@dimen/item_h"
+                android:paddingBottom="@dimen/spacing_vertical"
+                android:paddingRight="@dimen/spacing_horizontal"
+                android:paddingTop="@dimen/spacing_vertical"
+                android:textColor="@android:color/black" />
+        </RelativeLayout>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/divider_bar_h"
+            android:background="@android:color/white"
+            android:paddingRight="@dimen/spacing_horizontal"
+            android:shrinkColumns="1"
+            android:stretchColumns="1" >
+
+            <TableRow
+                android:background="@drawable/list_selector"
+                android:clickable="true" >
+
+                <TextView
+                    style="@style/contact_detail_table_key"
+                    android:text="接收消息" />
+
+                <CheckBox
+                    android:id="@+id/cb_app_receive_app_msg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center_vertical" />
+                <!--
+                 android:button="@null" 
+                 android:background="@drawable/checkbox_switch"
+                -->
+            </TableRow>
+        </TableLayout>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/divider_bar_h"
+            android:background="@android:color/white"
+            android:paddingRight="@dimen/spacing_horizontal"
+            android:shrinkColumns="1"
+            android:stretchColumns="1" >
+
+            <TableRow
+                android:background="@drawable/list_selector"
+                android:clickable="true" >
+
+                <TextView
+                    style="@style/contact_detail_table_key"
+                    android:text="关注应用" />
+
+                <CheckBox
+                    android:id="@+id/cbFollow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center_vertical" />
+                <!--
+                android:button="@null"
+                android:background="@drawable/checkbox_switch"
+                -->
+            </TableRow>
+        </TableLayout>
+
+        <Button
+            android:id="@+id/btnEnterApp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_horizontal"
+            android:layout_marginRight="@dimen/spacing_horizontal"
+            android:layout_marginTop="@dimen/divider_bar_h"
+            android:background="@drawable/btn_green"
+            android:text="进入应用服务号"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+
+</ScrollView>

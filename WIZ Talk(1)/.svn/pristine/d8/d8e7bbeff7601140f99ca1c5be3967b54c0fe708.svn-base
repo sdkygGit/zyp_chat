@@ -1,0 +1,13 @@
+package com.yxst.epic.unifyplatform.dto.request;
+
+
+import com.yxst.epic.unifyplatform.dto.response.ResponseUpload;
+
+public class SetUserAvatarRequest extends Request {
+
+	public String userName;
+	
+	public ResponseUpload responseUpload;
+	
+	public String fileExtention;
+}

@@ -1,0 +1,271 @@
+package com.wiz.dev.wiztalk.apppush.entity;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by Dong on 2016/3/20.
+ */
+public class AppPushEntity implements Serializable{
+
+
+    /**
+     * uid : null
+     * deviceID : null
+     * token : sw_token
+     */
+
+    private BaseRequestEntity baseRequest;
+    /**
+     * baseRequest : {"uid":null,"deviceID":null,"token":"sw_token"}
+     * content : 我新启了【  刘学是个超级帅哥5】
+     * msgType : 102
+     * statusId : 999
+     * toUserNames : ["15AADCDFB8A24F91895C3190C8E82C99@user"]
+     * objectContent : {"body":[{"content":"发送人    ： 总文书（刘路）"},{"content":"发送部门：保密文档科"},{"content":"阶段名称：编号登记"},{"content":"文件类型：公司行政收文"},{"content":"紧急程度：加急"},{"content":"待办类型：待阅"}],"appId":"2","operations":[{"content":"查看详细","operationType":"1","action":"http://10.180.120.157:8089/appyixin/phone/sw/144025ECBB6D0368E0530A6F0ACC3027?workItemId=152707816&processId=8a34f8114c6f3899014cd9f935e71f97&security=0&emergencyLevel=9"},{"content":"查看详细2","operationType":"1","action":"http://10.180.120.157:8089/appyixin/phone/sw/144025ECBB6D0368E0530A6F0ACC3027?workItemId=152707816&processId=8a34f8114c6f3899014cd9f935e71f97&security=0&emergencyLevel=9"},{"content":"查看详细3","operationType":"1","action":"http://10.180.120.157:8089/appyixin/phone/sw/144025ECBB6D0368E0530A6F0ACC3027?workItemId=152707816&processId=8a34f8114c6f3899014cd9f935e71f97&security=0&emergencyLevel=9"},{"content":"查看详细4","operationType":"1","action":"http://10.180.120.157:8089/appyixin/phone/sw/144025ECBB6D0368E0530A6F0ACC3027?workItemId=152707816&processId=8a34f8114c6f3899014cd9f935e71f97&security=0&emergencyLevel=9"},{"content":"查看详细5","operationType":"1","action":"http://10.180.120.157:8089/appyixin/phone/sw/144025ECBB6D0368E0530A6F0ACC3027?workItemId=152707816&processId=8a34f8114c6f3899014cd9f935e71f97&security=0&emergencyLevel=9"},{"content":"查看详细6","operationType":"1","action":"http://10.180.120.157:8089/appyixin/phone/sw/144025ECBB6D0368E0530A6F0ACC3027?workItemId=152707816&processId=8a34f8114c6f3899014cd9f935e71f97&security=0&emergencyLevel=9"}],"head":{"pubTime":1429586130000,"content":"我新启了【  刘学是个超级帅哥5】"}}
+     * sessions : ["all"]
+     * expire : 3600000
+     */
+
+    private String content;
+    private int msgType;
+    private String statusId;
+    /**
+     * body : [{"content":"发送人    ： 总文书（刘路）"},{"content":"发送部门：保密文档科"},{"content":"阶段名称：编号登记"},{"content":"文件类型：公司行政收文"},{"content":"紧急程度：加急"},{"content":"待办类型：待阅"}]
+     * appId : 2
+     * operations : [{"content":"查看详细","operationType":"1","action":"http://10.180.120.157:8089/appyixin/phone/sw/144025ECBB6D0368E0530A6F0ACC3027?workItemId=152707816&processId=8a34f8114c6f3899014cd9f935e71f97&security=0&emergencyLevel=9"},{"content":"查看详细2","operationType":"1","action":"http://10.180.120.157:8089/appyixin/phone/sw/144025ECBB6D0368E0530A6F0ACC3027?workItemId=152707816&processId=8a34f8114c6f3899014cd9f935e71f97&security=0&emergencyLevel=9"},{"content":"查看详细3","operationType":"1","action":"http://10.180.120.157:8089/appyixin/phone/sw/144025ECBB6D0368E0530A6F0ACC3027?workItemId=152707816&processId=8a34f8114c6f3899014cd9f935e71f97&security=0&emergencyLevel=9"},{"content":"查看详细4","operationType":"1","action":"http://10.180.120.157:8089/appyixin/phone/sw/144025ECBB6D0368E0530A6F0ACC3027?workItemId=152707816&processId=8a34f8114c6f3899014cd9f935e71f97&security=0&emergencyLevel=9"},{"content":"查看详细5","operationType":"1","action":"http://10.180.120.157:8089/appyixin/phone/sw/144025ECBB6D0368E0530A6F0ACC3027?workItemId=152707816&processId=8a34f8114c6f3899014cd9f935e71f97&security=0&emergencyLevel=9"},{"content":"查看详细6","operationType":"1","action":"http://10.180.120.157:8089/appyixin/phone/sw/144025ECBB6D0368E0530A6F0ACC3027?workItemId=152707816&processId=8a34f8114c6f3899014cd9f935e71f97&security=0&emergencyLevel=9"}]
+     * head : {"pubTime":1429586130000,"content":"我新启了【  刘学是个超级帅哥5】"}
+     */
+
+    private ObjectContentEntity objectContent;
+    private Long expire;
+    private List<String> toUserNames;
+    private List<String> sessions;
+
+    public BaseRequestEntity getBaseRequest() {
+        return baseRequest;
+    }
+
+    public void setBaseRequest(BaseRequestEntity baseRequest) {
+        this.baseRequest = baseRequest;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public int getMsgType() {
+        return msgType;
+    }
+
+    public void setMsgType(int msgType) {
+        this.msgType = msgType;
+    }
+
+    public String getStatusId() {
+        return statusId;
+    }
+
+    public void setStatusId(String statusId) {
+        this.statusId = statusId;
+    }
+
+    public ObjectContentEntity getObjectContent() {
+        return objectContent;
+    }
+
+    public void setObjectContent(ObjectContentEntity objectContent) {
+        this.objectContent = objectContent;
+    }
+
+    public Long getExpire() {
+        return expire;
+    }
+
+    public void setExpire(Long expire) {
+        this.expire = expire;
+    }
+
+    public List<String> getToUserNames() {
+        return toUserNames;
+    }
+
+    public void setToUserNames(List<String> toUserNames) {
+        this.toUserNames = toUserNames;
+    }
+
+    public List<String> getSessions() {
+        return sessions;
+    }
+
+    public void setSessions(List<String> sessions) {
+        this.sessions = sessions;
+    }
+
+    public static class BaseRequestEntity {
+        private String uid;
+        private String deviceID;
+        private String token;
+
+        public String getUid() {
+            return uid;
+        }
+
+        public void setUid(String uid) {
+            this.uid = uid;
+        }
+
+        public String getDeviceID() {
+            return deviceID;
+        }
+
+        public void setDeviceID(String deviceID) {
+            this.deviceID = deviceID;
+        }
+
+        public String getToken() {
+            return token;
+        }
+
+        public void setToken(String token) {
+            this.token = token;
+        }
+    }
+
+    public static class ObjectContentEntity {
+        private String appId;
+        /**
+         * pubTime : 1429586130000
+         * content : 我新启了【  刘学是个超级帅哥5】
+         */
+
+        private HeadEntity head;
+        /**
+         * content : 发送人    ： 总文书（刘路）
+         */
+
+        private List<BodyEntity> body;
+        /**
+         * content : 查看详细
+         * operationType : 1
+         * action : http://10.180.120.157:8089/appyixin/phone/sw/144025ECBB6D0368E0530A6F0ACC3027?workItemId=152707816&processId=8a34f8114c6f3899014cd9f935e71f97&security=0&emergencyLevel=9
+         */
+
+        private List<OperationsEntity> operations;
+
+        public String getAppId() {
+            return appId;
+        }
+
+        public void setAppId(String appId) {
+            this.appId = appId;
+        }
+
+        public HeadEntity getHead() {
+            return head;
+        }
+
+        public void setHead(HeadEntity head) {
+            this.head = head;
+        }
+
+        public List<BodyEntity> getBody() {
+            return body;
+        }
+
+        public void setBody(List<BodyEntity> body) {
+            this.body = body;
+        }
+
+        public List<OperationsEntity> getOperations() {
+            return operations;
+        }
+
+        public void setOperations(List<OperationsEntity> operations) {
+            this.operations = operations;
+        }
+
+        public static class HeadEntity {
+            private long pubTime;
+            private String content;
+
+            public long getPubTime() {
+                return pubTime;
+            }
+
+            public void setPubTime(long pubTime) {
+                this.pubTime = pubTime;
+            }
+
+            public String getContent() {
+                return content;
+            }
+
+            public void setContent(String content) {
+                this.content = content;
+            }
+        }
+
+        public static class BodyEntity {
+            private String content;
+
+            public String getContent() {
+                return content;
+            }
+
+            public void setContent(String content) {
+                this.content = content;
+            }
+
+            @Override
+            public String toString() {
+                return "{" +
+                        "content='" + content + '\'' +
+                        '}';
+            }
+        }
+
+        public static class OperationsEntity implements Serializable{
+
+            public static final long serialVersionUID = -624657666302738468L;
+            
+            public static String MSG_TYPE_BROWSER = "1";
+            public static String MSG_TYPE_REST = "2";
+
+
+            public String id;
+            public String appId;
+            public int sort;
+
+            public String content;
+            //		public String msgType;
+            public String operationType;
+            public String action;
+
+            //		public List<Operation> opertionList = new ArrayList<Operation>();
+            public List<OperationsEntity> operationList = new ArrayList<OperationsEntity>();
+
+            public void addOperation(OperationsEntity operation) {
+                this.operationList.add(operation);
+            }
+
+            @Override
+            public String toString() {
+                return "{" +
+                        "id='" + id + '\'' +
+                        ", appId='" + appId + '\'' +
+                        ", sort=" + sort +
+                        ", content='" + content + '\'' +
+                        ", operationType='" + operationType + '\'' +
+                        ", action='" + action + '\'' +
+                        ", operationList=" + operationList +
+                        '}';
+            }
+        }
+    }
+}

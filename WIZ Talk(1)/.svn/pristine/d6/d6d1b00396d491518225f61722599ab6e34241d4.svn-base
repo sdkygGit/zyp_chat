@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_focused="true" >
+        <shape  >
+            <!-- 圆角 -->
+            <corners
+                android:radius="30dp"/>
+            <!-- 间隔 -->
+            <padding
+                android:bottom="9dp"
+                android:left="9dp"
+                android:right="9dp"
+                android:top="9dp" />
+
+            <size
+                android:height="@dimen/btn_green_h"
+                android:width="@dimen/btn_green_h" />
+
+            <stroke android:width="1dp"
+                    android:color="#00b7ee"/>
+        </shape>
+    </item>
+
+
+    <item >
+        <shape  >
+            <!-- 圆角 -->
+            <corners
+                android:radius="30dp"/>
+            <!-- 间隔 -->
+            <padding
+                android:bottom="9dp"
+                android:left="9dp"
+                android:right="9dp"
+                android:top="9dp" />
+            <!-- 各方向的间隔 -->
+
+            <size
+                android:height="@dimen/btn_green_h"
+                android:width="@dimen/btn_green_h" />
+
+
+            <stroke android:width="1dp"
+                android:color="#C9C9C9"/>
+        </shape>
+    </item>
+</selector>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/base_actionbar_bg"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <ImageButton
+            android:id="@+id/btn_mmfooter_texttolist"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@null"
+            android:src="@drawable/mmfooter_texttolisticon"
+            android:visibility="visible" />
+
+        <View
+            android:id="@+id/viewDivider"
+            style="@style/divider_vertical" />
+
+        <CheckBox
+            android:id="@+id/cbChattingSetmode"
+            android:layout_width="36dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="7dp"
+            android:layout_marginRight="7dp"
+            android:button="@drawable/checkbox_chatting_setmode" />
+
+        <RelativeLayout
+            android:id="@+id/layout_opt"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1" >
+
+            <Button
+                android:id="@+id/btnVoice"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_margin="@dimen/spacing_vertical_small"
+                android:background="@drawable/btn_white_normal"
+                android:text="按住 说话"
+                android:visibility="gone" />
+
+            <EditText
+                android:id="@+id/editText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_margin="6dp"
+                android:background="@drawable/input_bar_bg"
+                android:maxLines="4"
+                android:minHeight="48dp"
+                android:paddingRight="24dp" />
+
+            <CheckBox
+                android:id="@+id/btnChattingBiaoqing"
+                android:layout_width="24dp"
+                android:layout_height="50dp"
+                android:layout_alignBottom="@+id/editText"
+                android:layout_alignRight="@+id/editText"
+                android:layout_alignTop="@+id/editText"
+                android:background="@null"
+                android:button="@drawable/checkbox_biaoqing"
+                android:gravity="center" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layoutBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp" >
+
+            <ImageButton
+                android:id="@+id/btnTypeSelect"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:src="@drawable/type_select_btn" />
+
+            <Button
+                android:id="@+id/btnSend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="发送"
+                android:visibility="gone" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <com.wiz.dev.wiztalk.view.BiaoQingView_
+        android:id="@+id/viewBiaoQing"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="120dp"
+        android:visibility="gone" />
+
+    <com.wiz.dev.wiztalk.apppush.view.TypeSelectView_
+        android:id="@+id/viewTypeSelect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="120dp"
+        android:visibility="gone" />
+
+</LinearLayout>

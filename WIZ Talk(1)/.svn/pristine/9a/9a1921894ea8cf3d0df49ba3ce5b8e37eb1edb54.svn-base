@@ -1,0 +1,6 @@
+package com.yxst.epic.unifyplatform.listener;
+
+public interface OnMainFragmentHideListener {
+
+	void onFragmentHide();
+}

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/spacing_vertical"
+    android:paddingLeft="@dimen/spacing_horizontal_small"
+    android:paddingRight="@dimen/spacing_horizontal_small"
+    android:paddingTop="@dimen/spacing_vertical" >
+
+    <TextView
+        android:id="@+id/tv_time"
+        style="@style/chat_item_time"
+        android:text="晚上20:53" />
+
+    <LinearLayout
+        android:id="@+id/layoutMain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_time"
+        android:gravity="right"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/viewTopLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/viewTopRight"
+                android:layout_alignBottom="@+id/viewTopRight"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_app_left_top" />
+
+            <LinearLayout
+                android:id="@+id/viewTopRight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_white"
+                android:layout_toRightOf="@+id/viewTopLeft"
+                android:gravity="right"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:id="@+id/layoutHead"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/spacing_horizontal_small"
+                    android:layout_marginRight="@dimen/spacing_horizontal_small"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/tvHeadContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:paddingBottom="@dimen/spacing_vertical"
+                        android:paddingTop="@dimen/spacing_vertical"
+                        android:text="content"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/textSizeChat" 
+                        android:drawableLeft="@drawable/ic_app_dot"
+                        android:drawablePadding="3dp"/>
+
+                    <TextView
+                        android:id="@+id/tvHeadPubTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="pubTime"
+                        android:textColor="@android:color/darker_gray"
+                        android:textSize="12sp"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+                <View
+                    style="@style/divider"
+                    android:background="#e5e5e5" />
+
+                <com.yxst.epic.unifyplatform.view.WrapContentHeightListView
+                    android:id="@+id/listBody"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/spacing_vertical"
+                    android:layout_marginLeft="@dimen/spacing_horizontal_small"
+                    android:layout_marginRight="@dimen/spacing_horizontal_small"
+                    android:layout_marginTop="@dimen/spacing_vertical_small"
+                    android:cacheColorHint="@android:color/transparent"
+                    android:divider="@null"
+                    android:focusable="false"
+                    android:listSelector="@android:color/transparent"
+                    android:scrollbars="none" />
+
+                <TextView
+                    android:id="@+id/tvStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/spacing_vertical_small"
+                    android:layout_marginTop="@dimen/spacing_vertical_small"
+                    android:background="@drawable/ic_app102_finish_false"
+                    android:gravity="center"
+                    android:textColor="#ffffff" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/viewBottomLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/gridOperation"
+                android:layout_alignBottom="@+id/gridOperation"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_app_left_bottom"/>
+            
+            <com.yxst.epic.unifyplatform.view.WrapContentHeightGridView
+	            android:id="@+id/gridOperation"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_toRightOf="@+id/viewBottomLeft"
+	            android:layout_marginRight="-1px"
+	            android:background="#DFDFDF"
+	            android:cacheColorHint="@android:color/transparent"
+	            android:focusable="false"
+	            android:horizontalSpacing="1px"
+	            android:listSelector="@android:color/transparent"
+	            android:numColumns="3"
+	            android:paddingTop="1px"
+	            android:verticalSpacing="1px" />
+        </RelativeLayout>
+        
+        
+    </LinearLayout>
+
+</RelativeLayout>

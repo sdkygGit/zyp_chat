@@ -1,0 +1,798 @@
+[
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_ic_search_api_holo_light.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\abc_ic_search_api_holo_light.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_ab_bottom_solid_light_holo.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_ab_bottom_solid_light_holo.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_textfield_search_right_default_holo_light.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_textfield_search_right_default_holo_light.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_15.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_15.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_46.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_46.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_94.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_94.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_ic_clear_search_api_disabled_holo_light.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_ic_clear_search_api_disabled_holo_light.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_77.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_77.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_32.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_32.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_tab_selected_pressed_holo.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_tab_selected_pressed_holo.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_63.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_63.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_list_divider_holo_light.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_list_divider_holo_light.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_61.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_61.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_ic_clear_normal.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\abc_ic_clear_normal.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_menu_dropdown_panel_holo_dark.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_menu_dropdown_panel_holo_dark.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_89.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_89.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_list_pressed_holo_dark.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_list_pressed_holo_dark.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_75.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_75.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_ic_voice_search.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_ic_voice_search.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_list_focused_holo.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_list_focused_holo.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_80.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_80.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_48.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_48.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_29.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_29.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_34.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_34.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_82.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_82.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_ab_solid_light_holo.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_ab_solid_light_holo.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_ab_bottom_solid_dark_holo.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_ab_bottom_solid_dark_holo.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_spinner_ab_default_holo_dark.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_spinner_ab_default_holo_dark.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\vpi__tab_unselected_focused_holo.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\WIZ Talk\\viewPagerIndicatorlibrary\\unspecified\\res\\drawable-xhdpi-v4\\vpi__tab_unselected_focused_holo.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_51.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_51.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_textfield_search_default_holo_light.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_textfield_search_default_holo_light.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_tab_selected_focused_holo.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_tab_selected_focused_holo.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_1.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_1.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_19.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_19.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\vpi__tab_selected_focused_holo.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\WIZ Talk\\viewPagerIndicatorlibrary\\unspecified\\res\\drawable-xhdpi-v4\\vpi__tab_selected_focused_holo.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_ic_menu_share_holo_dark.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_ic_menu_share_holo_dark.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_103.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_103.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\ic_launcher.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\WIZ Talk\\smackpush\\unspecified\\res\\drawable-xhdpi-v4\\ic_launcher.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_13.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_13.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_ic_menu_moreoverflow_normal_holo_light.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_ic_menu_moreoverflow_normal_holo_light.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_22.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_22.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_44.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_44.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_ic_go.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_ic_go.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_ab_share_pack_holo_light.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_ab_share_pack_holo_light.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_25.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_25.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_70.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_70.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_ab_transparent_dark_holo.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_ab_transparent_dark_holo.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_73.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_73.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_cab_background_top_holo_dark.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_cab_background_top_holo_dark.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\shadow.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\shadow.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_92.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_92.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_98.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_98.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_79.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_79.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_spinner_ab_disabled_holo_light.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_spinner_ab_disabled_holo_light.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_40.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_40.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_menu_hardkey_panel_holo_light.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_menu_hardkey_panel_holo_light.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_85.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_85.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_list_longpressed_holo.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_list_longpressed_holo.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_ic_clear_search_api_holo_light.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_ic_clear_search_api_holo_light.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_54.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_54.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_99.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_99.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_10.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_10.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_spinner_ab_pressed_holo_light.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_spinner_ab_pressed_holo_light.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_55.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_55.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\actionbar_facefriend_icon_p.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\actionbar_facefriend_icon_p.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_56.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_56.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\vpi__tab_unselected_pressed_holo.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\WIZ Talk\\viewPagerIndicatorlibrary\\unspecified\\res\\drawable-xhdpi-v4\\vpi__tab_unselected_pressed_holo.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_83.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_83.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_spinner_ab_disabled_holo_dark.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_spinner_ab_disabled_holo_dark.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\rcd_warning.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\rcd_warning.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_101.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_101.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\indicator_arrow.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\pullToRefreshlibrary-release\\res\\drawable-xhdpi-v4\\indicator_arrow.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_26.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_26.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_3.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_3.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_37.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_37.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_ic_menu_moreoverflow_normal_holo_dark.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_ic_menu_moreoverflow_normal_holo_dark.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_textfield_search_selected_holo_light.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_textfield_search_selected_holo_light.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_ic_ab_back_holo_light.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_ic_ab_back_holo_light.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_2.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_2.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_65.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_65.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_spinner_ab_default_holo_light.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_spinner_ab_default_holo_light.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_cab_background_top_holo_light.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_cab_background_top_holo_light.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_20.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_20.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\vpi__tab_selected_pressed_holo.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\WIZ Talk\\viewPagerIndicatorlibrary\\unspecified\\res\\drawable-xhdpi-v4\\vpi__tab_selected_pressed_holo.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_27.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_27.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_ic_cab_done_holo_light.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_ic_cab_done_holo_light.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\default_ptr_rotate.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\pullToRefreshlibrary-release\\res\\drawable-xhdpi-v4\\default_ptr_rotate.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_ic_commit_search_api_holo_dark.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_ic_commit_search_api_holo_dark.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_ic_clear_disabled.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\abc_ic_clear_disabled.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_74.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_74.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\actionbar_facefriend_icon.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\actionbar_facefriend_icon.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_21.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_21.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_8.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_8.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_102.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_102.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_ab_solid_dark_holo.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_ab_solid_dark_holo.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_36.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_36.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_11.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_11.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_17.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_17.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_30.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_30.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_84.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_84.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_menu_hardkey_panel_holo_dark.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_menu_hardkey_panel_holo_dark.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\rcd_cancel_icon.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\rcd_cancel_icon.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_93.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_93.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\chat_left_qp.9.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\chat_left_qp.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_spinner_ab_focused_holo_dark.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_spinner_ab_focused_holo_dark.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_ab_bottom_transparent_dark_holo.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_ab_bottom_transparent_dark_holo.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_62.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_62.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_16.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_16.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_47.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_47.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_textfield_search_default_holo_dark.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_textfield_search_default_holo_dark.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_textfield_search_right_selected_holo_light.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_textfield_search_right_selected_holo_light.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_ab_stacked_transparent_light_holo.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_ab_stacked_transparent_light_holo.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_78.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_78.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_ic_commit_search_api_holo_light.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_ic_commit_search_api_holo_light.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_9.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_ab_bottom_transparent_light_holo.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_ab_bottom_transparent_light_holo.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_64.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_64.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_59.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_59.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_ab_transparent_light_holo.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_ab_transparent_light_holo.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_91.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_91.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_31.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_31.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_45.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_45.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\chat_right_qp.9.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\chat_right_qp.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_cab_background_bottom_holo_light.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_cab_background_bottom_holo_light.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_list_selector_disabled_holo_dark.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_list_selector_disabled_holo_dark.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_0.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_0.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_spinner_ab_pressed_holo_dark.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_spinner_ab_pressed_holo_dark.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_50.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_50.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_18.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_18.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_57.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_57.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_12.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_12.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_88.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_88.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_35.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_35.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_ab_stacked_transparent_dark_holo.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_ab_stacked_transparent_dark_holo.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_104.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_104.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\default_ptr_flip.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\pullToRefreshlibrary-release\\res\\drawable-xhdpi-v4\\default_ptr_flip.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_list_divider_holo_dark.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_list_divider_holo_dark.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_60.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_60.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_ic_cab_done_holo_dark.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_ic_cab_done_holo_dark.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_66.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_66.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_ic_search.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_ic_search.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_28.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_28.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\ic_action_refresh.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\ic_action_refresh.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_41.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_41.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\vpi__tab_selected_holo.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\WIZ Talk\\viewPagerIndicatorlibrary\\unspecified\\res\\drawable-xhdpi-v4\\vpi__tab_selected_holo.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_cab_background_bottom_holo_dark.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_cab_background_bottom_holo_dark.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_7.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_7.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_textfield_search_right_default_holo_dark.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_textfield_search_right_default_holo_dark.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_76.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_76.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_textfield_search_selected_holo_dark.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_textfield_search_selected_holo_dark.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_95.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_95.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\scan_line.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\scan_line.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_38.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_38.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_4.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_4.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\vpi__tab_unselected_holo.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\WIZ Talk\\viewPagerIndicatorlibrary\\unspecified\\res\\drawable-xhdpi-v4\\vpi__tab_unselected_holo.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_69.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_69.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_ab_stacked_solid_dark_holo.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_ab_stacked_solid_dark_holo.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_24.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_24.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_100.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_100.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_71.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_71.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_5.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_5.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_ic_go_search_api_holo_light.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_ic_go_search_api_holo_light.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_menu_dropdown_panel_holo_light.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_menu_dropdown_panel_holo_light.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_72.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_72.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_list_selector_disabled_holo_light.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_list_selector_disabled_holo_light.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_6.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_6.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_86.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_86.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_ic_voice_search_api_holo_light.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_ic_voice_search_api_holo_light.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\qr_code_bg.9.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\qr_code_bg.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_67.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_67.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_ab_stacked_solid_light_holo.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_ab_stacked_solid_light_holo.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\rcd_cancel_bg.9.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\rcd_cancel_bg.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_23.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_23.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_53.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_53.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_tab_selected_holo.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_tab_selected_holo.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_ab_share_pack_holo_dark.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_ab_share_pack_holo_dark.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_42.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_42.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_43.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_43.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_96.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_96.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_ic_menu_share_holo_light.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_ic_menu_share_holo_light.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_list_pressed_holo_light.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_list_pressed_holo_light.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_49.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_49.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_tab_unselected_pressed_holo.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_tab_unselected_pressed_holo.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\rcd_bg.9.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\rcd_bg.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_52.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_52.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_97.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_97.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_90.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_90.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_58.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_58.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_ic_ab_back_holo_dark.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_ic_ab_back_holo_dark.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\actionbar_particular_icon.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\actionbar_particular_icon.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\rcd_voice.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\rcd_voice.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_39.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_39.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_spinner_ab_focused_holo_light.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_spinner_ab_focused_holo_light.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_14.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_14.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_33.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_33.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_81.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_81.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_68.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_68.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_textfield_search_right_selected_holo_dark.9.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\drawable-xhdpi\\abc_textfield_search_right_selected_holo_dark.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\smiley_87.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-xhdpi\\smiley_87.png"
+    }
+]

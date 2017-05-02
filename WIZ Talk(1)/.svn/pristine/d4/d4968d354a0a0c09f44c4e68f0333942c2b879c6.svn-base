@@ -1,0 +1,203 @@
+package com.yxst.epic.unifyplatform.view;
+
+import android.content.Context;
+import android.graphics.drawable.AnimationDrawable;
+import android.media.MediaPlayer;
+import android.text.TextUtils;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.yxst.epic.unifyplatform.DB.MsgInFo;
+import com.yxst.epic.unifyplatform.DB.XmppDbManager;
+import com.yxst.epic.unifyplatform.DB.XmppDbMessage;
+import com.yxst.epic.unifyplatform.DB.XmppMessage;
+import com.yxst.epic.unifyplatform.R;
+import com.yxst.epic.unifyplatform.utils.MessageUtils;
+import com.yxst.epic.unifyplatform.utils.Utils;
+
+import org.androidannotations.annotations.EViewGroup;
+import org.androidannotations.annotations.LongClick;
+import org.androidannotations.annotations.ViewById;
+
+
+/**
+ * Created by Dong on 2015/10/13.
+ */
+@EViewGroup(R.layout.item_chat_received_voice)
+public class ChatItemReceiveVoiceView extends ChatItemView {
+
+	// 语音最外层
+	@ViewById
+	LinearLayout layout_voice;
+	@ViewById
+	TextView tv_voice_length;// 语音时长
+
+	@ViewById
+	TextView tv_name;// 昵称
+
+//	@ViewById
+//	ImageView iv_voice_dot;
+
+	private ImageView animView;// 动画
+
+	private int mMinItemWidth;
+	private int mMaxItemWidth;
+
+	public ChatItemReceiveVoiceView(Context context) {
+		super(context);
+		// 获取屏幕的宽度
+		WindowManager wm = (WindowManager) context
+				.getSystemService(Context.WINDOW_SERVICE);
+		DisplayMetrics outMetrics = new DisplayMetrics();
+		wm.getDefaultDisplay().getMetrics(outMetrics);
+
+		mMaxItemWidth = (int) (outMetrics.widthPixels * 0.7f);
+		mMinItemWidth = (int) (outMetrics.widthPixels * 0.2f);
+	}
+
+	@Override
+	public void bindOther(XmppMessage message) {
+		if(XmppDbMessage.isGroupChatMessage(message)){
+//    		 TODO 显示名称
+//         	tv_name.setText(message.getExtRemoteDisplayName());
+			tv_name.setText(message.getExtLocalDisplayName());
+		}else{
+			tv_name.setVisibility(View.GONE);
+		}
+//		if (message.getReadStatus() == MsgInFo.READ_FALSE) {
+//			iv_voice_dot.setVisibility(View.VISIBLE);
+//		} else {
+//			iv_voice_dot.setVisibility(View.GONE);
+//		}
+
+		if (!TextUtils.isEmpty(String.valueOf(message.getMold()))) {
+			if (message.getMold() == MsgInFo.MOLD_VOICE) {
+				if (message.getVoiceLength() != null) {
+					setVoice(message.getVoiceLength(), message.getFilePath());
+				}
+			}
+		}
+
+	}
+	@LongClick(R.id.layout_voice)
+	public void layoutVoice(){
+		Log.d(TAG, "layout_voice()");
+		initPopupWindow();
+		showPopuWindow(layout_voice);
+	}
+
+	void setVoice(int length, String fileUrl) {
+		// 语音时长 ,需要来个向上取整
+		length = length < 1 ? 1 : length;
+		tv_voice_length.setText(length + "\"");
+		// tv_voice_length.setText(fileUrl);
+
+		ViewGroup.LayoutParams lp = layout_voice.getLayoutParams();
+		lp.width = (int) (mMinItemWidth + (mMaxItemWidth / 60f) * length);
+		// 设置播放动画
+
+		RecordClickListener mRecordClickListener = new RecordClickListener(
+				layout_voice, fileUrl, true);
+		layout_voice.setOnClickListener(mRecordClickListener);
+	}
+
+	/**
+	 * 播放 接收voice的动画
+	 *
+	 * @param view
+	 * @param filePath
+	 */
+	private void playerVoiceRece(View view, String filePath) {
+		if (animView != null) {
+			animView.setBackgroundResource(R.drawable.voice_right3);
+			animView = null;
+		}
+
+		// 播放动画
+		animView = (ImageView) view.findViewById(R.id.iv_voice);
+		animView.setImageResource(R.drawable.voice_right);
+		animView.setBackgroundResource(R.drawable.anim_chat_voice_right);
+
+		final AnimationDrawable anim = (AnimationDrawable) animView
+				.getBackground();
+		anim.start();
+		// 播放音频
+		MediaManager.playSound(filePath,
+				new MediaPlayer.OnCompletionListener() {
+					@Override
+					public void onCompletion(MediaPlayer mp) {
+						anim.stop();
+						animView.setBackgroundResource(R.drawable.voice_right3);
+					}
+				}, new MediaPlayer.OnErrorListener() {
+
+					@Override
+					public boolean onError(MediaPlayer mp, int what, int extra) {
+						MediaManager.mMediaPlayer.reset();
+						anim.stop();
+						animView.setBackgroundResource(R.drawable.voice_right3);
+						return false;
+					}
+				});
+	}
+
+	private void playerVoiceSend(View view, String filePath) {
+		if (animView != null) {
+			animView.setBackgroundResource(R.drawable.voice_left3);
+			animView = null;
+		}
+		// 播放动画
+		animView = (ImageView) view.findViewById(R.id.iv_voice);
+		animView.setImageResource(R.drawable.voice_left);
+		animView.setBackgroundResource(R.drawable.anim_chat_voice_left);
+		final AnimationDrawable anim = (AnimationDrawable) animView
+				.getBackground();
+		anim.start();
+		// 播放音频
+		MediaManager.playSound(filePath,
+				new MediaPlayer.OnCompletionListener() {
+					@Override
+					public void onCompletion(MediaPlayer mp) {
+						anim.stop();
+						animView.setBackgroundResource(R.drawable.voice_left3);
+					}
+				}, new MediaPlayer.OnErrorListener() {
+
+					@Override
+					public boolean onError(MediaPlayer mp, int what, int extra) {
+						MediaManager.mMediaPlayer.reset();
+						anim.stop();
+						animView.setBackgroundResource(R.drawable.voice_right3);
+						return false;
+					}
+				});
+	}
+
+	class RecordClickListener implements OnClickListener {
+		private View mView;
+		private String filePath;
+		private boolean isLeft;
+
+		public RecordClickListener(View view, String filePath, boolean isLeft) {
+			this.mView = view;
+			this.filePath = filePath;
+			this.isLeft = isLeft;
+		}
+
+		@Override
+		public void onClick(View view) {
+//			Toast.makeText(mContext, "click", Toast.LENGTH_SHORT).show();
+			playerVoiceRece(view, filePath);
+
+
+		}
+	}
+
+}

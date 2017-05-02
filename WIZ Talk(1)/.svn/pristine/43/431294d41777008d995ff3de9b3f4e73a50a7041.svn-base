@@ -1,0 +1,59 @@
+package com.yxst.epic.unifyplatform.view;
+
+import android.content.Context;
+import android.view.View;
+import android.widget.TextView;
+
+import org.androidannotations.annotations.EViewGroup;
+import org.androidannotations.annotations.LongClick;
+import org.androidannotations.annotations.ViewById;
+
+import com.epic.traverse.push.util.L;
+import com.yxst.epic.unifyplatform.DB.XmppDbMessage;
+import com.yxst.epic.unifyplatform.DB.XmppMessage;
+import com.yxst.epic.unifyplatform.R;
+import com.yxst.epic.unifyplatform.utils.MessageUtils;
+import com.yxst.epic.unifyplatform.utils.SmileyParser;
+
+/**
+ * 接收的文本消息
+ * Created by Dong on 2015/10/13.
+ */
+@EViewGroup(R.layout.item_chat_received_message)
+public class ChatItemReceiveTextView extends ChatItemView {
+
+    @ViewById
+    TextView tv_message;
+    
+    @ViewById
+    TextView tv_name;//昵称
+    
+    public ChatItemReceiveTextView(Context context) {
+        super(context);
+    }
+    @Override
+    public void bindOther(XmppMessage message) {
+    	 L.d("ChatItemReceiveTextView message:",message.toString());
+    	 if(XmppDbMessage.isGroupChatMessage(message)){
+//    		 TODO 在群里，extlocalDisplayname用来显示群成员的昵称了
+//         	tv_name.setText(message.getExtRemoteDisplayName());
+         	tv_name.setText(message.getExtLocalDisplayName());
+         }else{
+         	tv_name.setVisibility(View.GONE);
+         }
+        try {
+//          转换 emot表情
+          /*  SpannableString spannableString = FaceTextUtils
+                    .toSpannableString(mContext, message.getBody());
+            tv_message.setText(spannableString);*/
+        	tv_message.setText(SmileyParser.getInstance().addSmileySpans(message.getBody()));
+        } catch (Exception e) {
+        }
+    }
+    @LongClick
+    public void tv_message(){
+    	L.d(TAG, "tv_message()");
+		initPopupWindow();
+		showPopuWindow(tv_message);
+    }
+}

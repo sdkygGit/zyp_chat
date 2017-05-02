@@ -1,0 +1,5 @@
+package com.yxst.epic.unifyplatform.dto.response;
+
+public class SetUserInfoResponse extends Response {
+
+}

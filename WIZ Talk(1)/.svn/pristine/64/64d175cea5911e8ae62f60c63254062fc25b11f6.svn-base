@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- <string name="customer_id">1</string>
+    
+    <string name="gopush_host">10.94.30.16</string>
+    <integer name="gopush_port">8090</integer>
+    
+    <string name="appmsgsrv_protocol">http</string>
+    <string name="appmsgsrv_host">10.94.30.16</string>
+    <integer name="appmsgsrv_port_8093">8093</integer>
+    <integer name="appmsgsrv_port_8094">8094</integer>
+    
+    <string name="file_protocol">http</string>
+    <string name="file_host">10.94.30.16</string>
+    <integer name="file_port">9333</integer> -->
+    
+    <!--  -->
+    <!-- <string name="customer_id">1</string>
+    
+    <string name="gopush_host">172.168.101.1</string>
+    <integer name="gopush_port">10011</integer>
+    
+    <string name="appmsgsrv_protocol">http</string>
+    <string name="appmsgsrv_host">172.168.101.1</string>
+    <integer name="appmsgsrv_port_8093">10012</integer>
+    <integer name="appmsgsrv_port_8094">10013</integer>
+    
+    <string name="file_protocol">http</string>
+    <string name="file_host">172.168.101.1</string>
+    <integer name="file_port">10014</integer> -->
+    
+    <!--  -->
+    <!--<string name="customer_id">1</string>
+    
+    <string name="gopush_host">10.180.120.157</string>
+    <integer name="gopush_port">8090</integer>
+    
+    <string name="appmsgsrv_protocol">http</string>
+    <string name="appmsgsrv_host">10.180.120.157</string>
+    <integer name="appmsgsrv_port_8093">8093</integer>
+    <integer name="appmsgsrv_port_8094">8094</integer>
+    
+    <string name="file_protocol">http</string>
+    <string name="file_host">10.180.120.157</string>
+    <integer name="file_port">9333</integer>-->
+
+    <!-- 公网环境 -->
+    <string name="customer_id">1</string>
+
+    <string name="appmsgsrv_protocol">http</string>
+    <string name="appmsgsrv_host">itime.vicp.cc</string>
+    <!--<string name="appmsgsrv_host">10.180.128.127</string>-->
+    <integer name="appmsgsrv_port_8093">8093</integer>
+    <integer name="appmsgsrv_port_8094">2280</integer>
+
+    <string name="file_protocol">http</string>
+    <string name="file_host">itime.vicp.cc</string>
+    <integer name="file_port">9333</integer>
+    
+   	<!--   10.180.120.157 -->
+    <!--<string name="customer_id">4</string>
+    
+    <string name="gopush_host">10.180.120.157</string>
+    <integer name="gopush_port">8090</integer>
+    
+    <string name="appmsgsrv_protocol">http</string>
+    <string name="appmsgsrv_host">10.180.120.157</string>
+    <integer name="appmsgsrv_port_8093">8093</integer>
+    <integer name="appmsgsrv_port_8094">8094</integer>
+    
+    <string name="file_protocol">http</string>
+    <string name="file_host">10.180.120.157</string>
+    <integer name="file_port">9333</integer> -->
+    
+    <!-- 富滇环境 -->
+    <!-- <string name="customer_id">4</string>
+    
+    <string name="gopush_host">172.17.34.137</string>
+    <integer name="gopush_port">18090</integer>
+    
+    <string name="appmsgsrv_protocol">http</string>
+    <string name="appmsgsrv_host">172.17.34.137</string>
+    <integer name="appmsgsrv_port_8093">18093</integer>
+    <integer name="appmsgsrv_port_8094">18094</integer>
+    
+    <string name="file_protocol">http</string>
+    <string name="file_host">172.17.34.137</string>
+    <integer name="file_port">19333</integer>  -->
+    
+     <!-- 172.57.34.137 -->
+</resources>

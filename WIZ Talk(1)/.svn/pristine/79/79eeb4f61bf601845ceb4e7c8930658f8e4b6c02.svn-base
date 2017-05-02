@@ -1,0 +1,6 @@
+package com.yxst.epic.unifyplatform.dto.response;
+
+public class IsUserShieldAppResponse extends Response {
+
+	public boolean isShield;
+}

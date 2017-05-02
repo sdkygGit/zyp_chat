@@ -1,0 +1,96 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+    <!-- h-54px -->
+    <dimen name="icon_size_small">40dp</dimen>
+    <!-- h-60px -->
+    <dimen name="icon_size_normal">54dp</dimen>
+    <!-- m-54px -->
+    <dimen name="icon_size_bigger">45dp</dimen>
+    <!-- w-96px -->
+    <dimen name="icon_size_biggest">75dp</dimen>
+
+    <!-- w-96px -->
+    <dimen name="chat_picture_size_height">150dp</dimen>
+
+    <!-- h-96px -->
+    <dimen name="chat_picture_size_width">150dp</dimen>
+
+    <!-- h-18px -->
+    <dimen name="spacing_horizontal">12dp</dimen>
+    <!-- h-12px -->
+    <dimen name="spacing_vertical">5dp</dimen>
+
+    <!-- h-12px -->
+    <dimen name="spacing_horizontal_small">8dp</dimen>
+    <!-- h-8px -->
+    <dimen name="spacing_vertical_small">6dp</dimen>
+
+    <dimen name="list_item_contact_select_h">48dp</dimen>
+
+    <!-- h- 48px 32px -->
+    <dimen name="grid_item_biaoqing_size">24dp</dimen>
+
+    <!-- h-36px -->
+    <dimen name="divider_bar_h">40dp</dimen>
+
+    <dimen name="divider_line_small_h">1px</dimen>
+
+    <dimen name="divider_line_big_h">1dp</dimen>
+
+    <!-- h-80px -->
+    <dimen name="main_tab_h">53.333dp</dimen>
+
+    <!-- h-72px -->
+    <dimen name="btn_green_h">48dp</dimen>
+
+    <!-- h-72px -->
+    <dimen name="item_h">48dp</dimen>
+    <dimen name="item_m">36dp</dimen>
+
+    <dimen name="rcd_size">185dp</dimen>
+
+    <!-- h-51px -->
+    <dimen name="rcd_cancel_bg_h">34dp</dimen>
+
+    <dimen name="round_border_width">0dp</dimen>
+    <dimen name="round_corner_radius">100dp</dimen>
+
+    <dimen name="base_action_bar_height">50.0dip</dimen>
+    <dimen name="base_action_bar_title_size">19.0sp</dimen>
+
+    <dimen name="text_size_small">14sp</dimen>
+    <dimen name="text_size_medium">16sp</dimen>
+    <dimen name="text_size_large">18sp</dimen>
+    <dimen name="register_margin">10.0dp</dimen>
+    <dimen name="base_scrollview_top_height">46dip</dimen>
+    <dimen name="tab_padding_top_bottom">15dp</dimen>
+    <dimen name="tab_padding_left_right">40dp</dimen>
+    <dimen name="tab_height">48dp</dimen>
+    <dimen name="base_line_width_1">1dip</dimen>
+    <dimen name="base_line_width_2">2dip</dimen>
+    <dimen name="base_line_width">0.5dip</dimen>
+
+    <dimen name="message_top_height">70.0dip</dimen>
+    <dimen name="margin_chat_top">5.0dip</dimen>
+
+    <dimen name="chat_item_img_from_iv_maxSize">160dp</dimen>
+    <dimen name="chat_item_img_to_iv_maxSize">120dp</dimen>
+
+    <dimen name="textSizeChat">15sp</dimen>
+
+    <!-- h-96px -->
+    <dimen name="icon_size_my">68dp</dimen>
+    <dimen name="txt_size">7sp</dimen>
+    <dimen name="slv_item_bg_btn_width">60dp</dimen>
+    <dimen name="slv_item_bg_btn_width_img">70dp</dimen>
+
+    <dimen name="indicator_right_padding">10dp</dimen>
+    <dimen name="indicator_corner_radius">12dp</dimen>
+    <dimen name="indicator_internal_padding">4dp</dimen>
+    <dimen name="header_footer_left_right_padding">24dp</dimen>
+    <dimen name="header_footer_top_bottom_padding">12dp</dimen>
+</resources>

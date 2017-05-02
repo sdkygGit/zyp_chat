@@ -1,0 +1,48 @@
+package com.yxst.epic.unifyplatform.service.listener;
+
+
+import com.epic.traverse.push.services.PushMessageFilter;
+import com.yxst.epic.unifyplatform.DB.MsgInFo;
+import com.yxst.epic.unifyplatform.DB.XmppDbMessage;
+import com.yxst.epic.unifyplatform.DB.XmppMessage;
+
+import org.jivesoftware.smack.packet.Message;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by Dong on 2015/10/14.
+ */
+public class ChatPushVoiceMessageFilter implements PushMessageFilter {
+    @Override
+    public boolean acceptOnlineMessage(Message pmsg) {
+        if (pmsg != null) {
+            XmppMessage xmppMessage = XmppDbMessage.retriveXmppMessageFromMessage(pmsg);
+            if (xmppMessage.getMold() == MsgInFo.MOLD_VOICE ) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean acceptOfflineMessage(List<Message> messages) {
+        ArrayList<Message> list = this.getAcceptOfflineMessage(messages);
+        if (list != null || list.size() > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public ArrayList<Message> getAcceptOfflineMessage(List<Message> messages) {
+        ArrayList<Message> list = new ArrayList<Message>();
+        for (Message msg : messages) {
+            if (this.acceptOnlineMessage(msg)) {
+                list.add(msg);
+            }
+        }
+        return list;
+    }
+}

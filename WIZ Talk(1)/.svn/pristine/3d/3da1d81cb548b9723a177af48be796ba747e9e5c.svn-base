@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\base_comment_emo_bar.9.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-ldpi\\base_comment_emo_bar.9.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\icon.png",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\hTML5WebView-release\\res\\drawable-ldpi-v4\\icon.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\bottombar_bg.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-ldpi\\bottombar_bg.png"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\register_bottom_arrow.png",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\drawable-ldpi\\register_bottom_arrow.png"
+    }
+]

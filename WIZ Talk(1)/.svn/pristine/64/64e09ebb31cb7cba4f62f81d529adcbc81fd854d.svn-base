@@ -1,0 +1,160 @@
+package com.yxst.epic.unifyplatform.adapter;
+
+import java.util.List;
+
+import org.androidannotations.annotations.EBean;
+import org.androidannotations.annotations.RootContext;
+
+import android.content.Context;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+
+import com.skysea.group.MemberInfo;
+import com.yxst.epic.unifyplatform.R;
+import com.yxst.epic.unifyplatform.view.XChatDetialItem;
+import com.yxst.epic.unifyplatform.view.XChatDetialItem_;
+
+@EBean
+public class XChatDetailAdapter extends BaseAdapter {
+
+	@RootContext
+	Context context;
+
+	private List<MemberInfo> list;
+
+	private boolean isShowAdd = false;
+	private boolean isShowMinus = false;
+
+	private boolean isDelMode = false;
+	
+	public XChatDetailAdapter(Context context){
+		
+	}
+
+	public void changeData(List<MemberInfo> list) {
+		this.list = list;
+		this.notifyDataSetChanged();
+	}
+
+	@Override
+	public int getCount() {
+		if (getRealCount() > 0) {
+			return getRealCount() + (isShowAdd ? 1 : 0) + (isShowMinus ? 1 : 0);
+		}
+		return 0;
+	}
+
+	@Override
+	public Object getItem(int position) {
+		return list.get(position);
+	}
+
+	@Override
+	public long getItemId(int position) {
+		return 0;
+	}
+
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		XChatDetialItem view;
+
+		if (convertView == null) {
+			view = XChatDetialItem_.build(context);
+		} else {
+			view = (XChatDetialItem) convertView;
+		}
+
+		if (!isPositionAdd(position) && !isPositionMinus(position)) {
+			final MemberInfo member = (MemberInfo) getItem(position);
+			view.bind(member,
+					this.isDelMode && member != null && !member.getUserName().equals(localUserName));
+			view.ivDel.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					if (mOnXDelMemberListenr != null) {
+						mOnXDelMemberListenr.onDelMember(member);
+					}
+				}
+			});
+		} else if (isPositionAdd(position)) {
+			view.mIconView.setImageResource(R.drawable.avatar_dotline_add_bg);
+			view.mTextView.setText(null);
+			view.ivDel.setVisibility(View.GONE);
+		} else if (isPositionMinus(position)) {
+			view.mIconView.setImageResource(R.drawable.avatar_dotline_minus_bg);
+			view.mTextView.setText(null);
+			view.ivDel.setVisibility(View.GONE);
+		}
+
+		return view;
+	}
+
+	public boolean isPositionAdd(int position) {
+		if (position >= getRealCount()) {
+			if (isShowAdd) {
+				if (position == getRealCount()) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	public boolean isPositionMinus(int position) {
+		if (position >= getRealCount()) {
+			if (isShowMinus) {
+				if (isShowAdd && position == getRealCount() + 1) {
+					return true;
+				} else if (!isShowAdd && position == getRealCount()) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	public int getRealCount() {
+		return list == null ? 0 : list.size();
+	}
+
+	public List<MemberInfo> getMembers() {
+		return this.list;
+	}
+
+	public void setDelMode(boolean isDelMode) {
+		this.isDelMode = isDelMode;
+		this.notifyDataSetChanged();
+	}
+
+	public boolean isDelMode() {
+		return this.isDelMode;
+	}
+
+	private String localUserName;
+
+	public void setLocalUserName(String localUserName) {
+		this.localUserName = localUserName;
+		this.notifyDataSetChanged();
+	}
+	
+	private OnXDelMemberListenr mOnXDelMemberListenr;
+	
+	public void setOnDelMemberListenr(OnXDelMemberListenr l) {
+		mOnXDelMemberListenr = l;
+	}
+	
+	public static interface OnXDelMemberListenr{
+		void onDelMember(MemberInfo member);
+	}
+	
+	public void setShowMinus(boolean isShowMinus) {
+		this.isShowMinus = isShowMinus;
+		this.notifyDataSetChanged();
+	}
+	
+	public void setShowAdd(boolean isShowAdd) {
+		this.isShowAdd = isShowAdd;
+		this.notifyDataSetChanged();
+	}
+}

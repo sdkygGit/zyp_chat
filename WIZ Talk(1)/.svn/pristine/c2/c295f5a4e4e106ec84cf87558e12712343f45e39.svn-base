@@ -1,0 +1,514 @@
+[
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_contact_select.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\activity_contact_select.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\v2_dialog_base.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\v2_dialog_base.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\contact_head.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\contact_head.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_search_view.xml",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\layout\\abc_search_view.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\popmenus.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\popmenus.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_welcome.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\activity_welcome.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_im.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\fragment_im.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\include_chat_bottom_bar.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\include_chat_bottom_bar.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\view_rcd_cancel.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\view_rcd_cancel.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\common_header.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\common_header.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\list_item_app_list.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\list_item_app_list.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\view_rcd_warning.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\view_rcd_warning.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_checkbox.xml",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\layout\\abc_list_menu_item_checkbox.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_search_dropdown_item_icons_2line.xml",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\layout\\abc_search_dropdown_item_icons_2line.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\appstore_cell.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\appstore_cell.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_contact_sub_list.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\fragment_contact_sub_list.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_contact_sub_list.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\activity_contact_sub_list.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\common_header_rightbutton.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\common_header_rightbutton.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\myapp_cell.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\myapp_cell.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_login.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\activity_login.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\tab_indicator.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\tab_indicator.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_recent.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\fragment_recent.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\list_item_app_102_operation.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\list_item_app_102_operation.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\list_item_contact.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\list_item_contact.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_app_detail.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\activity_app_detail.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_popup_menu_item_layout.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\abc_popup_menu_item_layout.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\video_loading_progress.xml",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\hTML5WebView-release\\res\\layout\\video_loading_progress.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\grid_item_type_select.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\grid_item_type_select.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_contact_detail_2.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\activity_contact_detail_2.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\list_item_contact_select.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\list_item_contact_select.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\item_conversationa.xml",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\WIZ Talk\\viewPagerIndicatorlibrary\\unspecified\\res\\layout\\item_conversationa.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_bar_tabbar.xml",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\layout\\abc_action_bar_tabbar.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\appmsg_cell.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\appmsg_cell.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\dialog_recorder.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\dialog_recorder.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_activity_chooser_view_include.xml",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\layout\\abc_activity_chooser_view_include.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_contact.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\fragment_contact.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_main.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_html5.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\activity_html5.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\footer_text.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\footer_text.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\list_item_group_list.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\list_item_group_list.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\seh_history_cell.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\seh_history_cell.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_layout.xml",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\layout\\abc_list_menu_item_layout.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\list_item_me.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\list_item_me.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\xlistview_header.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\xlistview_header.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_mode_close_item.xml",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\layout\\abc_action_mode_close_item.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\item_chat_received_image.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\item_chat_received_image.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_chat_detail.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\activity_chat_detail.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\list_item_chat_tips.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\list_item_chat_tips.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\list_item_chat_app_101.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\list_item_chat_app_101.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_bar_tab.xml",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\layout\\abc_action_bar_tab.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_bar_decor_include.xml",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\layout\\abc_action_bar_decor_include.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\list_header_group_search.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\list_header_group_search.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\item_chat_sent_image.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\item_chat_sent_image.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_app_detail.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\fragment_app_detail.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\custom_screen.xml",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\hTML5WebView-release\\res\\layout\\custom_screen.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\support_simple_spinner_dropdown_item.xml",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\layout\\support_simple_spinner_dropdown_item.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_chatx.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\activity_chatx.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_icon.xml",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\layout\\abc_list_menu_item_icon.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_personal_center.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\activity_personal_center.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\popup_window.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\popup_window.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\item_chat_received_voice.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\item_chat_received_voice.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_apps.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\activity_apps.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\store_list.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\store_list.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\list_item_chat_item_imgs.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\list_item_chat_item_imgs.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_menu_layout.xml",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\layout\\abc_action_menu_layout.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_zxing_capture.xml",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\WIZ Talk\\captureActivity\\unspecified\\res\\layout\\activity_zxing_capture.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_activity_chooser_view_list_item.xml",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\layout\\abc_activity_chooser_view_list_item.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_edt_cmn_app.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\activity_edt_cmn_app.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\common_header_button.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\common_header_button.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\include_chat_add.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\include_chat_add.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\simple_circles.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\simple_circles.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_mode_bar.xml",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\layout\\abc_action_mode_bar.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_bar_title_item.xml",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\layout\\abc_action_bar_title_item.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_expanded_menu_layout.xml",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\layout\\abc_expanded_menu_layout.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_view_contact_select.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\abc_view_contact_select.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\myapp_page.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\myapp_page.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\popupdownwin.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\popupdownwin.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_org.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\activity_org.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\footer_list.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\footer_list.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\item_chat_received_message.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\item_chat_received_message.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\grid_item_chat_detail.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\grid_item_chat_detail.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_contact_list.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\fragment_contact_list.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_app_content.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\activity_app_content.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\item_chat_sent_message.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\item_chat_sent_message.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\pull_to_refresh_header_vertical.xml",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\pullToRefreshlibrary-release\\res\\layout\\pull_to_refresh_header_vertical.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\include_action_bar.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\include_action_bar.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\list_item_app102_body.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\list_item_app102_body.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\appnotice_cell.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\appnotice_cell.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\im_activity_chat.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\im_activity_chat.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\view_chat_send_opt.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\view_chat_send_opt.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_my_app.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\fragment_my_app.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\item_custommenu.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\item_custommenu.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_bar_decor_overlay.xml",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\layout\\abc_action_bar_decor_overlay.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\common_header_right_image.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\common_header_right_image.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_bar_home.xml",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\layout\\abc_action_bar_home.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\list_header_contact_search.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\list_header_contact_search.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\contact_cell.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\contact_cell.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\grid_item_biaoqing.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\grid_item_biaoqing.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\view_rcd_voice.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\view_rcd_voice.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_bar_view_list_nav_layout.xml",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\layout\\abc_action_bar_view_list_nav_layout.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\pull_to_refresh_header_horizontal.xml",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\pullToRefreshlibrary-release\\res\\layout\\pull_to_refresh_header_horizontal.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\xlistview_footer.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\xlistview_footer.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_preview.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\activity_preview.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\myappedit_cell.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\myappedit_cell.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\list_item_contact_footer.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\list_item_contact_footer.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\pomenu_menuitem.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\pomenu_menuitem.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\item_conversation.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\item_conversation.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_contact_search.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\activity_contact_search.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_me_bar_code.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\activity_me_bar_code.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_find.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\fragment_find.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_app_chat_list.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\fragment_app_chat_list.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\list_item_chat_app_102.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\list_item_chat_app_102.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\footer_view.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\footer_view.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\list_item_find.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\list_item_find.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\item_chat_sent_voice.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\item_chat_sent_voice.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\list_item_app_content.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\list_item_app_content.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\popup_list_item_long_click.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\popup_list_item_long_click.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\item_group_operate.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\item_group_operate.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\app_preview.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\app_preview.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_menu_item_layout.xml",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\layout\\abc_action_menu_item_layout.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\include_emo_gridview.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\include_emo_gridview.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_capture.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\activity_capture.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\view_rcd.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\view_rcd.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\list_item_contact_section.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\list_item_contact_section.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_radio.xml",
+        "source": "E:\\WIZ Talk\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\layout\\abc_list_menu_item_radio.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\seh_none_cell.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\seh_none_cell.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\view_rcd_progress.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\view_rcd_progress.xml"
+    },
+    {
+        "merged": "E:\\WIZ Talk\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_app_store.xml",
+        "source": "E:\\WIZ Talk\\app\\src\\main\\res\\layout\\fragment_app_store.xml"
+    }
+]

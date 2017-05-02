@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="windowBackground">#EBEBEB</color>
+    
+    <color name="list_selector_normal">#FFFFFF</color>
+    <color name="list_selector_pressed">#D9D9D9</color>
+
+    <drawable name="list_selector_normal">#FFFFFF</drawable>
+    <drawable name="list_selector_pressed">#D9D9D9</drawable>
+
+    <drawable name="translucent_background">#e0000000</drawable>
+    <drawable name="transparent_background">#00000000</drawable>
+    
+    <drawable name="list_item_app_102_operation_selector_normal">#fafafa</drawable>
+    <drawable name="list_item_app_102_operation_selector_pressed">#7ac9f0</drawable>
+    
+    <drawable name="list_item_app_102_operation_more_selector_normal">#fafafa</drawable>
+    <drawable name="list_item_app_102_operation_more_selector_pressed">#bfe2f5</drawable>
+    
+    <color name="group_line">#D9D9D9</color>
+</resources>

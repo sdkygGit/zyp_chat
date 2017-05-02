@@ -1,0 +1,252 @@
+package com.wiz.dev.wiztalk.activity;
+
+import android.app.ProgressDialog;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.epic.traverse.push.smack.XmppManager;
+import com.epic.traverse.push.util.L;
+import com.wiz.dev.wiztalk.MyApplication;
+import com.wiz.dev.wiztalk.R;
+import com.wiz.dev.wiztalk.dto.request.BaseRequest;
+import com.wiz.dev.wiztalk.dto.request.CheckUpdateRequest;
+import com.wiz.dev.wiztalk.dto.response.CheckUpdateResponse;
+import com.wiz.dev.wiztalk.dto.response.LoginResponse;
+import com.wiz.dev.wiztalk.preference.LoginPrefs_;
+import com.wiz.dev.wiztalk.rest.Appmsgsrv8094;
+import com.wiz.dev.wiztalk.rest.Appmsgsrv8094Proxy;
+import com.wiz.dev.wiztalk.utils.CacheUtils;
+import com.wiz.dev.wiztalk.utils.Utils;
+
+import org.androidannotations.annotations.AfterInject;
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.UiThread;
+import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.res.DimensionPixelOffsetRes;
+import org.androidannotations.annotations.sharedpreferences.Pref;
+import org.androidannotations.api.rest.RestErrorHandler;
+import org.springframework.core.NestedRuntimeException;
+
+/**
+ * Created by Dong on 2016/3/14.
+ */
+@EActivity(R.layout.activity_personal_center)
+public class PersonalCenterActivity extends BaseActivity  implements RestErrorHandler {
+
+    public static final String TAG = "PersonalCenterActivity";
+
+    @Pref
+    LoginPrefs_ loginPrefs;
+
+    @ViewById
+    ImageView iv_icon;
+//    @ViewById
+//    TextView user_number;
+//    @ViewById
+//    TextView user_rank;
+//    @ViewById
+//    TextView user_post;
+    @ViewById
+    TextView user_telephony;
+    @ViewById
+    TextView user_call;
+    @ViewById
+    TextView user_email;
+    //最上面的
+    @ViewById
+    TextView tv_name;
+    @ViewById
+    TextView tv_info_post;
+
+    @ViewById
+    RelativeLayout rv_user;
+
+    @DimensionPixelOffsetRes(R.dimen.icon_size_my)
+    int sizeBigger;
+
+    @ViewById
+    Button btnCheckUpdate;
+
+    Appmsgsrv8094 myRestClient;
+
+    @AfterInject
+    void afterInject() {
+        Log.d(TAG, "afterInject()");
+        myRestClient = Appmsgsrv8094Proxy.create(5 * 1000);
+        myRestClient.setRestErrorHandler(this);
+    }
+    @AfterViews
+    public void afterviews() {
+        Log.d(TAG, "afterViews() ");
+        String titleName = getResources().getString(R.string.tab_me);
+        initTopBarForLeft(titleName);
+
+        LoginResponse response = MyApplication.getInstance().getLoginResponse();
+        if(response!=null){
+            String avatar = response.Member.Avatar;
+          
+            String nickName = response.Member.NickName;
+//            String orgName = response.Member.OrgName;
+            
+            String email = response.Member.Email;
+            String mobile = response.Member.Mobile;
+            String tel = response.Member.Tel;
+//            String level = response.Member.level;
+//            String role = response.Member.role;
+
+            tv_name.setText(nickName);
+//            tv_info_post.setText(role);
+
+//            user_number.setText(loginPrefs.userName().get());
+//            user_rank.setText(level);
+
+//            user_post.setText(role);
+            user_telephony.setText(mobile);
+            user_call.setText(tel);
+            user_email.setText(email);
+        }
+
+        // 头像
+		/*DisplayImageOptions options = new DisplayImageOptions.Builder()
+				.showImageOnLoading(R.drawable.default_avatar)
+				.showImageForEmptyUri(R.drawable.default_avatar)
+				.showImageOnFail(R.drawable.default_avatar).cacheInMemory(false)
+				.cacheOnDisk(true).displayer(new SimpleBitmapDisplayer())
+				.build();
+		String userName = MyApplication.getInstance().getLocalUserName();
+		String avatarUrl =  Utils.getAvataUrl(userName, sizeBigger);
+		ImageLoader.getInstance().displayImage(avatarUrl, iv_icon, options);*/
+
+    }
+
+    @Click(R.id.btnLogout)
+    void onClickBtnLogout(View view) {
+        doInbackgroundExiteOnOpenfire();
+        MyApplication.getInstance().onReLogin();
+    }
+
+    @Background
+    void doInbackgroundExiteOnOpenfire() {
+        XmppManager.getInstance().exit();
+    }
+
+    @Click(R.id.btnCheckUpdate)
+    void onClickCheckUpdate(View v) {
+        checkUpdateDoInBackground();
+    }
+
+    @Background
+    void checkUpdateDoInBackground() {
+        checkUpdateOnPreExecute();
+
+        BaseRequest baseRequest = CacheUtils.getBaseRequest(this);
+        CheckUpdateRequest request = new CheckUpdateRequest();
+        request.BaseRequest = baseRequest;
+        request.VersionCode = Utils.getVersionCode(this);
+        request.VersionName = Utils.getVersionName(this);
+
+        L.d(TAG, "checkUpdateDoInBackground() request:" + request);
+
+        CheckUpdateResponse response = myRestClient.checkUpdate(request);
+
+        checkUpdateOnPostExecute(response);
+    }
+
+    private ProgressDialog mProgressDialog;
+
+    @UiThread
+    void checkUpdateOnPreExecute() {
+        mProgressDialog = ProgressDialog.show(this, "提示", "检查更新");
+    }
+
+    private void dismissProgressDialog() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+        }
+    }
+
+    @UiThread
+    void checkUpdateOnPostExecute(CheckUpdateResponse response) {
+        L.d(TAG, "checkUpdateOnPostExecute() response:" + response);
+
+        dismissProgressDialog();
+        // TODO: 2016/3/14  
+        Toast.makeText(this, TextUtils.isEmpty(response.BaseResponse.ErrMsg)?
+                        "已经是最新版本！":response.BaseResponse.ErrMsg,Toast.LENGTH_SHORT)
+                .show();
+        /*if (response == null) {
+            return;
+        }
+        if (response.Msg ==null || response.BaseResponse.Ret != BaseResponse.RET_SUCCESS) {
+            Toast.makeText(this, TextUtils.isEmpty(response.BaseResponse.ErrMsg)? 
+                    "已经是最新版本！":response.BaseResponse.ErrMsg,
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }*/
+
+        //更新测试数据
+		/*Msg msg = new Msg();
+		msg.Content="更新";
+		ObjectContentUpdate ocu = new ObjectContentUpdate();
+		ocu.fileName="YiXin.apk";
+		ocu.MsgType=Msg.MSG_TYPE_UPDATE;
+		ocu.url="http://p.gdown.baidu.com/bcac7a5a6fd09c45f89bfc050dd61cd6d04ac8596964935ea4fdd92288da14284d978ebd269ec6584f5d8a561b1a676f400920a31394c9d99e60044555ed86413c372820499bf7a8e97ec772ca3110c960862d375c9b92d5f4765e22493bc08bac26d0c635ded487b41eb7ad25e464f2f501b087e87d92d4508d228842e1f588289b1db8a8c7df0830432517935ec952b85059c5f4461ba0f457ffc9dd7348ae53c321d9ffb8bb9d69ba616e76343288cf4c24f83c6b717fc58f29b5df2eeb115b25e4bd40269013742b97023cd1241e1821b02943e918663029bd06e6f069355659a0e1e0ba2b36467958653d2463ff2c225b2c7c61aa349de74e45abe6c664ab1c1c1bda76bfb6";
+		ocu.versionCode=2;
+		ocu.versionName="2.0.0";
+		msg.setObjectContent(Msg.MSG_TYPE_UPDATE, ocu);
+        
+        ObjectContentUpdate oc = (ObjectContentUpdate) response.Msg.getObjectContentAsObjectContent();
+        int vCode =  oc.versionCode;
+        int localCode = Utils.getVersionCode(this);
+
+        if(oc==null ||localCode<=vCode){
+            Toast.makeText(this, TextUtils.isEmpty(response.BaseResponse.ErrMsg)? 
+                    "已经是最新版本！":response.BaseResponse.ErrMsg,
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        UpdateDialogFragment f = UpdateDialogFragment_.builder()
+                .msg(response.Msg).build(); //TODO
+        f.setUpdateDialogListener(mUpdateDialogListener);
+        f.show(getFragmentManager(), "update");*/
+
+//		UpdateEnableActivity_.intent(getActivity())
+//		.flags(Intent.FLAG_ACTIVITY_NEW_TASK).msg(response.Msg).start();
+        
+    }
+    
+    /*private UpdateDialogFragment.UpdateDialogListener mUpdateDialogListener = new UpdateDialogFragment.UpdateDialogListener() {
+        @Override
+        public void onNegativeButtonClick() {
+
+        }
+
+        @Override
+        public void onPositiveButtonClick(Msg msg) {
+		*//*btnCheckUpdate.setText("下载中..");
+		btnCheckUpdate.setEnabled(false);*//*
+            Toast.makeText(getActivity(), "后台下载中,下载完成将自动安装！", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onCancel() {
+
+        }
+    };*/
+
+    @UiThread
+    @Override
+    public void onRestClientExceptionThrown(NestedRuntimeException e) {
+        Toast.makeText(this, "访问失败！", Toast.LENGTH_SHORT).show();
+    }
+}

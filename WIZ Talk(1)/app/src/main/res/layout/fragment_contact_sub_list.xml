@@ -1,0 +1,31 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- <com.yxtech.example.im.view.ExtListView -->
+    <!-- <za.co.immedia.pinnedheaderlistview.PinnedHeaderListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@null"
+        android:scrollbarStyle="outsideOverlay"
+        android:scrollbars="none"
+        android:cacheColorHint="@android:color/transparent"
+        android:footerDividersEnabled="false"
+        android:headerDividersEnabled="false" /> -->
+        
+    <com.wiz.dev.wiztalk.view.PinnedHeaderPullToRefreshListView
+        android:id="@+id/listContactSub"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fadingEdge="none"
+        android:fadingEdgeLength="0dp"
+        android:divider="@null"
+        android:scrollbarStyle="outsideOverlay"
+        android:scrollbars="none"
+        android:cacheColorHint="@android:color/transparent"
+        android:footerDividersEnabled="false"
+        android:headerDividersEnabled="false" />
+
+</RelativeLayout>

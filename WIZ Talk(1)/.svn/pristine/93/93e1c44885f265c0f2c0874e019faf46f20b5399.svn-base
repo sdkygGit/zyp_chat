@@ -1,0 +1,631 @@
+package com.yxst.epic.unifyplatform.fragment;
+
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.View;
+import android.webkit.MimeTypeMap;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.epic.traverse.push.smack.XmppManager;
+import com.epic.traverse.push.util.L;
+import com.lidroid.xutils.BitmapUtils;
+import com.lidroid.xutils.HttpUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.HttpHandler;
+import com.lidroid.xutils.http.RequestParams;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageSize;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+import com.yxst.epic.unifyplatform.DB.Member;
+import com.yxst.epic.unifyplatform.MyApplication;
+import com.yxst.epic.unifyplatform.R;
+import com.yxst.epic.unifyplatform.activity.MeBarCodeActivity_;
+import com.yxst.epic.unifyplatform.dto.request.BaseRequest;
+import com.yxst.epic.unifyplatform.dto.request.CheckUpdateRequest;
+import com.yxst.epic.unifyplatform.dto.request.SetUserAvatarRequest;
+import com.yxst.epic.unifyplatform.dto.response.BaseResponse;
+import com.yxst.epic.unifyplatform.dto.response.CheckUpdateResponse;
+import com.yxst.epic.unifyplatform.dto.response.LoginResponse;
+import com.yxst.epic.unifyplatform.dto.response.ResponseUpload;
+import com.yxst.epic.unifyplatform.dto.response.SetUserAvatarResponse;
+import com.yxst.epic.unifyplatform.dto.util.RoundImageView;
+import com.yxst.epic.unifyplatform.preference.LoginPrefs_;
+import com.yxst.epic.unifyplatform.rest.Appmsgsrv8094;
+import com.yxst.epic.unifyplatform.rest.Appmsgsrv8094Proxy;
+import com.yxst.epic.unifyplatform.utils.CacheUtils;
+import com.yxst.epic.unifyplatform.utils.ImageUtils;
+import com.yxst.epic.unifyplatform.utils.ImagerLoaderOptHelper;
+import com.yxst.epic.unifyplatform.utils.Utils;
+
+import org.androidannotations.annotations.AfterInject;
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.UiThread;
+import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.res.DimensionPixelOffsetRes;
+import org.androidannotations.annotations.res.DimensionPixelSizeRes;
+import org.androidannotations.annotations.sharedpreferences.Pref;
+import org.androidannotations.api.rest.RestErrorHandler;
+import org.springframework.core.NestedRuntimeException;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+/**
+ * Created by Dong on 2016/3/16.
+ */
+@EFragment(R.layout.activity_personal_center)
+public class PersonalCenterFragment extends FragmentBase implements RestErrorHandler {
+    public static final String TAG = "PersonalCenterActivity";
+
+    @Pref
+    LoginPrefs_ loginPrefs;
+
+    @ViewById
+    ImageView iv_icon;
+    //    @ViewById
+//    TextView user_number;
+//    @ViewById
+//    TextView user_rank;
+//    @ViewById
+//    TextView user_post;
+    @ViewById
+    TextView user_telephony;
+    @ViewById
+    TextView user_call;
+    @ViewById
+    TextView user_email;
+    //最上面的
+    @ViewById
+    TextView tv_name;
+    @ViewById
+    TextView tv_info_post;
+
+    @ViewById
+    RelativeLayout rv_user;
+
+    @ViewById
+    Button btnCheckUpdate;
+
+    @ViewById
+    ImageButton btnQr;
+
+    Appmsgsrv8094 myRestClient;
+
+    int iconSize = 108;
+
+    //换头像相关
+    private final static String FILE_SAVEPATH = Environment
+            .getExternalStorageDirectory().getAbsolutePath()
+            + "/EPIC/Portrait/";
+    private String protraitPath;
+
+    private File protraitFile;
+
+    private Uri cropUri;
+
+    private Uri origUri;
+
+    private final static int CROP = 200;
+
+    Context context;
+
+    @DimensionPixelOffsetRes(R.dimen.icon_size_biggest)
+    int sizeBiggest;
+
+    @DimensionPixelOffsetRes(R.dimen.icon_size_bigger)
+    int sizeBigger;
+
+    @DimensionPixelOffsetRes(R.dimen.icon_size_normal)
+    int sizeNormal;
+
+    @DimensionPixelOffsetRes(R.dimen.icon_size_small)
+    int sizeSmall;
+
+    private String userName;
+
+    @AfterInject
+    void afterInject() {
+        L.d(TAG, "afterInject()");
+        myRestClient = Appmsgsrv8094Proxy.create(5 * 1000);
+        myRestClient.setRestErrorHandler(this);
+    }
+
+    @AfterViews
+    public void afterviews() {
+        L.d(TAG, "afterViews() ");
+        String titleName = getResources().getString(R.string.tab_me);
+        initTopBarForLeft(titleName);
+        userName = MyApplication.getInstance().getLocalUserName();
+
+        LoginResponse response = MyApplication.getInstance().getLoginResponse();
+        if (response != null) {
+            String avatar = response.Member.Avatar;
+
+            String nickName = response.Member.NickName;
+//            String orgName = response.Member.OrgName;
+
+            String email = response.Member.Email;
+            String mobile = response.Member.Mobile;
+            String tel = response.Member.Tel;
+//            String level = response.Member.level;
+//            String role = response.Member.role;
+
+            tv_name.setText(nickName);
+//            tv_info_post.setText(role);
+
+//            user_number.setText(loginPrefs.userName().get());
+//            user_rank.setText(level);
+
+//            user_post.setText(role);
+            user_telephony.setText(mobile);
+            user_call.setText(tel);
+            user_email.setText(email);
+        }
+
+        // 头像
+
+        Member member = MyApplication.getInstance().getLocalMember();
+
+        final String originalUrl = Utils.getAvataUrl(member.UserName, iconSize);
+        L.d(TAG, "originalUrl:"+originalUrl);
+        ImageLoader.getInstance().displayImage(originalUrl, iv_icon, ImagerLoaderOptHelper.getUserLeftAvatarOpt());
+    }
+
+    @Click(R.id.btnLogout)
+    void onClickBtnLogout(View view) {
+
+        new AlertDialog.Builder(getActivity())
+                .setTitle("注销登录")
+                .setMessage("确定要注销登录？")
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        doInbackgroundExiteOnOpenfire();
+                        doInbackgroundCleanCache();
+                        MyApplication.getInstance().onReLogin();
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).create().show();
+
+
+    }
+
+    @Background
+    void doInbackgroundCleanCache() {
+        ImagerLoaderOptHelper.cleanCache();
+    }
+
+    @Background
+    void doInbackgroundExiteOnOpenfire() {
+        XmppManager.getInstance().exit();
+    }
+
+    @Click(R.id.btnCheckUpdate)
+    void onClickCheckUpdate(View v) {
+        checkUpdateDoInBackground();
+    }
+
+    @Click(R.id.btnQr)
+    void onClickBtnQr() {
+        MeBarCodeActivity_.intent(getActivity()).start();
+    }
+
+    @Background
+    void checkUpdateDoInBackground() {
+        checkUpdateOnPreExecute();
+
+        BaseRequest baseRequest = CacheUtils.getBaseRequest(getActivity());
+        CheckUpdateRequest request = new CheckUpdateRequest();
+        request.BaseRequest = baseRequest;
+        request.VersionCode = Utils.getVersionCode(getActivity());
+        request.VersionName = Utils.getVersionName(getActivity());
+
+        L.d(TAG, "checkUpdateDoInBackground() request:" + request);
+
+        CheckUpdateResponse response = myRestClient.checkUpdate(request);
+
+        checkUpdateOnPostExecute(response);
+    }
+
+    private ProgressDialog mProgressDialog;
+
+    @UiThread
+    void checkUpdateOnPreExecute() {
+        mProgressDialog = ProgressDialog.show(getActivity(), "提示", "检查更新");
+    }
+
+    private void dismissProgressDialog() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+        }
+    }
+
+    @UiThread
+    void checkUpdateOnPostExecute(CheckUpdateResponse response) {
+        L.d(TAG, "checkUpdateOnPostExecute() response:" + response);
+
+        dismissProgressDialog();
+        // TODO: 2016/3/14  
+        Toast.makeText(getActivity(), TextUtils.isEmpty(response.BaseResponse.ErrMsg) ?
+                "已经是最新版本！" : response.BaseResponse.ErrMsg, Toast.LENGTH_SHORT)
+                .show();
+        /*if (response == null) {
+            return;
+        }
+        if (response.Msg ==null || response.BaseResponse.Ret != BaseResponse.RET_SUCCESS) {
+            Toast.makeText(this, TextUtils.isEmpty(response.BaseResponse.ErrMsg)? 
+                    "已经是最新版本！":response.BaseResponse.ErrMsg,
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }*/
+
+        //更新测试数据
+        /*Msg msg = new Msg();
+        msg.Content="更新";
+		ObjectContentUpdate ocu = new ObjectContentUpdate();
+		ocu.fileName="YiXin.apk";
+		ocu.MsgType=Msg.MSG_TYPE_UPDATE;
+		ocu.url="http://p.gdown.baidu.com/bcac7a5a6fd09c45f89bfc050dd61cd6d04ac8596964935ea4fdd92288da14284d978ebd269ec6584f5d8a561b1a676f400920a31394c9d99e60044555ed86413c372820499bf7a8e97ec772ca3110c960862d375c9b92d5f4765e22493bc08bac26d0c635ded487b41eb7ad25e464f2f501b087e87d92d4508d228842e1f588289b1db8a8c7df0830432517935ec952b85059c5f4461ba0f457ffc9dd7348ae53c321d9ffb8bb9d69ba616e76343288cf4c24f83c6b717fc58f29b5df2eeb115b25e4bd40269013742b97023cd1241e1821b02943e918663029bd06e6f069355659a0e1e0ba2b36467958653d2463ff2c225b2c7c61aa349de74e45abe6c664ab1c1c1bda76bfb6";
+		ocu.versionCode=2;
+		ocu.versionName="2.0.0";
+		msg.setObjectContent(Msg.MSG_TYPE_UPDATE, ocu);
+        
+        ObjectContentUpdate oc = (ObjectContentUpdate) response.Msg.getObjectContentAsObjectContent();
+        int vCode =  oc.versionCode;
+        int localCode = Utils.getVersionCode(this);
+
+        if(oc==null ||localCode<=vCode){
+            Toast.makeText(this, TextUtils.isEmpty(response.BaseResponse.ErrMsg)? 
+                    "已经是最新版本！":response.BaseResponse.ErrMsg,
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        UpdateDialogFragment f = UpdateDialogFragment_.builder()
+                .msg(response.Msg).build(); //TODO
+        f.setUpdateDialogListener(mUpdateDialogListener);
+        f.show(getFragmentManager(), "update");*/
+
+//		UpdateEnableActivity_.intent(getActivity())
+//		.flags(Intent.FLAG_ACTIVITY_NEW_TASK).msg(response.Msg).start();
+
+    }
+    
+    /*private UpdateDialogFragment.UpdateDialogListener mUpdateDialogListener = new UpdateDialogFragment.UpdateDialogListener() {
+        @Override
+        public void onNegativeButtonClick() {
+
+        }
+
+        @Override
+        public void onPositiveButtonClick(Msg msg) {
+		*//*btnCheckUpdate.setText("下载中..");
+        btnCheckUpdate.setEnabled(false);*//*
+            Toast.makeText(getActivity(), "后台下载中,下载完成将自动安装！", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onCancel() {
+
+        }
+    };*/
+
+    @UiThread
+    @Override
+    public void onRestClientExceptionThrown(NestedRuntimeException e) {
+        Toast.makeText(getActivity(), "访问失败！", Toast.LENGTH_SHORT).show();
+    }
+
+    // TODO: 2016/3/31 换头像 相关 
+    @Click(R.id.iv_icon)
+    public void iv_icon(View view) {
+        CharSequence[] items = {"本地图片", "拍照"};
+        imageChooseItem(items);
+    }
+
+    @Override
+    public void onActivityResult(final int requestCode,
+                                 final int resultCode, final Intent data) {
+        int result_ok = -1;
+        if (resultCode == result_ok) {
+            switch (requestCode) {
+                case ImageUtils.REQUEST_CODE_GETIMAGE_BYCAMERA:
+                    startActionCrop(origUri);// 拍照后裁剪
+                    break;
+                case ImageUtils.REQUEST_CODE_GETIMAGE_BYCROP:
+                    startActionCrop(data.getData());// 选图后裁剪
+                    break;
+                case ImageUtils.REQUEST_CODE_GETIMAGE_BYSDCARD:
+                    uploadNewPhoto(data);// 上传新照片
+                    break;
+            }
+        }
+
+    }
+
+    /**
+     * 操作选择
+     *
+     * @param items
+     */
+    public void imageChooseItem(CharSequence[] items) {
+        AlertDialog imageDialog;
+        imageDialog = new AlertDialog.Builder(getActivity())
+                .setTitle("上传头像").setIcon(android.R.drawable.btn_star)
+                .setItems(items, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int item) {
+                        // 相册选图
+                        if (item == 0) {
+                            startImagePick();
+                        }
+                        // 手机拍照
+                        else if (item == 1) {
+                            startActionCamera();
+                        }
+                    }
+                }).create();
+
+        imageDialog.show();
+    }
+
+    /**
+     * 选择图片裁剪
+     */
+    private void startImagePick() {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+//		intent.addCategory(Intent.CATEGORY_OPENABLE);
+//		intent.setType("image/*");
+        intent.setAction(Intent.ACTION_PICK);
+        intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(Intent.createChooser(intent, "选择图片"),
+                ImageUtils.REQUEST_CODE_GETIMAGE_BYCROP);
+    }
+
+    /**
+     * 相机拍照
+     *
+     * @param
+     */
+    private void startActionCamera() {
+       /* Intent intent;
+        if (Build.VERSION.SDK_INT < 19) {
+            intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("image*//*");
+        } else {
+            intent = new Intent(Intent.ACTION_PICK,
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        }*/
+
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, this.getCameraTempFile());
+        startActivityForResult(intent,
+                ImageUtils.REQUEST_CODE_GETIMAGE_BYCAMERA);
+    }
+
+    // 拍照保存的绝对路径
+    private Uri getCameraTempFile() {
+        String storageState = Environment.getExternalStorageState();
+        if (storageState.equals(Environment.MEDIA_MOUNTED)) {
+            File savedir = new File(FILE_SAVEPATH);
+            if (!savedir.exists()) {
+                savedir.mkdirs();
+            }
+        } else {
+            Toast.makeText(getActivity(), "无法保存上传的头像，请检查SD卡是否挂载",
+                    Toast.LENGTH_SHORT).show();
+            return null;
+        }
+        String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss")
+                .format(new Date());
+        // 照片命名
+        String cropFileName = "EPIC_camera_" + timeStamp + ".jpg";
+        // 裁剪头像的绝对路径
+        protraitPath = FILE_SAVEPATH + cropFileName;
+        protraitFile = new File(protraitPath);
+        cropUri = Uri.fromFile(protraitFile);
+        this.origUri = this.cropUri;
+        return this.cropUri;
+    }
+
+    // 裁剪头像的绝对路径
+    private Uri getUploadTempFile(Uri uri) {
+        L.d(TAG, "getUploadTempFile() uri:" + uri);
+        String storageState = Environment.getExternalStorageState();
+        if (storageState.equals(Environment.MEDIA_MOUNTED)) {
+            File savedir = new File(FILE_SAVEPATH);
+            if (!savedir.exists()) {
+                savedir.mkdirs();
+            }
+        } else {
+            Toast.makeText(getActivity(), "无法保存上传的头像，请检查SD卡是否挂载",
+                    Toast.LENGTH_SHORT).show();
+            return null;
+        }
+        String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss")
+                .format(new Date());
+        String thePath = ImageUtils.getAbsolutePathFromNoStandardUri(uri);
+
+        // 如果是标准Uri
+        if (thePath == null || "".equals(thePath)) {
+            thePath = ImageUtils.getAbsoluteImagePath(getActivity(),
+                    uri);
+        }
+        int point = thePath.lastIndexOf('.');
+        String ext = thePath.substring(point + 1);
+        if (ext == null || "".equals(ext)) {
+            ext = "jpg";
+        }
+        // 照片命名
+        String cropFileName = "epic_crop_" + timeStamp + "." + ext;
+        // 裁剪头像的绝对路径
+        protraitPath = FILE_SAVEPATH + cropFileName;
+        protraitFile = new File(protraitPath);
+
+        cropUri = Uri.fromFile(protraitFile);
+        L.d(TAG, "getUploadTempFile() cropUri:" + cropUri);
+        return this.cropUri;
+    }
+
+    /**
+     * 拍照后裁剪
+     *
+     * @param data 原始图片
+     *             裁剪后图片
+     */
+    private void startActionCrop(Uri data) {
+//		mCropOutPut = this.getUploadTempFile(data);
+
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.setDataAndType(data, "image/*");
+        intent.putExtra("output", this.getUploadTempFile(data));
+//		intent.putExtra("output", mCropOutPut);
+        intent.putExtra("crop", "true");
+        intent.putExtra("aspectX", 1);// 裁剪框比例
+        intent.putExtra("aspectY", 1);
+        intent.putExtra("outputX", CROP);// 输出图片大小
+        intent.putExtra("outputY", CROP);
+        intent.putExtra("scale", true);// 去黑边
+        intent.putExtra("scaleUpIfNeeded", true);// 去黑边
+        startActivityForResult(intent,
+                ImageUtils.REQUEST_CODE_GETIMAGE_BYSDCARD);
+    }
+
+    @UiThread
+    void onPreExecute() {
+        L.d(TAG, "onPreExecute()");
+        mProgressDialog = ProgressDialog.show(getActivity(), null, "正在上传头像...");
+    }
+
+    @Background
+    void doInBackground(String fileUrl, ResponseUpload responseUpload) {
+
+        SetUserAvatarRequest request = new SetUserAvatarRequest();
+        request.BaseRequest = CacheUtils.getBaseRequest(getActivity());
+        request.fileExtention = MimeTypeMap
+                .getFileExtensionFromUrl(fileUrl);
+        request.responseUpload = responseUpload;
+        String username = MyApplication.getInstance().getLocalUserName();
+        request.userName = username;
+        L.d(TAG, "request:" + request);
+        L.d(TAG, "rootUrl:" + myRestClient.getRootUrl());
+        SetUserAvatarResponse response = myRestClient.setUserAvatar(request);
+        L.d(TAG, "response:" + response);
+        onPostExecute(response);
+    }
+
+    @UiThread
+    void onPostExecute(SetUserAvatarResponse response) {
+        mProgressDialog.dismiss();
+        if (response == null) {
+            return;
+        }
+
+        if (response.BaseResponse.Ret != BaseResponse.RET_SUCCESS) {
+            Utils.showToastShort(context, "上传头像失败！");
+            return;
+        }
+
+        ImagerLoaderOptHelper.removeFromCache(Utils.getAvataUrl(userName, sizeSmall), new
+                ImageSize(sizeSmall, sizeSmall));
+        ImagerLoaderOptHelper.removeFromCache(Utils.getAvataUrl(userName, sizeNormal), new
+                ImageSize(sizeNormal, sizeNormal));
+        ImagerLoaderOptHelper.removeFromCache(Utils.getAvataUrl(userName, sizeBigger), new
+                ImageSize(sizeBigger, sizeBigger));
+
+        ImagerLoaderOptHelper.removeFromCache(Utils.getAvataUrl(userName, sizeBiggest), new
+                ImageSize(sizeBiggest, sizeBiggest));
+        ImagerLoaderOptHelper.removeFromCache(Utils.getAvataUrl(userName, sizeSmall), new
+                ImageSize(iconSize, iconSize));
+
+        DisplayImageOptions options = ImagerLoaderOptHelper.getConerOpt();
+        if (cropUri != null) {
+            ImageLoader.getInstance().displayImage(cropUri.toString(), iv_icon, options);
+        }
+
+        Utils.showToastShort(getActivity(), "上传头像成功！");
+    }
+
+
+    private void uploadNewPhoto(Intent data) {
+        L.i("上传照片", "ok");
+        L.d(TAG, "uploadNewPhoto() cropUri:" + cropUri);
+//		L.d(TAG, "uploadNewPhoto() data:" + data.getExtras());
+
+        RequestCallBack<String> callback = new RequestCallBack<String>() {
+            @Override
+            public void onStart() {
+                L.d(TAG, "onStart()");
+                onPreExecute();
+            }
+
+            @Override
+            public void onLoading(long total, long current, boolean isUploading) {
+                L.d(TAG, "onLoading() isUploading:" + isUploading);
+                if (isUploading) {
+//					tvUploadPercent.setText((int) (current * 100 / total) + "%");
+                }
+            }
+
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                L.d(TAG, "onSuccess()");
+                ResponseUpload responseUpload = Utils.readValue(
+                        responseInfo.result, ResponseUpload.class);
+                L.d(TAG, "onSuccess() responseUpload:" + responseUpload);
+
+                if (responseUpload != null && TextUtils.isEmpty(responseUpload.error)) {
+
+
+                    doInBackground(cropUri.getPath(), responseUpload);
+                } else {
+                    mProgressDialog.dismiss();
+                    Utils.showToastShort(getActivity(), "上传头像失败！");
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException error, String msg) {
+                L.d(TAG, "onFailure() error:" + error);
+                L.d(TAG, "onFailure() msg:" + msg);
+                mProgressDialog.dismiss();
+                Utils.showToastShort(getActivity(), "上传头像失败！");
+            }
+        };
+
+//		String url = Utils.URL_FILE_AVATA;
+        String url = Utils.getURLFileServer(getActivity(), Utils.URL_FILE_AVATA);
+        HttpUtils http = new HttpUtils();
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("file", new File(cropUri.getPath()));
+        HttpHandler<String> handler = http.send(HttpRequest.HttpMethod.POST, url, params, callback);
+    }
+
+}

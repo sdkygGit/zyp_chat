@@ -1,0 +1,5 @@
+package com.yxst.epic.unifyplatform.dto.request;
+
+public class GetOrgInfoRequest extends Request {
+
+}

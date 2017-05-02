@@ -1,0 +1,280 @@
+package com.wiz.dev.wiztalk.utils;
+
+import android.content.Context;
+import android.graphics.Bitmap;
+
+import com.nostra13.universalimageloader.cache.disc.DiskCache;
+import com.nostra13.universalimageloader.cache.disc.impl.LimitedAgeDiskCache;
+import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.cache.memory.MemoryCache;
+import com.nostra13.universalimageloader.cache.memory.impl.LimitedAgeMemoryCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.assist.ImageSize;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
+import com.nostra13.universalimageloader.utils.MemoryCacheUtils;
+import com.wiz.dev.wiztalk.R;
+
+import java.io.File;
+import java.io.IOException;
+
+/**
+ * 统一处理 imageloader的类
+ * Created by Dong on 2016/4/3.
+ */
+public class ImagerLoaderOptHelper {
+    
+    public  static ImageLoaderConfiguration getImagLoaderConfig(Context context) {
+        // This configuration tuning is custom. You can tune every option, you may tune some of them,
+        // or you can create default configuration by
+        //  ImageLoaderConfiguration.createDefault(this);
+        // method.
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context)
+//                .threadPriority(Thread.NORM_PRIORITY - 2)
+                .threadPriority(Runtime.getRuntime().availableProcessors())
+                .denyCacheImageMultipleSizesInMemory()
+                .diskCacheFileNameGenerator(new Md5FileNameGenerator())
+                .diskCacheSize(100 * 1024 * 1024) // 100 Mb
+                .memoryCacheSize((int) (Runtime.getRuntime().maxMemory() / 1024 /8))//取最大可用内存的8分之一
+                .tasksProcessingOrder(QueueProcessingType.LIFO)
+                .writeDebugLogs() // Remove for release app
+//				.imageDownloader(new GetUserAvatarImageDownloader(context))
+                .build();
+        // Initialize ImageLoader with configuration.
+        return config;
+    }
+    /**
+     * 聊天中的图片设置opt
+     * @return
+     */
+    public static DisplayImageOptions getChatImageOpt(){
+        DisplayImageOptions options = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.drawable.chat_nopicture)
+                .showImageForEmptyUri(R.drawable.chat_nopicture)
+                .showImageOnFail(R.drawable.card_photofail)
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .imageScaleType(ImageScaleType.EXACTLY)
+                .displayer(new RoundedBitmapDisplayer(999))
+                .resetViewBeforeLoading(false)// 设置图片在下载前是否重置，复位  
+                .build();
+        return options;
+    }
+
+    /**
+     * 设置左边用户头像
+     * @return
+     */
+    public static DisplayImageOptions getUserLeftAvatarOpt(){
+        DisplayImageOptions options = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.drawable.ic_default_avata_mini)
+                .showImageForEmptyUri(R.drawable.ic_default_avata_mini)
+                .showImageOnFail(R.drawable.ic_default_avata_mini).cacheInMemory(true)
+                .cacheOnDisk(false)
+                .cacheInMemory(false)
+                .imageScaleType(ImageScaleType.EXACTLY)
+                .resetViewBeforeLoading(false)// 设置图片在下载前是否重置，复位  
+//                .displayer(new SimpleBitmapDisplayer())
+                .displayer(new RoundedBitmapDisplayer(999))
+                .build();
+        return options;
+    }
+
+    /**
+     * 设置右边用户头像
+     * @return
+     */
+    public static DisplayImageOptions getUserRightAvatarOpt(){
+        DisplayImageOptions options = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.drawable.head)
+                .showImageForEmptyUri(R.drawable.head)
+                .showImageOnFail(R.drawable.head).cacheInMemory(true)
+                .cacheOnDisk(true)
+                .imageScaleType(ImageScaleType.EXACTLY)
+                .displayer(new RoundedBitmapDisplayer(999)).build();
+        return options;
+    }
+
+    /**
+     * 设置设置群 头像
+     * @return
+     */
+    public static DisplayImageOptions getGroupAvatarOpt(){
+        DisplayImageOptions options = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.drawable.ic_default_qun_mini)
+                .showImageForEmptyUri(R.drawable.ic_default_qun_mini)
+                .showImageOnFail(R.drawable.ic_default_qun_mini)
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .imageScaleType(ImageScaleType.EXACTLY)
+                .displayer(new SimpleBitmapDisplayer()).build();
+        return options;
+    }
+
+    /**
+     * 设置设置app 头像
+     * @return
+     */
+    public static DisplayImageOptions getAppAvatarOpt(){
+        DisplayImageOptions options = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.drawable.ic_default_app_mini)
+                .showImageForEmptyUri(R.drawable.ic_default_app_mini)
+                .showImageOnFail(R.drawable.ic_default_app_mini)
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .imageScaleType(ImageScaleType.EXACTLY)
+                .displayer(new SimpleBitmapDisplayer())
+                .build();
+        return options;
+    }
+    /**
+     * 设置设置组织机构头像
+     * @return
+     */
+    public static DisplayImageOptions getOrgAvatarOpt(){
+        DisplayImageOptions options = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.drawable.ic_default_org_mini)
+                .showImageForEmptyUri(R.drawable.ic_default_org_mini)
+                .showImageOnFail(R.drawable.ic_default_org_mini)
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .displayer(new SimpleBitmapDisplayer())
+                .build();
+        return options;
+    }
+
+    /**
+     * 设置设置公司头像
+     * @return
+     */
+    public static DisplayImageOptions getTenantAvatarOpt(){
+        DisplayImageOptions options = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.drawable.ic_default_tenant_mini)
+                .showImageForEmptyUri(R.drawable.ic_default_tenant_mini)
+                .showImageOnFail(R.drawable.ic_default_tenant_mini)
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .displayer(new SimpleBitmapDisplayer())
+                .build();
+        return options;
+    }
+
+    /**
+     * 设置我界面 圆角大头像
+     * @return
+     */
+    public static DisplayImageOptions getConerOpt(){
+        DisplayImageOptions options = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.drawable.default_avatar)
+                .showImageForEmptyUri(R.drawable.default_avatar)
+                .showImageOnFail(R.drawable.default_avatar)
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .resetViewBeforeLoading(true)
+                .displayer(new RoundedBitmapDisplayer(999))
+                .build();
+        return options;
+    }
+    
+    public static void initImageLoaderWithCustomCache(Context context) {
+        ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(context));
+
+        MemoryCache mc = ImageLoader.getInstance().getMemoryCache();
+        DiskCache dc = ImageLoader.getInstance().getDiskCache();
+
+        long maxAge = 1000 * 60 * 60;
+
+        MemoryCache memoryCache = new LimitedAgeMemoryCache(mc, maxAge);
+        DiskCache diskCache = new LimitedAgeDiskCache(dc.getDirectory(), maxAge);
+        // This configuration tuning is custom. You can tune every option, you may tune some of them,
+        // or you can create default configuration by
+        //  ImageLoaderConfiguration.createDefault(this);
+        // method.
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context)
+                .threadPriority(Thread.NORM_PRIORITY - 2)
+                .denyCacheImageMultipleSizesInMemory()
+                .diskCacheFileNameGenerator(new Md5FileNameGenerator())
+                .diskCacheSize(50 * 1024 * 1024) // 50 Mb
+                .tasksProcessingOrder(QueueProcessingType.LIFO)
+                .writeDebugLogs() // Remove for release app
+                .memoryCache(memoryCache)
+//                .diskCache(diskCache)
+                .build();
+        // Initialize ImageLoader with configuration.
+        ImageLoader.getInstance().init(config);
+    }
+
+    /**
+     * 将 url作为key ,将图片放到内存 ，硬盘上缓存起来
+     * @param originalUrl
+     * @param targetSize 
+     * @param bitmap  待缓存的图片
+     */
+    public static void putCache(String originalUrl, ImageSize targetSize, Bitmap bitmap) {
+        String memoryCacheKey = MemoryCacheUtils.generateKey(originalUrl,targetSize);
+        ImageLoader.getInstance().getMemoryCache().put(memoryCacheKey, bitmap);
+        try {
+            ImageLoader.getInstance().getDiskCache().save(originalUrl, bitmap);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     *get  bitmap from memorycache,diskcache
+     * @param originalUrl
+     * @param targetSize
+     * @return
+     */
+    public static Bitmap getBitmapFromCache(String originalUrl, ImageSize targetSize) {
+        Bitmap loadedBitmap = null;
+        String memoryCacheKey = MemoryCacheUtils.generateKey(originalUrl,targetSize);
+        loadedBitmap = ImageLoader.getInstance().getMemoryCache().get(memoryCacheKey);
+        try {
+            if (loadedBitmap == null) {
+                File file = ImageLoader.getInstance().getDiskCache().get(originalUrl);
+                loadedBitmap = ImageUtils.getBitmapByFile(file);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return loadedBitmap;
+    }
+
+    /**
+     * 从缓存里删除
+     * @param originalUrl
+     * @param targetSize
+     */
+    public static void removeFromCache(String originalUrl,ImageSize targetSize) {
+        String memoryCacheKey = MemoryCacheUtils.generateKey(originalUrl,targetSize);
+        ImageLoader.getInstance().getMemoryCache().remove(memoryCacheKey);
+        ImageLoader.getInstance().getDiskCache().remove(originalUrl);
+    }
+
+    /**
+     * clean memory cache all.
+     */
+    public static void cleanMemoryCache() {
+        ImageLoader.getInstance().getMemoryCache().clear();
+    }
+
+    /**
+     * clean disk cache all.
+     */
+    public static void cleanDiskCache() {
+        ImageLoader.getInstance().getDiskCache().clear();
+    }
+    /**
+     * clean cache all.
+     */
+    public static void cleanCache() {
+        cleanMemoryCache();
+        cleanDiskCache();
+    }
+}
+

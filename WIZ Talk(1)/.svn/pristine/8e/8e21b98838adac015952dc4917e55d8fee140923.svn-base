@@ -1,0 +1,21 @@
+package com.yxst.epic.unifyplatform.public_store;
+
+/**
+ * Created by ynyxmac on 16/2/4.
+ */
+public class ConstDefine {
+    
+    public static final String HttpAdress= "http://itime.vicp.cc:2280";
+//    public static final String HttpAdress= "http://10.180.128.127:8094";
+    public static final String customer_id = "1";
+
+    public static String CurrUserCode="U=00239555/O=05000001";//当前用户登录CODE
+    public static String CurrUserName="";//当前用户名
+    public static String CurrUnitCode="OU=sbzx/O=05000001";//当前用户单位code
+    
+    public static String PaasBaseUrl="";
+    
+    public static String token="";
+    public static String uid="";
+    
+}

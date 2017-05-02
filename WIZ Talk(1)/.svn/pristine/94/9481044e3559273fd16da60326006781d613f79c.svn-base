@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:orientation="vertical"
+    android:layout_height="fill_parent">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_weight="20"
+        android:id="@+id/edticonFrame"
+        android:layout_height="0dp">
+
+        <ImageView
+            android:id="@+id/appsicon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/appicon"
+            android:paddingTop="8dp"
+            android:focusable="false"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"/>
+        <ImageView
+            android:id="@+id/delicon"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@mipmap/delapp"
+            android:layout_marginLeft="-30dp"
+            android:layout_alignTop="@id/appsicon"
+            android:layout_toRightOf="@id/appsicon"
+            android:layout_toEndOf="@id/appsicon"
+            />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/appsname"
+        android:text="APPNAME"
+        android:layout_weight="8"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/captiontxtcolor"
+        android:layout_gravity="center"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp" />
+</LinearLayout>

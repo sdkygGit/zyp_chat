@@ -1,0 +1,159 @@
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">WIZ Talk微聊</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_app_detail">AppDetailActivity</string>
+    <string name="title_activity_content">AppContentActivity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_seh_contact">SehContactActivity</string>
+    <!--pdf-->
+    <string name="open_failed">Unable to open document</string>
+    <string name="picker_title">MuPDF</string>
+    <string name="link_control">Link highlighting and enabling</string>
+
+    <string name="add_avator">添加头像</string>
+    <string name="hello_world">Hello world!</string>
+
+    <string name="action_settings">设置</string>
+    <string name="action_add_qun">发起群聊</string>
+    <string name="menuMainTitle">发起群聊</string>
+    <string name="menuChatTitle">查看详情</string>
+
+    <string name="tab_msg">消息</string>
+    <string name="tab_app">应用</string>
+    <string name="tab_cts">通讯录</string>
+    <string name="tab_find">发现</string>
+    <string name="tab_email">邮箱</string>
+    <string name="tab_me">我</string>
+
+    <string name="addfriend_contact">新的朋友</string>
+    <string name="addfriend_qucikgroup">群聊</string>
+    <string name="addfriend_app">应用服务号</string>
+
+    <string name="delete_chat">删除对话</string>
+    <string name="copy_message">复制</string>
+    <string name="delete_message">删除消息</string>
+
+    <string name="starFriend_set">标为常联系人</string>
+    <string name="starFriend_cancel">取消常联系人</string>
+
+    <string name="rcd_start">按住 说话</string>
+    <string name="rcd_stop">松开 结束</string>
+    <string name="rcd_cancel">松开手指，取消发送</string>
+    <string name="rcd_warning">录音时间太短</string>
+    <string name="rcd_to_cancel">手指上滑，取消发送</string>
+    <string name="rcd_time_left">还可以说%1$d秒</string>
+
+    <!-- http://115.29.107.77:5083/2,3254333a59?filename=rename_newname.jpg&width=630&height=370 -->
+    <string name="format_url_download_image">http://<xliff:g example="115.29.107.77:5083/2,3254333a59" id="fileUrl">%s</xliff:g>?filename=<xliff:g example="rename_newname.jpg" id="filename">%s</xliff:g>&amp;width=<xliff:g example="630" id="width">%d</xliff:g>&amp;height=<xliff:g example="370" id="height">%d</xliff:g></string>
+    <!-- http://115.29.107.77:5083/4/48f9a504d6/.jpg?width=33&height=37 -->
+    <string name="format_url_download_image2">http://<xliff:g example="115.29.107.77:5083/4/48f9a504d6" id="fileUrl">%s</xliff:g>/<xliff:g example=".jpg" id="extention">%s</xliff:g>?width=<xliff:g example="630" id="width">%d</xliff:g>&amp;height=<xliff:g example="370" id="height">%d</xliff:g></string>
+
+    <string name="message_search_hint">搜索文件名...</string>
+    <string name="actoin_check_update">检查更新</string>
+
+    <string name="voice_normal">按住说话</string>
+    <string name="voice_up_tips">手指上滑,取消发送</string>
+    <string name="voice_cancel_tips">松开手指，取消发送</string>
+
+    <string name="voice_seconds_tips">还可以说%1$s秒</string>
+
+    <string name="voice_short_tips">录音时间太短</string>
+
+    <string name="show_notice">\t\t\t\t\t提示</string>
+    <string name="xlistview_header_hint_normal">下拉加载</string>
+    <string name="xlistview_header_hint_ready">松开加载数据</string>
+    <string name="xlistview_header_hint_loading">正在加载&#8230;</string>
+    <string name="xlistview_header_last_time">上次更新时间：</string>
+    <string name="xlistview_footer_hint_normal">查看更多</string>
+    <string name="xlistview_footer_hint_ready">松开载入更多</string>
+
+    <string name="picture">图片</string>
+    <string name="camera">拍照</string>
+    <string name="location">位置</string>
+
+    <!--  popuwindow-->
+    <string name="popuwin_tips_copy_suc">复制成功</string>
+
+    <!-- Toast tips -->
+    <string name="toast_tips_operation_suc">操作成功</string>
+    <string name="toast_tips_operation_failed">操作失败</string>
+    <string name="chat_detail_send_msg">发送群消息</string>
+    <string name="chat_detail_exit_qun">删除并退出</string>
+    <string name="chat_detail_group_name">群聊名称</string>
+    <string name="contact_select_select_tips">选择联系人</string>
+
+
+    <!-- group operate tips -->
+    <string name="group_operate_tips_destory">管理员解散群</string>
+    <string name="group_operate_tips_exit">退出群</string>
+    <string name="group_operate_tips_kick">管理员将 <xliff:g example="xujianxe" id="username">%s</xliff:g> 请出群</string>
+    <string name="group_operate_tips_kick_user">已将你移除群</string>
+    <string name="contact_detail_tips_no_mobile">当前联系人为设置手机号</string>
+    <string name="tips_contactDetail_tel_isnull">当前联系人未设置座机号</string>
+    <string name="group_tips_activity_bar_title">群通知</string>
+
+    <string name="pull_to_refresh_pull_label">下拉刷新…</string>
+    <string name="pull_to_refresh_release_label">放开以刷新…</string>
+    <string name="pull_to_refresh_refreshing_label">正在载入…</string>
+    <string name="pull_to_refresh_from_bottom_pull_label">@string/pull_to_refresh_pull_label</string>
+    <string name="pull_to_refresh_from_bottom_release_label">@string/pull_to_refresh_release_label</string>
+    <string name="pull_to_refresh_from_bottom_refreshing_label">@string/pull_to_refresh_refreshing_label</string>
+    <string name="qun_name_key">群名称</string>
+
+
+    <string name="accept">接受</string>
+    <string name="cancel">取消</string>
+    <string name="cannot_open_buffer">无法打开缓冲器</string>
+    <string name="cannot_open_document">无法打开文档</string>
+    <string name="cannot_open_document_Reason">无法打开文档： %1$s</string>
+    <string name="cannot_open_file_Path">无法打开文件：%1$s</string>
+    <string name="choose_value">选择值</string>
+    <string name="copied_to_clipboard">已复制到剪贴板</string>
+    <string name="copy">复制</string>
+    <string name="copy_text">复制文本</string>
+    <string name="copy_text_to_the_clipboard">将文本复制到剪贴板</string>
+    <string name="delete">删除</string>
+    <string name="dismiss">解除</string>
+    <string name="document_has_changes_save_them_">文档已变更，保存变更吗？</string>
+    <string name="draw_annotation">作批注</string>
+    <string name="edit_annotations">编辑批注</string>
+    <string name="enter_password">输入密码</string>
+    <string name="entering_reflow_mode">输入重排模式</string>
+    <string name="fill_out_text_field">填充文本字段</string>
+    <string name="format_currently_not_supported">当前不支持此格式</string>
+    <string name="highlight">高亮</string>
+    <string name="ink">墨迹</string>
+    <string name="leaving_reflow_mode">正在离开重排模式</string>
+    <string name="more">更多</string>
+    <string name="no">否</string>
+    <string name="no_further_occurrences_found">未发现更多实例。</string>
+    <string name="no_media_hint">存储介质在设备和 PC 上共同使用，会导致该存储介质在设备上无法被访问</string>
+    <string name="no_media_warning">没有存储介质</string>
+    <string name="no_text_selected">未选择文本</string>
+    <string name="not_supported">不被支持</string>
+    <string name="nothing_to_save">没有要保存的内容</string>
+    <string name="okay">确定</string>
+    <string name="outline_title">目录</string>
+    <string name="parent_directory">[向上一级]</string>
+    <string name="picker_title_App_Ver_Dir">%1$s%2$s:%3$s</string>
+    <string name="print">打印</string>
+    <string name="print_failed">未能打印</string>
+    <string name="save">保存</string>
+    <string name="search">搜索</string>
+    <string name="search_backwards">向后搜索</string>
+    <string name="search_document">搜索文档</string>
+    <string name="search_forwards">向前搜索</string>
+    <string name="searching_">正在搜索…</string>
+    <string name="select">选择</string>
+    <string name="select_text">选择文本</string>
+    <string name="strike_out">删除线</string>
+    <string name="text_not_found">未发现文本</string>
+    <string name="toggle_links">高亮并启用墨迹</string>
+    <string name="underline">下划线</string>
+    <string name="yes">是</string>
+    <string name="toggle_reflow_mode">回流模式开关</string>
+    <string name="proof">证明</string>
+</resources>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/equipInfoActivity_layoutForToolBar_up"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/colorAction">
+
+        <ImageView
+            android:id="@+id/equipDetialActivity_imageView_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/back" />
+
+        <TextView
+            android:id="@+id/equipDetialActivity_textView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/equipDetialActivity_imageView_edit"
+            android:layout_toRightOf="@+id/equipDetialActivity_imageView_back"
+            android:gravity="center"
+            android:text="设备档案"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/equipDetialActivity_imageView_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/edit" />
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/layoutForfragment_equipfiles_Activity"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

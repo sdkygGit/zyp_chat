@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!-- 圆角 -->
+    <corners
+        android:bottomLeftRadius="3dp"
+        android:bottomRightRadius="3dp"
+        android:radius="3dp"
+        android:topLeftRadius="3dp"
+        android:topRightRadius="3dp" />
+    <!-- 设置圆角半径 -->
+
+
+    <!-- 间隔 -->
+    <padding
+        android:bottom="3dp"
+        android:left="6dp"
+        android:right="6dp"
+        android:top="3dp" />
+    <!-- 各方向的间隔 -->
+
+
+    <!-- 大小 -->
+    <!-- <size
+        android:height="wrap_content"
+        android:width="wrap_content" /> -->
+    <!-- 宽度和高度 -->
+
+
+    <!-- 填充 -->
+    <solid android:color="#33000000" />
+    <!-- 填充的颜色 -->
+
+
+    <!-- 描边 -->
+    <stroke
+        android:dashGap="0dp"
+        android:dashWidth="0dp"
+        android:width="0dp"
+        android:color="#33000000" />
+
+</shape>

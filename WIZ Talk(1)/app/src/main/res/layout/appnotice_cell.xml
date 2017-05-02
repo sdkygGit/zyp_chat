@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:background="@android:color/white"
+    android:orientation="horizontal"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/appiconimage"
+        android:layout_width="@dimen/icon_size_bigger"
+        android:layout_height="@dimen/icon_size_bigger"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:scaleType="fitXY"
+        android:src="@mipmap/appicon" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="9"
+        android:orientation="vertical"
+        android:layout_height="fill_parent">
+        <TextView
+            android:id="@+id/appname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:text="appname"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:background="@android:color/white"
+            android:maxLines="1"
+            android:layout_gravity="left"
+            />
+        <TextView
+            android:id="@+id/appmessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/darker_gray"
+            android:text="通知信息"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:background="@android:color/white"
+            android:maxLines="1"
+            android:layout_gravity="left"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/appmessagetime"
+        android:layout_width="0dp"
+        android:layout_weight="2"
+        android:layout_marginTop="2dp"
+        android:layout_marginRight="5dp"
+        android:layout_height="fill_parent"
+        android:textColor="@color/appstore_cell"
+        android:text="16:00"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:background="@android:color/white"
+        android:gravity="top|right"
+        android:maxLines="2"
+        android:paddingRight="5dp"
+        android:layout_gravity="center"
+        />
+
+</LinearLayout>

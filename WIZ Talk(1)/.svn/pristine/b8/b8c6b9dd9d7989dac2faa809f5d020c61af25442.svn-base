@@ -1,0 +1,791 @@
+package com.yxst.epic.unifyplatform.apppush.view;
+
+import android.app.LoaderManager;
+import android.content.Context;
+import android.content.Intent;
+import android.content.Loader;
+import android.database.ContentObserver;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Handler;
+import android.provider.MediaStore;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import com.epic.traverse.push.util.L;
+import com.yxst.epic.unifyplatform.DB.Member;
+import com.yxst.epic.unifyplatform.DB.XmppDbManager;
+import com.yxst.epic.unifyplatform.DB.XmppMessageContentProvider;
+import com.yxst.epic.unifyplatform.MyApplication;
+import com.yxst.epic.unifyplatform.R;
+import com.yxst.epic.unifyplatform.activity.AppDetailActivity;
+import com.yxst.epic.unifyplatform.activity.AppDetailActivity_;
+import com.yxst.epic.unifyplatform.activity.H5Activity_;
+import com.yxst.epic.unifyplatform.apppush.OnOperationClickListener;
+import com.yxst.epic.unifyplatform.apppush.OperationRest;
+import com.yxst.epic.unifyplatform.apppush.ServiceRequest;
+import com.yxst.epic.unifyplatform.apppush.adapter.AppPushChatListAdapter;
+import com.yxst.epic.unifyplatform.apppush.entity.AppPushEntity;
+import com.yxst.epic.unifyplatform.apppush.loader.AppChatListLoader;
+import com.yxst.epic.unifyplatform.dto.request.BaseRequest;
+import com.yxst.epic.unifyplatform.dto.request.GetAppOperationListRequest;
+import com.yxst.epic.unifyplatform.dto.response.BaseResponse;
+import com.yxst.epic.unifyplatform.dto.response.GetAppOperationListResponse;
+import com.yxst.epic.unifyplatform.dto.response.Response;
+import com.yxst.epic.unifyplatform.loader.XChatListMsgLoader;
+import com.yxst.epic.unifyplatform.rest.Appmsgsrv8094;
+import com.yxst.epic.unifyplatform.rest.Appmsgsrv8094Proxy;
+import com.yxst.epic.unifyplatform.utils.CacheUtils;
+import com.yxst.epic.unifyplatform.utils.KeyBoardUtils;
+import com.yxst.epic.unifyplatform.utils.ThumbnailUtils;
+import com.yxst.epic.unifyplatform.utils.Utils;
+
+import org.afinal.simplecache.ACache;
+import org.androidannotations.annotations.AfterInject;
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Extra;
+import org.androidannotations.annotations.OnActivityResult;
+import org.androidannotations.annotations.UiThread;
+import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.rest.RestService;
+import org.androidannotations.api.BackgroundExecutor;
+import org.androidannotations.api.rest.RestErrorHandler;
+import org.springframework.core.NestedRuntimeException;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import java.io.File;
+import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+
+@EActivity(R.layout.im_activity_chat)
+public class ChatActivity extends ActionBarActivity implements
+		RestErrorHandler, OnOperationClickListener {
+
+	protected static final String TAG = "ChatActivity";
+
+	@Extra
+	String localUserName;
+
+	@Extra
+	String remoteUserName; //应用时，要传应用的appid
+
+	@Extra
+	String remoteDisplayName;
+
+	// @Extra
+	// Member remoteMember;
+
+	@ViewById
+	ResizeLayout layoutRoot;
+
+	@ViewById(android.R.id.list)
+	ListView listView;
+
+	@ViewById
+	FooterView viewFooter;
+
+	@Bean
+	AppPushChatListAdapter mChatAdapter;
+
+	@ViewById
+	RcdView viewRcd;
+
+	@ViewById
+	ChatSendOptView viewChatSendOpt;
+
+	// @Bean
+	// MyErrorHandler myErrorHandler;
+	@RestService
+	OperationRest operationRest;
+
+	@RestService
+	Appmsgsrv8094 myRestClient;
+
+	@AfterInject
+	void afterInject() {
+		myRestClient = Appmsgsrv8094Proxy.create(10 * 1000);
+		myRestClient.setRestErrorHandler(this);
+
+		operationRest.setRestErrorHandler(this);
+
+
+		mChatAdapter.setOnOperationClickListener(this);
+	}
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		MyApplication.getInstance().addActivity(this);
+
+		super.onCreate(savedInstanceState);
+	}
+
+	@Override
+	protected void onDestroy() {
+		MyApplication.getInstance().removeActivity(this);
+		doInBackgroundOperationCancle = true;
+		BackgroundExecutor.cancelAll("doInBackgroundOperation", true);
+		doInBackgroundGetAppOperationListCanceld = true;
+		BackgroundExecutor.cancelAll("doInBackgroundGetAppOperationList", true);
+
+//		mChatAdapter.onDestroy();
+		
+		super.onDestroy();
+	}
+
+	@Override
+	protected void onNewIntent(Intent intent) {
+		setIntent(intent);
+
+		super.onNewIntent(intent);
+	}
+
+	@Override
+	protected void onResume() {
+		L.d(TAG, "onResume()");
+		// Bundle args = new Bundle();
+//		getSupportLoaderManager().restartLoader(0, null, mLoaderCallbacks);
+        getLoaderManager().restartLoader(0, null, mLoaderCallbacks);
+        // Utils.cancelNotification(this);
+//		updateTitle();
+
+        KeyBoardUtils.closeKeybord(viewFooter.viewFooterText.editText,this);
+		updateReadWithNoObserver();
+		super.onResume();
+	}
+
+	@Override
+	protected void onPause() {
+		getContentResolver().unregisterContentObserver(mContentObserver);
+
+//		mChatAdapter.onPause();
+		
+		super.onPause();
+	}
+
+	private void updateTitle() {
+		final ActionBar bar = getSupportActionBar();
+
+		String displayName = XmppDbManager.getInstance(this).getChatDisplayName(
+				localUserName, remoteUserName);
+		if (displayName != null) {
+			bar.setTitle(displayName);
+			remoteDisplayName = displayName;
+		}
+	}
+
+	@Override
+	protected void onStop() {
+		getContentResolver().unregisterContentObserver(mContentObserver);
+
+		super.onStop();
+	}
+
+	@Override
+	public void onBackPressed() {
+		if (viewFooter.viewFooterText.isSoftInputShowing()) {
+          
+		}
+		super.onBackPressed();
+	}
+
+	@Override
+	public boolean onSupportNavigateUp() {
+		finish();
+		return true;
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.chat, menu);
+
+		MenuItem item = menu.findItem(R.id.action_contact_detail);
+		item.setIcon(R.drawable.abc_ic_menu_moreoverflow_normal_holo_dark);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.action_contact_detail:
+			AppDetailActivity_.intent(this).remoteUserName(remoteUserName)
+					.nickName(remoteDisplayName)
+                    .fromWhere(AppDetailActivity.FROM_WHERE_IS_CHAT)
+					.start();
+			break;
+
+		default:
+			break;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+	
+	@OnActivityResult(REQUEST_CODE_APP_DETAIL)
+	void onActivityResultAppDetail(int resultCode, Intent data) {
+		L.d(TAG, "onActivityResultAppDetail() resultCode:" + resultCode);
+		L.d(TAG, "onActivityResultAppDetail() data:" + data);
+		if (resultCode == RESULT_OK) {
+			finish();
+		}
+	}
+
+	@AfterViews
+	void afterViews() {
+		L.d(TAG, "afterViews() localUserName:" + localUserName);
+		L.d(TAG, "afterViews() remoteUserName:" + remoteUserName);
+		L.d(TAG, "afterViews() remoteDisplayName:" + remoteDisplayName);
+
+		viewFooter.setOnOperationClickListener(this);
+		viewFooter.bind(remoteUserName, null);
+
+		viewFooter.viewFooterText.setRcdView(viewRcd);
+
+//		registerForContextMenu(listView);
+
+		final ActionBar bar = getSupportActionBar();
+		bar.setTitle(remoteDisplayName);
+
+		bar.setDisplayOptions(bar.getDisplayOptions() | ActionBar.DISPLAY_HOME_AS_UP , ActionBar
+				.DISPLAY_HOME_AS_UP);
+
+		layoutRoot.setOnResizeListener(new ResizeLayout.OnResizeListener() {
+			@Override
+			public void OnResize(int w, int h, int oldw, int oldh) {
+				boolean isSoftInputShowing = h < oldh;
+				viewFooter.viewFooterText
+						.setSoftInputShowing(isSoftInputShowing);
+			}
+		});
+
+		initViewFooter();
+		viewFooter.viewFooterText.setOnEventListener(mOnFooterTextViewEvent);
+
+		listView.setAdapter(mChatAdapter);
+//		listView.setOnScrollListener(new PauseOnScrollListener(mChatAdapter
+//				.getBitmapUtils(), false, false/* true */));
+
+//		getSupportLoaderManager().initLoader(0, null, mLoaderCallbacks);
+        getLoaderManager().initLoader(0, null, mLoaderCallbacks);
+
+		if (remoteUserName != null && Member.isTypeApp(remoteUserName)) {
+			doInBackgroundGetAppOperationList();
+		}
+	}
+
+	FooterTextView.OnFooterTextViewEventListener mOnFooterTextViewEvent = new FooterTextView.OnFooterTextViewEventListener() {
+		@Override
+		public void onBtnSendClick(View v, String content) {
+			doInBackgroundPush(content);
+		}
+
+		@Override
+		public void onClickTypeSelectImagePick() {
+			startImagePick();
+		}
+
+		@Override
+		public void onClickTypeSelectImageCapture() {
+			startActionCamera();
+		}
+
+		@Override
+		public void onVoiceRcd(String filePath, long voiceLength) {
+			doInBackgroundSendMsgVoice(filePath, voiceLength);
+		}
+	};
+
+	private ContentObserver mContentObserver = new ContentObserver(
+			new Handler()) {
+		public void onChange(boolean selfChange, Uri uri) {
+			L.d(TAG, "onChange(boolean, Uri)");
+			L.d(TAG, "onChange(boolean, Uri) uri:" + uri);
+			updateReadWithNoObserver();
+			
+			String type = getContentResolver().getType(uri);
+			L.d(TAG, "onChange(boolean, Uri) type:" + type);
+			
+			if (XmppMessageContentProvider.CONTENT_TYPE.equals(type)) {
+				listView.setSelection(listView.getCount());
+			}
+
+//			updateTitle();
+		};
+	};
+
+	@Background
+	void updateReadWithNoObserver() {
+		getContentResolver().unregisterContentObserver(mContentObserver);
+		XmppDbManager.getInstance(this).updateRead(localUserName, remoteUserName);
+		getContentResolver().registerContentObserver(
+				XmppMessageContentProvider.CONTENT_URI, true, mContentObserver);
+	}
+
+	@Background
+	void doInBackgroundPush(String content) {
+		/*Msg msg = new Msg();
+		msg.ClientMsgId = UUID.randomUUID().toString();
+		msg.MsgType = Msg.MSG_TYPE_NORMAL;
+		msg.FromUserName = localUserName;
+		msg.ToUserName = remoteUserName;
+		msg.Content = content;
+		msg.ToDisplayName = remoteDisplayName;
+
+		// long dbMsgId = saveDB(msg);
+		// push(dbMsgId, msg);
+		MsgService.getMsgWriter(this).sendMsg(msg);*/
+	}
+	@UiThread
+	@Override
+	public void onRestClientExceptionThrown(NestedRuntimeException e) {
+		viewChatSendOpt.setVisible(false);
+	}
+	
+	private LoaderManager.LoaderCallbacks<Cursor> mLoaderCallbacks = new LoaderManager.LoaderCallbacks<Cursor>() {
+
+		@Override
+		public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+//			return new AppChatListLoader(ChatActivity.this, localUserName, remoteUserName);
+            return new XChatListMsgLoader(ChatActivity.this, localUserName, remoteUserName,false);
+        }
+
+		@Override
+		public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+//			L.d(TAG, "cursor:" + DatabaseUtils.dumpCursorToString(cursor));
+			mChatAdapter.changeCursor(cursor);
+			listView.setSelection(listView.getCount());
+		}
+
+		@Override
+		public void onLoaderReset(Loader<Cursor> loader) {
+			mChatAdapter.changeCursor(null);
+		}
+
+	};
+
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v,
+			ContextMenuInfo menuInfo) {
+		getMenuInflater().inflate(R.menu.activity_chat_context_menu, menu);
+		
+		/*AdapterContextMenuInfo info = (AdapterContextMenuInfo)menuInfo;
+		Message message = mChatAdapter.readEntity((Cursor) mChatAdapter.getItem(info.position));
+		
+		if (Msg.MSG_TYPE_NORMAL != message.getMsgType()) {
+			menu.removeItem(R.id.copy_message);
+		} */
+		
+		super.onCreateContextMenu(menu, v, menuInfo);
+	}
+
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		AdapterContextMenuInfo menuInfo = (AdapterContextMenuInfo) item
+				.getMenuInfo();
+		/*Message message = mChatAdapter.readEntity((Cursor) mChatAdapter
+				.getItem(menuInfo.position));
+
+		switch (item.getItemId()) {
+		case R.id.copy_message:
+			if (message.getExtInOut() == DBMessage.INOUT_IN) {
+				Content content = Content.createContent(message.getExtRemoteUserName(), message.getContent());
+				if (Member.isTypeQun(message.getExtRemoteUserName())) {
+					ContentQun contentQun = (ContentQun) content;
+					
+					ClipboardManager cm = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+					cm.setText(contentQun.realContent);
+				} else {
+					ContentNormal contentNormal = (ContentNormal) content;
+					
+					ClipboardManager cm = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+					cm.setText(contentNormal.content);
+				}
+			} else {
+				ClipboardManager cm = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+				cm.setText(message.getContent());
+			}
+			
+			return true;
+		case R.id.delete_message:
+			DBManager.getInstance(this).deleteMessage(message);
+			return true;
+
+		default:
+			break;
+		}*/
+
+		return super.onContextItemSelected(item);
+	}
+
+	// @Override
+	// protected void onActivityResult(int requestCode, int resultCode, Intent
+	// data) {
+	// }
+
+	private static final int REQUEST_CODE_CHAT_DETAIL = 1;
+	private static final int REQUEST_CODE_IMAGE_GET_CONTENT = 2;
+	private static final int REQUEST_CODE_IMAGE_CAPTURE = 3;
+	private static final int REQUEST_CODE_APP_DETAIL = 4;
+
+	@OnActivityResult(REQUEST_CODE_CHAT_DETAIL)
+	void onActivityResultChatDetail(int resultCode, Intent data) {
+		if (RESULT_OK == resultCode) {
+			finish();
+		}
+	}
+
+	@OnActivityResult(REQUEST_CODE_IMAGE_GET_CONTENT)
+	void onActivityResultGetImageBySdcard(int resultCode, Intent data) {
+		if (RESULT_OK == resultCode) {
+			Uri uri = data.getData();
+			L.d(TAG, "onActivityResultGetImageBySdcard() uri:" + uri);
+
+			String filePath = getFilePathByMediaUri(this, uri);
+			L.d(TAG, "onActivityResultGetImageBySdcard() filePath:"
+					+ filePath);
+//			Toast.makeText(this, "图片Uri:" + filePath, Toast.LENGTH_SHORT)
+//					.show();
+
+			onCompressBitmap(filePath);
+		}
+	}
+
+	private static String getFilePathByMediaUri(Context context, Uri uri) {
+		Cursor cursor = context.getContentResolver().query(uri, null, null,
+				null, null);
+		// L.d(TAG,
+		// "getFilePathByMediaUri() cursor:"
+		// + DatabaseUtils.dumpCursorToString(cursor));
+		if (cursor == null) {
+			return null;
+		}
+		try {
+			cursor.moveToFirst();
+			String _data = cursor.getString(1);
+			return _data;
+		} finally {
+			cursor.close();
+		}
+	}
+
+	@OnActivityResult(REQUEST_CODE_IMAGE_CAPTURE)
+	void onActivityResultGetImageByCamera(int resultCode, Intent data) {
+		if (RESULT_OK == resultCode) {
+			L.d(TAG, "onActivityResultGetImageByCamera() mCurrentPhotoFile:"
+					+ mCurrentPhotoFile);
+//			Toast.makeText(this, "图片Uri:" + mCurrentPhotoFile,
+//					Toast.LENGTH_SHORT).show();
+
+			onCompressBitmap(mCurrentPhotoFile.getPath());
+		}
+	}
+
+	@Background
+	void onCompressBitmap(String filePaht) {
+		Bitmap thumbnailBitmap = ThumbnailUtils
+				.createImageThumbnailYouXin(filePaht);
+		L.d(TAG, "onCompressBitmap() thumbnailBitmap:" + thumbnailBitmap);
+		if (thumbnailBitmap != null) {
+			L.d(TAG,
+					"onCompressBitmap() thumbnailBitmap:["
+							+ thumbnailBitmap.getWidth() + "x"
+							+ thumbnailBitmap.getHeight() + "]");
+			File imageOutFileDir = Utils.ensureIMSubDir(this,
+					Utils.FILE_PATH_SUB_DIR_IMAGE_OUT);
+			// Utils.createNoMediaFile(imageOutFileDir);
+			File imageOutFile = new File(imageOutFileDir,
+					System.currentTimeMillis() + ".jpg");
+			ThumbnailUtils.compress(thumbnailBitmap, imageOutFile, 68);
+			thumbnailBitmap.recycle();
+
+			doInBackgroundSendMsgImg(imageOutFile.getPath());
+		}
+	}
+
+	@Background
+	void doInBackgroundSendMsgImg(String filePath) {
+		/*Msg msg = new Msg();
+		msg.ClientMsgId = UUID.randomUUID().toString();
+		msg.MsgType = Msg.MSG_TYPE_IMAGE;
+		msg.FromUserName = localUserName;
+		msg.ToUserName = remoteUserName;
+		msg.Content = "[图片]";
+		msg.ToDisplayName = remoteDisplayName;
+
+		BitmapFactory.Options options = ThumbnailUtils.getOptions(filePath);
+
+		ObjectContentImage objectContent = new ObjectContentImage();
+		objectContent.filePath = filePath;
+		objectContent.fileExtention = MimeTypeMap
+				.getFileExtensionFromUrl(filePath);
+		objectContent.fileMimeType = MimeTypeMap.getSingleton()
+				.getMimeTypeFromExtension(objectContent.fileExtention);
+		objectContent.width = options.outWidth;
+		objectContent.height = options.outHeight;
+
+		msg.setObjectContent(Msg.MSG_TYPE_IMAGE, objectContent);
+
+		Message message = DBMessage.retriveMessageFromMsg(msg,
+				DBMessage.INOUT_OUT);
+		MessageUtils.sendMediaMsg(this, message);*/
+	}
+
+	@Background
+	void doInBackgroundSendMsgVoice(String filePath, long voiceLength) {
+
+		/*Msg msg = new Msg();
+		msg.ClientMsgId = UUID.randomUUID().toString();
+		msg.MsgType = Msg.MSG_TYPE_VOICE;
+		msg.FromUserName = localUserName;
+		msg.ToUserName = remoteUserName;
+		msg.Content = "[语音]";
+		msg.ToDisplayName = remoteDisplayName;
+
+		ObjectContentVoice objectContent = new ObjectContentVoice();
+		objectContent.filePath = filePath;
+		objectContent.fileExtention = MimeTypeMap
+				.getFileExtensionFromUrl(filePath);
+		objectContent.fileMimeType = MimeTypeMap.getSingleton()
+				.getMimeTypeFromExtension(objectContent.fileExtention);
+		objectContent.voiceLength = voiceLength;
+
+		msg.setObjectContent(Msg.MSG_TYPE_VOICE, objectContent);
+
+		Message message = DBMessage.retriveMessageFromMsg(msg,
+				DBMessage.INOUT_OUT);
+		MessageUtils.sendMediaMsg(this, message);*/
+	}
+
+	/**
+	 * 选择图片
+	 */
+	private void startImagePick() {
+		// Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+		// intent.addCategory(Intent.CATEGORY_OPENABLE);
+		// intent.setType("image/*");
+		// intent.putExtra("return-data", true);
+		// intent.putExtra("scale", true);
+		Intent intent = new Intent();
+		intent.setAction(Intent.ACTION_PICK);
+		intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+		startActivityForResult(Intent.createChooser(intent, "选择图片"),
+				REQUEST_CODE_IMAGE_GET_CONTENT);
+
+	}
+
+	private File mCurrentPhotoFile;
+
+	/**
+	 * 相机拍照
+	 */
+	private void startActionCamera() {
+		mCurrentPhotoFile = getOutPutFile(this);
+		L.d(TAG, "startActionCamera() mCurrentPhotoFile:" + mCurrentPhotoFile);
+
+		if (mCurrentPhotoFile != null) {
+			Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+			intent.putExtra(MediaStore.EXTRA_OUTPUT,
+					Uri.fromFile(mCurrentPhotoFile));
+			startActivityForResult(intent, REQUEST_CODE_IMAGE_CAPTURE);
+		} else {
+			Toast.makeText(this, "请检查SD卡是否挂载", Toast.LENGTH_SHORT).show();
+		}
+	}
+
+	// 拍照保存的绝对路径
+	private static File getOutPutFile(Context context) {
+		File youxinDir = Utils.ensureIMSubDir(context,
+				Utils.FILE_PATH_SUB_DIR_IMAGE_CAPTURE);
+		if (youxinDir != null) {
+			File file = new File(youxinDir, getPhotoFileName());
+			return file;
+		}
+		return null;
+	}
+
+	/**
+	 * Create a file name for the icon photo using current time.
+	 */
+	private static String getPhotoFileName() {
+		Date date = new Date(System.currentTimeMillis());
+		SimpleDateFormat dateFormat = new SimpleDateFormat(
+				"'IMG'_yyyyMMdd_HHmmss", Locale.getDefault());
+		return dateFormat.format(date) + ".jpg";
+	}
+
+	boolean doInBackgroundOperationCancle = false;
+
+	@Background(id = "doInBackgroundOperation", serial = "doInBackgroundOperation")
+	void doInBackgroundOperation(String url) {
+		L.d(TAG, "doInBackgroundOperation() url:" + url);
+		onPreExecuteOpt();
+
+		operationRest.setRootUrl(url);
+		// ServiceResult<Object> response = operationRest.get();
+		ServiceRequest request = new ServiceRequest();
+		request.baseRequest = CacheUtils.getBaseRequest(this);
+		L.d(TAG, "doInBackgroundOperation() request:" + request);
+		Response response = operationRest.post(request);
+		L.d(TAG, "doInBackgroundOperation() response:" + response);
+
+		onPostExecuteOpt(response);
+	}
+
+	@UiThread
+	void onPreExecuteOpt() {
+		viewChatSendOpt.setVisible(true);
+	}
+
+	@UiThread
+	void onPostExecuteOpt(Response response) {
+		L.d(TAG, "onPostExecuteOpt() response:" + response);
+		viewChatSendOpt.setVisible(false);
+
+		if (doInBackgroundOperationCancle) {
+			return;
+		}
+
+		if (response == null || response.BaseResponse == null) {
+			Toast.makeText(this, "操作失败", Toast.LENGTH_SHORT).show();
+			return;
+		}
+
+
+		if (response.BaseResponse.Ret != 0) {
+			Utils.showToastShort(this, response.BaseResponse.ErrMsg);
+		}
+	}
+
+	@Override
+	public void onOperationClick(AppPushEntity.ObjectContentEntity.OperationsEntity operation) {
+		L.d(TAG, "onOperationClick() operation:" + operation);
+		if (AppPushEntity.ObjectContentEntity.OperationsEntity.MSG_TYPE_BROWSER.equals(operation
+				.operationType)) {
+			H5Activity_.intent(this).remoteDisplayName(remoteDisplayName)
+					.url(dealUrl(operation.action)).start();
+		} else if (AppPushEntity.ObjectContentEntity.OperationsEntity.MSG_TYPE_REST.equals
+				(operation.operationType)) {
+			doInBackgroundOperation(dealUrl(operation.action));
+		}
+	}
+
+	private String dealUrl(String url) {
+		try {
+			BaseRequest baseRequest = CacheUtils.getBaseRequest(this);
+			UriComponents uc = UriComponentsBuilder.fromHttpUrl(url)
+					.queryParam("uid", baseRequest.Uid)
+					.queryParam("token", baseRequest.Token).build();
+			return uc.toUriString();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return url;
+	}
+
+	@Override
+	public void onOperationsClick(List<AppPushEntity.ObjectContentEntity.OperationsEntity> operations) {
+		// L.d(TAG, "onOperationsClick() operations:" + operations);
+		OperationsMoreDialogFragment fragment = OperationsMoreDialogFragment_
+				.builder().build();
+		Bundle args = fragment.getArguments();
+		if (args == null) {
+			args = new Bundle();
+		}
+		operations = new ArrayList<AppPushEntity.ObjectContentEntity.OperationsEntity>(operations.subList(2,
+				operations.size()));
+		args.putSerializable("operations", (Serializable) operations);
+		fragment.setArguments(args);
+		fragment.setOnOperationClickListener(this);
+		fragment.show(getSupportFragmentManager(),
+				OperationsMoreDialogFragment.class.getName());
+	}
+
+	boolean doInBackgroundGetAppOperationListCanceld = false;
+
+	@Background
+	void doInBackgroundGetAppOperationList() {
+		L.d(TAG, "doInBackgroundGetAppOperationList() remoteUserName:"
+				+ remoteUserName);
+
+		BaseRequest baseRequest = CacheUtils.getBaseRequest(this);
+		GetAppOperationListRequest request = new GetAppOperationListRequest();
+		request.BaseRequest = baseRequest;
+		request.username = remoteUserName;
+
+		L.d(TAG, "doInBackgroundGetAppOperationList() request:" + request);
+		L.d(TAG, "getRootUrl" + myRestClient.getRootUrl());
+		GetAppOperationListResponse response = myRestClient
+				.getAppOperationList(request);
+		L.d(TAG, "doInBackgroundGetAppOperationList() response:" + response);
+
+		onPostExecuteGetAppOperationList(response);
+	}
+
+	@UiThread
+	void onPostExecuteGetAppOperationList(GetAppOperationListResponse response) {
+		L.d(TAG, "onPostExecuteGetAppOperationList() response:" + response);
+
+		if (doInBackgroundGetAppOperationListCanceld) {
+			return;
+		}
+
+		if (response == null) {
+			Toast.makeText(this, "获取应用菜单失败", Toast.LENGTH_SHORT).show();
+			return;
+		}
+
+		if (response.BaseResponse.Ret != BaseResponse.RET_SUCCESS) {
+			// Toast.makeText(this, response.BaseResponse.ErrMsg,
+			// Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "获取应用菜单失败", Toast.LENGTH_SHORT).show();
+			return;
+		}
+
+		String key = "GetAppOpertionList_" + remoteUserName;
+		GetAppOperationListResponse responseCache = (GetAppOperationListResponse) ACache
+				.get(this).getAsObject(key);
+		if (!isEqueals(response, responseCache)) {
+			viewFooter.bind(remoteUserName, response.operationList);
+			ACache.get(this).put(key, response);
+		}
+	}
+
+	private boolean isEqueals(GetAppOperationListResponse r1,
+			GetAppOperationListResponse r2) {
+		String str1 = Utils.writeValueAsString(r1);
+		String str2 = Utils.writeValueAsString(r2);
+		if (str1 != null && str1.equals(str2)) {
+			return true;
+		}
+		return false;
+	}
+
+	private void initViewFooter() {
+		String key = "GetAppOpertionList_" + remoteUserName;
+		GetAppOperationListResponse response = (GetAppOperationListResponse) ACache
+				.get(this).getAsObject(key);
+		if (response != null
+				&& response.BaseResponse.Ret == BaseResponse.RET_SUCCESS) {
+			viewFooter.bind(remoteUserName, response.operationList);
+		}
+	}
+	
+}

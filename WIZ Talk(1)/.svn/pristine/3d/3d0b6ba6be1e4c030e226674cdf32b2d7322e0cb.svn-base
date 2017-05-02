@@ -1,0 +1,528 @@
+package com.yxst.epic.unifyplatform.activity;
+
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.epic.traverse.push.util.L;
+import com.lidroid.xutils.BitmapUtils;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.yxst.epic.unifyplatform.DB.Member;
+import com.yxst.epic.unifyplatform.DB.MsgInFo;
+import com.yxst.epic.unifyplatform.DB.XmppDbManager;
+import com.yxst.epic.unifyplatform.MyApplication;
+import com.yxst.epic.unifyplatform.R;
+import com.yxst.epic.unifyplatform.apppush.view.ChatActivity_;
+import com.yxst.epic.unifyplatform.dto.request.BaseRequest;
+import com.yxst.epic.unifyplatform.dto.request.CancelShieldMsgRequest;
+import com.yxst.epic.unifyplatform.dto.request.FollowAppRequest;
+import com.yxst.epic.unifyplatform.dto.request.GetMemberRequest;
+import com.yxst.epic.unifyplatform.dto.request.GetMemberResponse;
+import com.yxst.epic.unifyplatform.dto.request.IsUserShieldAppRequest;
+import com.yxst.epic.unifyplatform.dto.request.SetShieldMsgRequest;
+import com.yxst.epic.unifyplatform.dto.request.UnFollowAppRequest;
+import com.yxst.epic.unifyplatform.dto.response.BaseResponse;
+import com.yxst.epic.unifyplatform.dto.response.CancelShieldMsgResponse;
+import com.yxst.epic.unifyplatform.dto.response.IsUserShieldAppResponse;
+import com.yxst.epic.unifyplatform.dto.response.Response;
+import com.yxst.epic.unifyplatform.dto.response.SetShieldMsgResponse;
+import com.yxst.epic.unifyplatform.rest.Appmsgsrv8093;
+import com.yxst.epic.unifyplatform.rest.Appmsgsrv8093Proxy;
+import com.yxst.epic.unifyplatform.rest.Appmsgsrv8094;
+import com.yxst.epic.unifyplatform.rest.Appmsgsrv8094Proxy;
+import com.yxst.epic.unifyplatform.utils.CacheUtils;
+import com.yxst.epic.unifyplatform.utils.ImagerLoaderOptHelper;
+import com.yxst.epic.unifyplatform.utils.Utils;
+import com.yxst.epic.unifyplatform.utils.XXBitmapUtils;
+
+import org.androidannotations.annotations.AfterInject;
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Extra;
+import org.androidannotations.annotations.UiThread;
+import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.res.DimensionPixelOffsetRes;
+import org.androidannotations.api.rest.RestErrorHandler;
+import org.springframework.core.NestedRuntimeException;
+
+@EActivity(R.layout.activity_app_detail)
+public class AppDetailActivity extends ActionBarActivity implements RestErrorHandler {
+
+    private static final String TAG = "AppDetailActivity";
+
+    @Extra
+    String remoteUserName;
+
+    @Extra
+    String nickName;
+
+    @ViewById
+    ImageView ivAvatar;
+
+    @ViewById
+    TextView tvDisplayName;
+
+    @ViewById
+    TextView tvNickName;
+
+    @ViewById
+    TextView tvFunctionDetail;
+
+    @ViewById(R.id.cb_app_receive_app_msg)
+    CheckBox cbIsReceiveAppMsg;
+
+    @ViewById
+    CheckBox cbFollow;
+
+    @ViewById(R.id.btnEnterApp)
+    Button btnEnterApp;
+
+
+    @Extra
+    String fromWhere;
+
+    public static final String FROM_WHERE_IS_CHAT = "FROM_WHERE_IS_CHAT";
+
+    @DimensionPixelOffsetRes(R.dimen.icon_size_bigger)
+    int size;
+
+    private Appmsgsrv8093 mAppmsgsrv8093;
+    private Appmsgsrv8094 mAppmsgsrv8094;
+
+//	private boolean mIsChecked;
+
+    private BitmapUtils bitmapUtils;
+
+    @AfterViews
+    void afterViews() {
+        bitmapUtils = new XXBitmapUtils(this);
+
+        bitmapUtils.configDefaultLoadingImage(R.drawable.ic_default_app);
+        bitmapUtils.configDefaultLoadFailedImage(R.drawable.ic_default_app);
+
+//		bitmapUtils.display(ivAvatar, Utils.getAvataUrl(userName, sizeBigger));
+//		DisplayImageOptions options = new DisplayImageOptions.Builder()
+//			.showImageOnLoading(R.drawable.ic_default_app)
+//			.showImageForEmptyUri(R.drawable.ic_default_app)
+//			.showImageOnFail(R.drawable.ic_default_app)
+//			.cacheInMemory(true)
+//			.cacheOnDisk(true)
+//			.considerExifParams(true)
+//			.displayer(new RoundedBitmapDisplayer(0))
+//			.build();
+//		ImageLoader.getInstance().displayImage(Utils.getAvataUrl(userName, sizeBigger), ivAvatar, options);
+
+        final ActionBar bar = getSupportActionBar();
+        bar.setTitle("应用详情");
+
+        bar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP | bar.getDisplayOptions(),
+                ActionBar.DISPLAY_HOME_AS_UP);
+
+        tvDisplayName.setText(null);
+        tvNickName.setText(nickName);
+
+        doInBackgroundGetMemberInfo();
+    }
+
+    private OnCheckedChangeListener checkedChangeListener = new OnCheckedChangeListener() {
+
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//			mIsChecked = isChecked;
+            if (isChecked) {
+                cancelShieldMsgBackground(isChecked);
+            } else {
+                setShieldMsgBackground(isChecked);
+            }
+        }
+    };
+
+    @AfterInject
+    void afterInject() {
+        mAppmsgsrv8093 = Appmsgsrv8093Proxy.create();
+        mAppmsgsrv8093.setRestErrorHandler(this);
+
+        mAppmsgsrv8094 = Appmsgsrv8094Proxy.create();
+        mAppmsgsrv8094.setRestErrorHandler(this);
+    }
+
+    // 初始化是否接收消息
+    @Background
+    void isUserShieldBackground() {
+        onPreExecute();
+
+        String sourceId = getSourceId();
+        String appId = getTargetId();
+
+        IsUserShieldAppRequest isUserShieldAppRequest = new IsUserShieldAppRequest();
+        isUserShieldAppRequest.BaseRequest = CacheUtils.getBaseRequest(this);
+        isUserShieldAppRequest.sourceId = sourceId;
+        isUserShieldAppRequest.targetId = appId;
+
+        mAppmsgsrv8093.setRestErrorHandler(this);
+        L.d(TAG, "IsUserShieldAppRequest:" + isUserShieldAppRequest);
+        IsUserShieldAppResponse isUserShieldAppResponse = mAppmsgsrv8093.isUserShieldApp(isUserShieldAppRequest);
+        L.d(TAG, "IsUserShieldAppResponse:" + isUserShieldAppResponse);
+        isUserShieldOnPostExecute(isUserShieldAppResponse);
+    }
+
+    private String getSourceId() {
+        return MyApplication.getInstance().getLocalMember().Uid;
+    }
+
+    private String getTargetId() {
+        if (!TextUtils.isEmpty(remoteUserName)) {
+            int end = remoteUserName.indexOf("@");
+            return remoteUserName.substring(0, end);
+        }
+        return null;
+    }
+
+    @UiThread
+    void isUserShieldOnPostExecute(IsUserShieldAppResponse response) {
+        L.d(TAG, "isUserShieldOnPostExecute() response:" + response);
+        dismissProgressDialog();
+        if (response == null) {
+            return;
+        }
+
+        if (response.BaseResponse.Ret != BaseResponse.RET_SUCCESS) {
+            Toast.makeText(this, response.BaseResponse.ErrMsg,
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+        cbIsReceiveAppMsgSetOnCheckedChangeListener(!response.isShield);
+    }
+
+    public Member mAppMember;
+
+    @Background
+    void doInBackgroundGetMemberInfo() {
+        onPreExecute();
+
+        BaseRequest baseRequest = CacheUtils.getBaseRequest(this);
+        GetMemberRequest request = new GetMemberRequest();
+        request.BaseRequest = baseRequest;
+        request.UserName = remoteUserName;
+        L.d(TAG, "getMemberInfo() request:" + request);
+        mAppmsgsrv8094.setRestErrorHandler(this);
+        L.d(TAG, "getMemberInfo() mAppmsgsrv8094.getRootUrl():" + mAppmsgsrv8094.getRootUrl());
+        GetMemberResponse response = mAppmsgsrv8094.getMember(request);
+        onPostExecuteGetMember(response);
+    }
+
+    @UiThread
+    void onPostExecuteGetMember(GetMemberResponse response) {
+        L.d(TAG, "getMemberInfoResponsse() response:" + response);
+        dismissProgressDialog();
+        if (response == null) {
+            dismissProgressDialog();
+            return;
+        }
+
+        if (response.BaseResponse.Ret != BaseResponse.RET_SUCCESS) {
+            Toast.makeText(this, response.BaseResponse.ErrMsg,
+                    Toast.LENGTH_SHORT).show();
+            dismissProgressDialog();
+            return;
+        }
+
+        if (response.Member == null) {
+            Toast.makeText(this, "应用信息为空",
+                    Toast.LENGTH_SHORT).show();
+            dismissProgressDialog();
+            return;
+        }
+
+        if (response.Member != null) {
+            mAppMember = response.Member;
+
+            boolean isFollow = "1".equals(mAppMember.Follow);
+            btnEnterApp.setText(isFollow ? "进入应用服务号" : "关注");
+
+            tvDisplayName.setText(response.Member.NickName);
+            tvFunctionDetail.setText(response.Member.Description);
+
+            cbFollowSetOnCheckedChangeListener("1".equals(response.Member.Follow));
+
+            DisplayImageOptions options = ImagerLoaderOptHelper.getAppAvatarOpt();
+            ImageLoader.getInstance().displayImage(Utils.getImgUrl(response.Member.Avatar, size), ivAvatar, options);
+        }
+
+        // TODO: 2016/3/28  
+//        isUserShieldBackground();
+    }
+
+    private OnCheckedChangeListener cbFollowOnCheckedChangeListener = new OnCheckedChangeListener() {
+
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            doInBackgroundFollow(isChecked);
+        }
+    };
+
+    @Background
+    void doInBackgroundFollow(final boolean isChecked) {
+        onPreExecute();
+
+        Response response = null;
+
+        if (isChecked) {
+            FollowAppRequest request = new FollowAppRequest();
+            request.BaseRequest = CacheUtils.getBaseRequest(this);
+            request.appname = remoteUserName;
+
+            mAppmsgsrv8094.setRestErrorHandler(new RestErrorHandler() {
+
+                @Override
+                public void onRestClientExceptionThrown(NestedRuntimeException arg0) {
+                    showToast("访问失败！");
+                    cbFollowSetOnCheckedChangeListener(!isChecked);
+                }
+            });
+            L.d(TAG, "FollowAppRequest:" + request);
+            response = mAppmsgsrv8094.followApp(request);
+            L.d(TAG, "FollowAppResponse:" + response);
+        } else {
+            UnFollowAppRequest request = new UnFollowAppRequest();
+            request.BaseRequest = CacheUtils.getBaseRequest(this);
+            request.appname = remoteUserName;
+
+            mAppmsgsrv8094.setRestErrorHandler(new RestErrorHandler() {
+                @Override
+                public void onRestClientExceptionThrown(NestedRuntimeException arg0) {
+                    showToast("访问失败！");
+                    cbFollowSetOnCheckedChangeListener(!isChecked);
+                }
+            });
+            L.d(TAG, "UnFollowAppRequest:" + request);
+            response = mAppmsgsrv8094.unFollowApp(request);
+            L.d(TAG, "UnFollowAppResponse:" + response);
+        }
+
+        onPostExecuteFollow(remoteUserName, isChecked, response);
+    }
+
+    @UiThread
+    void showToast(String text) {
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+    }
+
+    @UiThread
+    void cbFollowSetOnCheckedChangeListener(boolean isChecked) {
+        cbFollow.setOnCheckedChangeListener(null);
+        cbFollow.setChecked(isChecked);
+        cbFollow.setOnCheckedChangeListener(cbFollowOnCheckedChangeListener);
+    }
+
+    @UiThread
+    void onPostExecuteFollow(String appname, boolean isChecked, Response response) {
+        dismissProgressDialog();
+        if (response == null) {
+            return;
+        }
+
+        if (response.BaseResponse.Ret != BaseResponse.RET_SUCCESS) {
+            Toast.makeText(this, response.BaseResponse.ErrMsg,
+                    Toast.LENGTH_SHORT).show();
+            cbFollowSetOnCheckedChangeListener(!isChecked);
+            return;
+        }
+
+        cbFollowSetOnCheckedChangeListener(isChecked);
+        Toast.makeText(this, "设置成功！", Toast.LENGTH_SHORT).show();
+
+        mAppMember.Follow = isChecked ? "1" : "0";
+        boolean isFollow = "1".equals(mAppMember.Follow);
+        btnEnterApp.setText(isFollow ? "进入应用服务号" : "关注");
+
+        if (!isChecked) {
+            String localUserName = MyApplication.getInstance().getLocalUserName();
+            XmppDbManager.getInstance(this).deleteChat(localUserName, remoteUserName);
+        }
+
+        Intent data = new Intent();
+        Bundle extras = new Bundle();
+        extras.putString("appname", appname);
+        extras.putString("follow", isChecked ? "1" : "0");
+        extras.putBoolean("isChecked", isChecked);
+        data.putExtras(extras);
+        setResult(RESULT_OK, data);
+    }
+
+    // 取消接收消息
+    @Background
+    void setShieldMsgBackground(final boolean isChecked) {
+        onPreExecute();
+
+        String sourceId = getSourceId();
+        String appId = getTargetId();
+
+        BaseRequest baseRequest = CacheUtils.getBaseRequest(this);
+        SetShieldMsgRequest request = new SetShieldMsgRequest();
+        request.BaseRequest = baseRequest;
+        request.sourceId = sourceId;
+        request.targetId = appId;
+
+        mAppmsgsrv8093.setRestErrorHandler(new RestErrorHandler() {
+
+            @Override
+            public void onRestClientExceptionThrown(NestedRuntimeException arg0) {
+                showToast("访问失败！");
+                cbIsReceiveAppMsgSetOnCheckedChangeListener(!isChecked);
+            }
+        });
+
+        L.d(TAG, "setShieldMsg() request:" + request);
+        SetShieldMsgResponse response = mAppmsgsrv8093.setShieldMsg(request);
+        setShieldMsgOnPostExecute(response);
+    }
+
+    @UiThread
+    void setShieldMsgOnPostExecute(SetShieldMsgResponse response) {
+        L.d(TAG, "setShieldMsgOnPostExecute() response:" + response);
+        dismissProgressDialog();
+        if (response == null) {
+            cbIsReceiveAppMsgSetOnCheckedChangeListener(true);
+            return;
+        }
+
+        if (response.BaseResponse.Ret != BaseResponse.RET_SUCCESS) {
+            Toast.makeText(this, response.BaseResponse.ErrMsg,
+                    Toast.LENGTH_SHORT).show();
+            cbIsReceiveAppMsgSetOnCheckedChangeListener(true);
+            return;
+        }
+        cbIsReceiveAppMsgSetOnCheckedChangeListener(false);
+        Toast.makeText(this, "设置成功！", Toast.LENGTH_SHORT).show();
+    }
+
+    // 设置接收消息
+    @Background
+    void cancelShieldMsgBackground(final boolean isChecked) {
+        onPreExecute();
+
+        String sourceId = getSourceId();
+        String appId = getTargetId();
+
+        BaseRequest baseRequest = CacheUtils.getBaseRequest(this);
+        CancelShieldMsgRequest request = new CancelShieldMsgRequest();
+        request.BaseRequest = baseRequest;
+        request.sourceId = sourceId;
+        request.targetId = appId;
+
+        mAppmsgsrv8093.setRestErrorHandler(new RestErrorHandler() {
+
+            @Override
+            public void onRestClientExceptionThrown(NestedRuntimeException arg0) {
+                showToast("访问失败！");
+                cbIsReceiveAppMsgSetOnCheckedChangeListener(!isChecked);
+            }
+        });
+
+        L.d(TAG, "cancelShieldMsgBackground() request:" + request);
+        CancelShieldMsgResponse response = mAppmsgsrv8093.cancelShieldMsg(request);
+        cancelShieldMsgOnPostExecute(response);
+    }
+
+    @UiThread
+    void cancelShieldMsgOnPostExecute(CancelShieldMsgResponse response) {
+        L.d(TAG, "cancelShieldMsgOnPostExecute() response:" + response);
+        dismissProgressDialog();
+        if (response == null) {
+            return;
+        }
+
+        if (response.BaseResponse.Ret != BaseResponse.RET_SUCCESS) {
+            Toast.makeText(this, response.BaseResponse.ErrMsg,
+                    Toast.LENGTH_SHORT).show();
+            cbIsReceiveAppMsgSetOnCheckedChangeListener(false);
+            return;
+        }
+        cbIsReceiveAppMsgSetOnCheckedChangeListener(true);
+        Toast.makeText(this, "设置成功！", Toast.LENGTH_SHORT).show();
+    }
+
+    @UiThread
+    void cbIsReceiveAppMsgSetOnCheckedChangeListener(boolean isChecked) {
+        cbIsReceiveAppMsg.setOnCheckedChangeListener(null);
+        cbIsReceiveAppMsg.setChecked(isChecked);
+        cbIsReceiveAppMsg.setOnCheckedChangeListener(checkedChangeListener);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
+
+    public void onSendMsgBtnClick(View v) {
+        // ChatActivity.actionChat(this, FakeData.getChatList().get(2));
+    }
+
+    @UiThread
+    @Override
+    public void onRestClientExceptionThrown(NestedRuntimeException arg0) {
+        dismissProgressDialog();
+        Toast.makeText(this, "访问失败", Toast.LENGTH_SHORT).show();
+    }
+
+    private ProgressDialog mProgressDialog;
+
+    @UiThread
+    void onPreExecute() {
+        if (mProgressDialog == null || !mProgressDialog.isShowing()) {
+            mProgressDialog = ProgressDialog.show(this, null, "加载数据");
+        }
+    }
+
+    private void dismissProgressDialog() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+        }
+    }
+
+    public static final int RESULT_FINISH = 2;
+
+    @Click(R.id.btnEnterApp)
+    void onClickEnterApp() {
+        if (mAppMember != null) {
+            boolean isFollow = "1".equals(mAppMember.Follow);
+            if (isFollow) {
+                String localUserName = MyApplication.getInstance().getLocalUserName();
+                L.d(TAG, "onClick() localUserName:" + localUserName);
+                L.d(TAG, "onClick() remoteUserName:" + remoteUserName);
+                L.d(TAG, "onClick() nickName:" + nickName);
+                // TODO: 2016/4/3  
+                if (!TextUtils.isEmpty(fromWhere) && fromWhere.equals(FROM_WHERE_IS_CHAT)) {
+                    finish();
+                } else {
+                    XchatActivity_.intent(this).remoteUserName(remoteUserName)
+                            .remoteUserNick(nickName)
+                            .chatType(MsgInFo.TYPE_CHAT)
+                            .start();
+                    setResult(RESULT_FINISH);
+                    finish();
+                }
+            } else {
+                cbFollowSetOnCheckedChangeListener(true);
+                doInBackgroundFollow(true);
+            }
+        }
+    }
+
+}

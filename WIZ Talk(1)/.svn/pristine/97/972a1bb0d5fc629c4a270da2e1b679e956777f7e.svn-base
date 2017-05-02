@@ -1,0 +1,166 @@
+package com.yxst.epic.unifyplatform.view;
+
+import android.content.Context;
+import android.graphics.drawable.AnimationDrawable;
+import android.media.MediaPlayer;
+import android.text.TextUtils;
+import android.util.DisplayMetrics;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.epic.traverse.push.util.L;
+import com.yxst.epic.unifyplatform.DB.MsgInFo;
+import com.yxst.epic.unifyplatform.DB.XmppMessage;
+import com.yxst.epic.unifyplatform.R;
+
+import org.androidannotations.annotations.EViewGroup;
+import org.androidannotations.annotations.LongClick;
+import org.androidannotations.annotations.ViewById;
+
+/**
+ * Created by Dong on 2015/10/13.
+ */
+@EViewGroup(R.layout.item_chat_sent_voice)
+public class ChatItemSendVoiceView extends ChatItemSendView {
+
+    //语音最外层
+    @ViewById
+    LinearLayout layout_voice;
+    @ViewById
+    TextView tv_voice_length;//语音时长
+
+    private ImageView animView;//动画
+
+    private int mMinItemWidth;
+    private int mMaxItemWidth;
+    
+    public ChatItemSendVoiceView(Context context) {
+        super(context);
+        //获取屏幕的宽度
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        wm.getDefaultDisplay().getMetrics(outMetrics);
+
+        mMaxItemWidth = (int) (outMetrics.widthPixels * 0.7f);
+        mMinItemWidth = (int) (outMetrics.widthPixels * 0.2f);
+    }
+
+    @Override
+    public void bindOther(XmppMessage message) {
+
+        if (!TextUtils.isEmpty(String.valueOf(message.getMold()))) {
+            if (message.getMold() == MsgInFo.MOLD_VOICE) {
+                setVoice(message.getVoiceLength(),message.getExtInternalFilePath());
+            }
+        }
+    }
+    void setVoice(int length,String path) {
+        //语音时长
+    	tv_voice_length.setText(length + "\"");
+
+        ViewGroup.LayoutParams lp = layout_voice.getLayoutParams();
+        lp.width = (int) (mMinItemWidth + (mMaxItemWidth / 60f) * length);
+        //设置播放动画
+        RecordClickListener mRecordClickListener = new RecordClickListener(layout_voice,path, 
+                false);
+        layout_voice.setOnClickListener(mRecordClickListener);
+    }
+    class RecordClickListener implements OnClickListener {
+        private View mView;
+        private String filePath;
+        private boolean isLeft;
+
+        public RecordClickListener(View view, String filePath, boolean isLeft) {
+            this.mView = view;
+            this.filePath = filePath;
+            this.isLeft = isLeft;
+        }
+
+        @Override
+        public void onClick(View view) {
+//            Toast.makeText(mContext, "click", Toast.LENGTH_SHORT).show();
+            L.d(TAG,"message info:"+message);
+            if (isLeft) {
+                playerVoiceRece(view, filePath);
+            } else {
+                playerVoiceSend(view, filePath);
+            }
+
+        }
+    }
+    /**
+     * 播放 接收voice的动画
+     *
+     * @param view
+     * @param filePath
+     */
+    private void playerVoiceRece(View view, String filePath) {
+        if (animView != null) {
+            animView.setBackgroundResource(R.drawable.voice_right3);
+            animView = null;
+        }
+
+        //播放动画
+        animView = (ImageView) view.findViewById(R.id.iv_voice);
+        animView.setImageResource(R.drawable.voice_right);
+        animView.setBackgroundResource(R.drawable.anim_chat_voice_right);
+        final AnimationDrawable anim = (AnimationDrawable) animView.getBackground();
+        anim.start();
+        //播放音频
+        MediaManager.playSound(filePath, new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                anim.stop();
+                animView.setBackgroundResource(R.drawable.voice_right3);
+            }
+        }, new MediaPlayer.OnErrorListener() {
+
+            @Override
+            public boolean onError(MediaPlayer mp, int what, int extra) {
+                MediaManager.mMediaPlayer.reset();
+                anim.stop();
+                animView.setBackgroundResource(R.drawable.voice_right3);
+                return false;
+            }
+        });
+    }
+    private void playerVoiceSend(View view, String filePath) {
+        if (animView != null) {
+            animView.setBackgroundResource(R.drawable.voice_left3);
+            animView = null;
+        }
+        //播放动画
+        animView = (ImageView) view.findViewById(R.id.iv_voice);
+        animView.setImageResource(R.drawable.voice_left);
+        animView.setBackgroundResource(R.drawable.anim_chat_voice_left);
+        final AnimationDrawable anim = (AnimationDrawable) animView.getBackground();
+        anim.start();
+        //播放音频
+        MediaManager.playSound(filePath, new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                anim.stop();
+                animView.setBackgroundResource(R.drawable.voice_left3);
+            }
+        }, new MediaPlayer.OnErrorListener() {
+
+            @Override
+            public boolean onError(MediaPlayer mp, int what, int extra) {
+                MediaManager.mMediaPlayer.reset();
+                anim.stop();
+                animView.setBackgroundResource(R.drawable.voice_left3);
+                return false;
+            }
+        });
+    }
+    @LongClick(R.id.layout_voice)
+   	void ivPictureLongClick() {
+   		L.d(TAG, "layout_voice()");
+   		initPopupWindow();
+   		showPopuWindow(layout_voice);
+   	}
+}

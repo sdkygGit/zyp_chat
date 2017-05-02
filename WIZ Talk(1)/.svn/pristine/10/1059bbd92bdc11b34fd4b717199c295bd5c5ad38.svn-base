@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/common_actionbar"
+        layout="@layout/include_action_bar" />
+    
+    <com.yxst.epic.unifyplatform.view.xlist.XListView
+            android:id="@+id/mListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:cacheColorHint="@android:color/transparent"
+            android:divider="@null"
+            android:fadingEdgeLength="0dp"
+            android:fastScrollEnabled="true"
+            android:listSelector="@android:color/transparent"
+            android:paddingBottom="10dp"
+            android:stackFromBottom="false"
+            android:transcriptMode="normal" />
+
+    <LinearLayout
+        android:id="@+id/chat_normal_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        >
+
+       <!-- <ImageButton
+            android:id="@+id/btn_changedto_appmenu"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@null"
+            android:src="@drawable/mmfooter_texttolisticon"
+            android:visibility="visible" />-->
+
+        <include
+            layout="@layout/include_chat_bottom_bar"
+        />
+    </LinearLayout>
+   <!-- <com.yxst.epic.unifyplatform.apppush.view.FooterListView_
+        android:id="@+id/chat_appmenu_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:minHeight="50dp"
+        />-->
+    
+    <!--  微信自定义菜单-->
+    <LinearLayout
+        android:id="@+id/chat_appmenu_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+    android:background="@color/white">
+
+        <ImageButton
+            android:id="@+id/btn_mmfooter_listtotext"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@null"
+            android:src="@drawable/mmfooter_listtotexticon"
+            android:visibility="visible" />
+
+        <View
+            android:id="@+id/viewDivider"
+            style="@style/divider_vertical" />
+
+        <LinearLayout
+            android:id="@+id/layout_custommenu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+        </LinearLayout>
+    </LinearLayout>
+    
+</LinearLayout>

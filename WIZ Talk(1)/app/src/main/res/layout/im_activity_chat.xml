@@ -1,0 +1,51 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white">
+   
+    <com.wiz.dev.wiztalk.apppush.view.ResizeLayout
+        android:id="@+id/layoutRoot"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="com.yxtech.example.oa.platform.activity.MainActivity">
+
+        <ListView
+            android:id="@android:id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:cacheColorHint="@android:color/transparent"
+            android:divider="@null"
+            android:listSelector="@android:color/transparent"
+            android:stackFromBottom="false"
+            android:transcriptMode="normal"/>
+
+        <com.wiz.dev.wiztalk.apppush.view.FooterView_
+            android:id="@+id/viewFooter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="50dp"/>
+
+    </com.wiz.dev.wiztalk.apppush.view.ResizeLayout>
+
+    <com.wiz.dev.wiztalk.apppush.view.RcdView_
+        android:id="@+id/viewRcd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
+
+    <com.wiz.dev.wiztalk.apppush.view.ChatSendOptView_
+        android:id="@+id/viewChatSendOpt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="60dp"
+        android:visibility="gone"/>
+
+</RelativeLayout>

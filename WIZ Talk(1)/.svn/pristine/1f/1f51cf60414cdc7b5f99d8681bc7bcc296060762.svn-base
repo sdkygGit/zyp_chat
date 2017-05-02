@@ -1,0 +1,262 @@
+package com.yxst.epic.unifyplatform.apppush.view;
+
+import android.content.DialogInterface;
+import android.database.Cursor;
+import android.os.Bundle;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
+import android.widget.ListView;
+
+import com.google.gson.Gson;
+import com.nostra13.universalimageloader.utils.L;
+import com.yxst.epic.unifyplatform.DB.MsgInFo;
+import com.yxst.epic.unifyplatform.DB.XmppDbManager;
+import com.yxst.epic.unifyplatform.DB.XmppMessage;
+import com.yxst.epic.unifyplatform.MyApplication;
+import com.yxst.epic.unifyplatform.R;
+import com.yxst.epic.unifyplatform.activity.XchatActivity_;
+import com.yxst.epic.unifyplatform.adapter.RecentChatAdapter;
+import com.yxst.epic.unifyplatform.apppush.entity.AppPushEntity;
+import com.yxst.epic.unifyplatform.apppush.loader.AppRecentChatLoader;
+import com.yxst.epic.unifyplatform.fragment.FragmentBase;
+import com.yxst.epic.unifyplatform.fragment.IMainFragment;
+import com.yxst.epic.unifyplatform.view.dialog.DialogTips;
+
+import org.androidannotations.annotations.AfterInject;
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.ItemClick;
+import org.androidannotations.annotations.ItemLongClick;
+import org.androidannotations.annotations.ViewById;
+
+@EFragment(R.layout.fragment_recent)
+public class AppPushFragment extends FragmentBase implements LoaderManager.LoaderCallbacks<Cursor> ,
+		IMainFragment{
+
+	private static final int loader_num = 11;
+
+	private static final String TAG = AppPushFragment.class.getSimpleName();
+    
+    
+    public static final String APP_ID= "2@app";
+
+	@ViewById(R.id.list)
+	ListView mListView;
+
+	String localUserJid;
+
+	@Bean
+	RecentChatAdapter mRecentChatAdapter;
+
+	@AfterInject
+	public void afterInject() {
+		//发送来的消息不带资源名称，通过它查找时，不能带资源名称
+		localUserJid = MyApplication.getInstance().getOpenfireJid();
+	}
+
+	@AfterViews
+	public void afterViews() {
+		L.d(TAG, "afterViews() ");
+		L.d(TAG, "afterViews() localUserJid:" + localUserJid);
+		mListView.setAdapter(mRecentChatAdapter);
+
+		String titleName = getResources().getString(R.string.tab_app);
+		initTopBarForOnlyTitle(titleName);
+		getLoaderManager().initLoader(loader_num, null, this);
+
+//        doInbackgroundInsert();
+
+	}
+
+	@ItemClick(R.id.list)
+	public void onItemClick(Cursor cursor) {
+		
+		XmppMessage msg = mRecentChatAdapter.readEntity(cursor);
+		/*ChatActivity_.intent(getActivity())
+				.localUserName(MyApplication.getInstance().getLocalUserName())
+				.remoteUserName(msg.getExtRemoteUserName())
+				.remoteDisplayName(msg.getExtRemoteDisplayName()).start();*/
+        XchatActivity_.intent(this).remoteUserName(msg.getExtRemoteUserName())
+                .remoteUserNick(msg.getExtRemoteDisplayName())
+                .chatType(MsgInFo.TYPE_CHAT).start();
+	}
+	
+	@ItemLongClick(R.id.list)
+	void onItemLongClick(Cursor cursor) {
+		final XmppMessage msg = mRecentChatAdapter.readEntity(cursor);
+//        Toast.makeText(getActivity(), "msg id:" + msg.getId(), Toast.LENGTH_SHORT).show();
+
+		DialogTips tips = new DialogTips(getActivity(), msg.getExtRemoteDisplayName(),
+				"是否删除与该联系人的对话？", "确定",
+				true,
+				true);
+
+		tips.SetOnSuccessListener(new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialogInterface, int i) {
+				deleteRecentMsg(msg);
+			}
+		});
+		tips.show();
+		tips = null;
+
+	}
+
+	@Background
+	void deleteRecentMsg(XmppMessage msg) {
+		XmppDbManager.getInstance(getActivity()).deleteChat(localUserJid, msg.getExtRemoteUserName());
+	}
+
+	@Override
+	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+		return new AppRecentChatLoader(getActivity().getApplicationContext(), localUserJid);
+	}
+
+	@Override
+	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+		mRecentChatAdapter.changeCursor(data);
+	}
+
+	@Override
+	public void onLoaderReset(Loader<Cursor> loader) {
+		mRecentChatAdapter.swapCursor(null);
+	}
+
+	@Override
+	public void onTagChanged() {
+		mRecentChatAdapter.notifyDataSetChanged();
+	}
+	
+	@Background
+	void doInbackgroundInsert(){
+		XmppMessage msg = new XmppMessage();
+		
+		msg.setType(MsgInFo.TYPE_HEADLINE);
+//		msg.setExtGroupMemberUserName(localUserJid);
+			//对应群聊时，发送人的nickname
+			msg.setExtGroupMemberUserNick(MyApplication.getInstance().getLocalMember().NickName);
+		msg.setTo_(localUserJid);
+		msg.setFrom_("skysea_public@skysea.com");
+
+		String LocalUserNickName = MyApplication.getInstance().getLocalMember().NickName;
+		msg.setExtLocalDisplayName(LocalUserNickName); // NickName对应display
+		msg.setExtLocalUserName(localUserJid);
+
+		msg.setExtRemoteUserName(APP_ID);//根据appid分类
+		msg.setExtRemoteDisplayName("应用通知");
+
+		msg.setMold(MsgInFo.MOLD_TEXT);
+		msg.setDirect(MsgInFo.INOUT_IN);
+		msg.setStatus(MsgInFo.STATUS_SUCCESS);
+		msg.setReadStatus(MsgInFo.READ_FALSE);
+		msg.setCreateTime(System.currentTimeMillis());
+		
+		String  str = "{\n" +
+				"    \"baseRequest\": {\n" +
+				"        \"uid\": null,\n" +
+				"        \"deviceID\": null,\n" +
+				"        \"token\": \"sw_token\"\n" +
+				"    },\n" +
+				"    \"content\": \"我新启了【  刘学是个超级帅哥5】\",\n" +
+				"    \"msgType\": 102,//可以根据这个来分类消息\n" +
+				"    \"statusId\":\"999\",\n" +
+				"    \"toUserNames\": [\n" +
+				"        \"15AADCDFB8A24F91895C3190C8E82C99@user\"\n" +
+				"    ],\n" +
+				"    \"objectContent\": {\n" +
+				"                        \"body\": [\n" +
+				"                            {\n" +
+				"                                \"content\": \"发送人    ： 总文书（刘路）\"\n" +
+				"                            },\n" +
+				"                            {\n" +
+				"                                \"content\": \"发送部门：保密文档科\"\n" +
+				"                            },\n" +
+				"                            {\n" +
+				"                                \"content\": \"阶段名称：编号登记\"\n" +
+				"                            },\n" +
+				"                            {\n" +
+				"                                \"content\": \"文件类型：公司行政收文\"\n" +
+				"                            },\n" +
+				"                            {\n" +
+				"                                \"content\": \"紧急程度：加急\"\n" +
+				"                            },\n" +
+				"                            {\n" +
+				"                                \"content\": \"待办类型：待阅\"\n" +
+				"                            }\n" +
+				"                        ],\n" +
+				"        \"appId\": \"2\",\n" +
+				"        \"operations\": [\n" +
+				"            {\n" +
+				"                \"content\": \"查看详细\",\n" +
+				"                \"operationType\": \"1\",\n" +
+				"                \"action\": \"http://10.180.120.157:8089/appyixin/phone/sw/144025ECBB6D0368E0530A6F0ACC3027?workItemId=152707816&processId=8a34f8114c6f3899014cd9f935e71f97&security=0&emergencyLevel=9\"\n" +
+				"            },\n" +
+				"                        {\n" +
+				"                \"content\": \"查看详细2\",\n" +
+				"                \"operationType\": \"1\",\n" +
+				"                \"action\": \"http://10.180.120.157:8089/appyixin/phone/sw/144025ECBB6D0368E0530A6F0ACC3027?workItemId=152707816&processId=8a34f8114c6f3899014cd9f935e71f97&security=0&emergencyLevel=9\"\n" +
+				"            },\n" +
+				"             {\n" +
+				"                \"content\": \"查看详细3\",\n" +
+				"                \"operationType\": \"1\",\n" +
+				"                \"action\": \"http://10.180.120.157:8089/appyixin/phone/sw/144025ECBB6D0368E0530A6F0ACC3027?workItemId=152707816&processId=8a34f8114c6f3899014cd9f935e71f97&security=0&emergencyLevel=9\"\n" +
+				"            },    {\n" +
+				"                \"content\": \"查看详细4\",\n" +
+				"                \"operationType\": \"1\",\n" +
+				"                \"action\": \"http://10.180.120.157:8089/appyixin/phone/sw/144025ECBB6D0368E0530A6F0ACC3027?workItemId=152707816&processId=8a34f8114c6f3899014cd9f935e71f97&security=0&emergencyLevel=9\"\n" +
+				"            },\n" +
+				"             {\n" +
+				"                \"content\": \"查看详细5\",\n" +
+				"                \"operationType\": \"1\",\n" +
+				"                \"action\": \"http://10.180.120.157:8089/appyixin/phone/sw/144025ECBB6D0368E0530A6F0ACC3027?workItemId=152707816&processId=8a34f8114c6f3899014cd9f935e71f97&security=0&emergencyLevel=9\"\n" +
+				"            },\n" +
+				"            {\n" +
+				"                \"content\": \"查看详细6\",\n" +
+				"                \"operationType\": \"1\",\n" +
+				"                \"action\": \"http://10.180.120.157:8089/appyixin/phone/sw/144025ECBB6D0368E0530A6F0ACC3027?workItemId=152707816&processId=8a34f8114c6f3899014cd9f935e71f97&security=0&emergencyLevel=9\"\n" +
+				"            }\n" +
+				"        ],\n" +
+				"        \"head\": {\n" +
+				"            \"pubTime\": 1429586130000,\n" +
+				"            \"content\": \"我新启了【  刘学是个超级帅哥5】\"\n" +
+				"        }\n" +
+				"    },\n" +
+				"    \"sessions\": [\n" +
+				"        \"all\"\n" +
+				"    ],\n" +
+				"    \"expire\": 3600000\n" +
+				"}\n" +
+				"\n";
+
+		AppPushEntity entity = new Gson().fromJson(str, AppPushEntity.class);
+		
+		msg.setPushToken(entity.getBaseRequest().getToken());
+		msg.setPushContent(entity.getContent());
+		msg.setPushMsgType(entity.getMsgType());
+		msg.setPushStatusId(entity.getStatusId());
+		msg.setPushtoUserNames(entity.getToUserNames().toString());
+		msg.setPushObjectContentAppId(entity.getObjectContent().getAppId());
+		msg.setPushObjectContentBody(entity.getObjectContent().getBody().toString());
+		msg.setPushObjectContentOperations(entity.getObjectContent().getOperations().toString());
+		msg.setPushObjectContentPubTime(entity.getObjectContent().getHead().getPubTime());
+		msg.setPushSessions(entity.getSessions().toString());
+		msg.setPushexpire(entity.getExpire());
+
+		//设置
+		msg.setBody(entity.getContent());
+		msg.setCreateTime(entity.getObjectContent().getHead().getPubTime());
+		msg.setMold(entity.getMsgType());//MsgInFo.MOLE_APP_102
+//            msg.setCreateTime(me.getCreateTime());
+
+//根据token 设置显示名称
+		msg.setExtRemoteDisplayName(entity.getBaseRequest().getToken());
+		// TODO: 2016/3/20 remoteusername 需要处理  暂时使用了appid 101,102来分类消息
+		String remoteUsername = entity.getObjectContent().getAppId();
+		remoteUsername  = remoteUsername.concat(MsgInFo.APP_SUFIXX);
+		msg.setExtRemoteUserName(remoteUsername);
+
+		XmppDbManager.getInstance(getActivity()).insertMessageWithNotify(msg);
+	}
+}

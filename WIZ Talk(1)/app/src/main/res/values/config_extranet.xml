@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <!-- 公网环境 -->
+
+    <string name="appmsgsrv_protocol_extranet">http</string>
+    <string name="appmsgsrv_host_extranet">itime.vicp.cc</string>
+    <!--<string name="appmsgsrv_host_extranet">112.74.104.234</string>-->
+
+    <!--<integer name="appmsgsrv_port_8094_extranet">80</integer>-->
+    <integer name="appmsgsrv_port_8094_extranet">2280</integer>
+
+    <string name="file_protocol_extranet">http</string>
+    <!--<string name="file_host_extranet">112.74.104.234</string>-->
+    <string name="file_host_extranet">itime.vicp.cc</string>
+    <integer name="file_port_extranet">9333</integer>
+
+</resources>

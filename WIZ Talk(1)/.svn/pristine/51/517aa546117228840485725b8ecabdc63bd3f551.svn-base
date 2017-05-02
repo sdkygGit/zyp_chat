@@ -1,0 +1,21 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/common_actionbar"
+        layout="@layout/include_action_bar"
+        />
+    <za.co.immedia.pinnedheaderlistview.PinnedHeaderListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbarStyle="outsideOverlay"
+        android:cacheColorHint="@android:color/transparent"
+        android:footerDividersEnabled="false"
+        android:headerDividersEnabled="false" 
+        android:divider="@null"/>
+    
+</LinearLayout>

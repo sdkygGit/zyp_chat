@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CircleFlowIndicator"><attr format="color" name="activeColor"/><attr format="color" name="inactiveColor"/><attr format="dimension" name="radiusFN"/><attr format="dimension" name="spacing"/><attr format="boolean" name="centeredFN"/><attr format="integer" name="fadeOut"/><attr name="inactiveType"><flag name="stroke" value="0"/><flag name="fill" value="1"/></attr><attr name="activeType"><flag name="stroke" value="0"/><flag name="fill" value="1"/></attr><attr format="boolean" name="snapFN"/></declare-styleable>
+    <declare-styleable name="TitleFlowIndicator"><attr format="dimension" name="titlePaddingFN"/><attr format="dimension" name="clipPaddingFN"/><attr format="color" name="selectedColorFN"/><attr format="boolean" name="selectedBoldFN"/><attr format="dimension" name="selectedSize"/><attr format="color" name="textColor"/><attr format="dimension" name="textSize"/><attr format="dimension" name="footerLineHeightFN"/><attr format="color" name="footerColorFN"/><attr format="dimension" name="footerTriangleHeight"/><attr format="string" name="customTypeface"/></declare-styleable>
+    <declare-styleable name="ViewFlow"><attr format="integer" name="sidebuffer"/></declare-styleable>
+    <string name="app_name">FanningLibrary</string>
+</resources>

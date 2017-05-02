@@ -1,0 +1,86 @@
+package com.yxst.epic.unifyplatform.adapter;
+
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.util.Log;
+
+import com.yxst.epic.unifyplatform.fragment.AppDetailFragment_;
+import com.yxst.epic.unifyplatform.model.AppTitle;
+
+import java.util.List;
+
+
+public class AppContentTabAdapter extends FragmentPagerAdapter {
+	
+	private static final String TAG = "AppContentTabAdapter";
+	
+	List<AppTitle> mAppTitls ;//存放所有的标题数据
+	
+//	List<Fragment> mFragments = new ArrayList<Fragment>();
+	
+	
+	FragmentManager fm ;
+	
+	public AppContentTabAdapter(FragmentManager fm) {
+		this(fm,null);
+	}
+	public AppContentTabAdapter(FragmentManager fm,List<AppTitle> titles) {
+		super(fm);
+		this.mAppTitls = titles;
+		this.fm = fm;
+	}
+
+	@Override
+	public CharSequence getPageTitle(int position) {
+		return mAppTitls.get(position).getTitle();
+	}
+	//局部更新Fragment
+	/*@Override
+	public Object instantiateItem(ViewGroup container, int position) {
+		super.instantiateItem(container, position);
+		Fragment frag = (Fragment) super.instantiateItem(container, position);
+		String oldTag = frag.getTag();
+		if(TextUtils.isEmpty(oldTag) ||!oldTag.equals(mAppTitls.get(position).getTitle())){
+			//已经和之前的不一样了,就需要更新
+			FragmentTransaction  ft = fm.beginTransaction();
+			ft.remove(frag);
+			frag = getItem(position);
+			ft.add(container.getId(), frag, oldTag);
+		    ft.attach(frag);
+		    ft.commit();
+		}
+		return frag;
+	}*/
+	
+	@Override
+	public Fragment getItem(int position) {
+		AppDetailFragment_ frg =
+				(AppDetailFragment_) AppDetailFragment_.builder().app_id(mAppTitls.get(position).getId()).build();
+		
+		return frg;
+	}
+
+	@Override
+	public int getCount() {
+		return mAppTitls.size();
+	}
+	/**
+	 * 这个方法有问题
+	 * @param titls
+	 */
+	public void setAppTitles(List<AppTitle> titls){
+		Log.d(TAG, " setAppTitles()");
+		this.mAppTitls.clear();
+		/**
+		 * 这句根本不会执行，如果adapter指望这个方法来更新数据集，根本不会有反应。
+		 */
+		this.mAppTitls.addAll(titls);
+		Log.d(TAG, " setAppTitles() titls sizeBigger:"+mAppTitls.size());
+	}
+	public List<AppTitle> getAppTitls(){
+		return mAppTitls;
+	}
+	
+
+}

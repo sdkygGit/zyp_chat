@@ -1,0 +1,7 @@
+package com.yxst.epic.unifyplatform.dto.request;
+
+public class IsUserShieldAppRequest extends Request {
+
+	public String sourceId;
+	public String targetId;
+}

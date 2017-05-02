@@ -1,0 +1,1 @@
+include ':app', ':fanninglibrary', ':smackpush', ':viewPagerIndicatorlibrary', ':DroidPlugin', ':video-player-manager'

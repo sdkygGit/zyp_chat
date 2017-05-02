@@ -1,0 +1,186 @@
+package com.yxst.epic.unifyplatform.activity;
+
+import android.database.ContentObserver;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.app.FragmentActivity;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.Window;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.epic.traverse.push.util.L;
+import com.fanning.library.TabFragmentHost;
+import com.readystatesoftware.viewbadger.BadgeView;
+import com.yxst.epic.unifyplatform.DB.XmppDbManager;
+import com.yxst.epic.unifyplatform.DB.XmppMessageContentProvider;
+import com.yxst.epic.unifyplatform.MyApplication;
+import com.yxst.epic.unifyplatform.R;
+import com.yxst.epic.unifyplatform.apppush.view.AppPushFragment_;
+import com.yxst.epic.unifyplatform.fragment.ContactListFragment_;
+import com.yxst.epic.unifyplatform.fragment.FindFragment_;
+import com.yxst.epic.unifyplatform.fragment.IMFragment_;
+import com.yxst.epic.unifyplatform.fragment.PersonalCenterFragment_;
+import com.yxst.epic.unifyplatform.preference.LoginPrefs_;
+import com.yxst.epic.unifyplatform.utils.Utils;
+
+import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.UiThread;
+import org.androidannotations.annotations.sharedpreferences.Pref;
+
+@EActivity
+public class MainActivity extends FragmentActivity {
+
+    private static final java.lang.String TAG = "MainActivity";
+    private BadgeView chatHint;
+    private BadgeView shopHint;
+
+    private BadgeView appHint;
+
+    @Pref
+    LoginPrefs_ mLoginPrefs;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.activity_main);
+
+        LayoutInflater layoutInflater = LayoutInflater.from(this);
+
+        TabFragmentHost mTabHost = (TabFragmentHost)findViewById(android.R.id.tabhost);
+        mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
+        mTabHost.getTabWidget().setDividerDrawable(null);
+        mTabHost.getTabWidget().setBackgroundColor(Color.parseColor("#FFFFFF"));
+               View vChat = getTabItemView(layoutInflater, R.drawable.main_tab_xx, "消息");
+        chatHint = new BadgeView(this, vChat.findViewById(R.id.imageview));
+        chatHint.setTextSize(10);
+        chatHint.setVisibility(View.INVISIBLE);
+
+        View vShop = getTabItemView(layoutInflater, R.drawable.main_tab_shop, "应用商店");
+        shopHint = new BadgeView(this, vShop.findViewById(R.id.imageview));
+        shopHint.setTextSize(10);
+        shopHint.setVisibility(View.INVISIBLE);
+        
+        Bundle bundle = new Bundle();
+        bundle.putString("localUserName", mLoginPrefs.userName().get());
+        bundle.putBoolean("isSelectMode", false);
+        
+        mTabHost.addTab(mTabHost.newTabSpec("消息").setIndicator(vChat),
+                IMFragment_.class, null);
+
+        View vApp = getTabItemView(layoutInflater, R.drawable.main_tab_shop, "应用");
+        appHint = new BadgeView(this, vApp.findViewById(R.id.imageview));
+        appHint.setTextSize(10);
+        appHint.setVisibility(View.INVISIBLE);
+        mTabHost.addTab(mTabHost.newTabSpec("应用").setIndicator(vApp),
+                AppPushFragment_.class, null);
+        
+        mTabHost.addTab(mTabHost.newTabSpec("联系人").setIndicator(getTabItemView(layoutInflater, R.drawable.main_tab_txl, "联系人")),
+                ContactListFragment_.class, bundle);
+
+//        mTabHost.addTab(mTabHost.newTabSpec("应用商店").setIndicator(vShop), AppStoreFragment.class, null);
+        
+        mTabHost.addTab(mTabHost.newTabSpec("发现").setIndicator(getTabItemView(layoutInflater,R
+                .drawable.main_tab_find,"发现")), FindFragment_.class,null);
+        
+        mTabHost.addTab(mTabHost.newTabSpec("我").setIndicator(getTabItemView(layoutInflater, R
+                .drawable.main_tab_me, "我")), PersonalCenterFragment_.class,
+                null);
+        
+        MyApplication.getInstance().addActivity(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        MyApplication.getInstance().removeActivity(this);
+        super.onDestroy();
+    }
+
+    /**
+     * 给Tab按钮设置图标和文字
+     */
+    private View getTabItemView(LayoutInflater layoutInflater, int picResid, String caption){
+        View view = layoutInflater.inflate(R.layout.tab_indicator, null);
+
+        ImageView imageView = (ImageView) view.findViewById(R.id.imageview);
+        imageView.setImageResource(picResid);
+
+        TextView textView = (TextView) view.findViewById(R.id.textview);
+        textView.setText(caption);
+
+        return view;
+    }
+
+    @Override
+    protected void onResume() {
+        Utils.cancelNotification(this);
+        doInBackground();
+        getContentResolver().registerContentObserver(
+                XmppMessageContentProvider.CONTENT_URI, true, mContentObserver);
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        getContentResolver().unregisterContentObserver(mContentObserver);
+        super.onPause();
+    }
+    @Background
+    void doInBackground() {
+
+        String localUserName = MyApplication.getInstance().getOpenfireJid();
+
+        long unreadChatCount = XmppDbManager.getInstance(this).getChatListUnreadCount
+                (localUserName);
+
+        long unreadAppCount = XmppDbManager.getInstance(this).getAppPushChatListUnreadCount
+                (localUserName);
+
+        onPostExecute(unreadChatCount,unreadAppCount);
+    }
+    @UiThread
+    void onPostExecute(long chatListUnreadCount,long unreadAppCount) {
+        if (chatListUnreadCount > 0) {
+            chatHint.setVisibility(View.VISIBLE);
+            chatHint.setText(String.valueOf(chatListUnreadCount));
+            chatHint.show();
+            chatHint.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
+        }else{
+           chatHint.setVisibility(View.INVISIBLE);
+        }
+        
+        if (unreadAppCount > 0) {
+            appHint.setVisibility(View.VISIBLE);
+            appHint.setText(String.valueOf(unreadAppCount));
+            appHint.show();
+            appHint.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
+        }else{
+            appHint.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    private ContentObserver mContentObserver = new ContentObserver(
+            new Handler()) {
+        public void onChange(boolean selfChange) {
+            L.d(TAG, "onChange(boolean)");
+            doInBackground();
+        };
+    };
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            //按返回键退出程序但是不销毁，程序后台，运行，再点击app启动图标时，进入最后退出的那个activity，
+            // 类似点击了home键
+            moveTaskToBack(false);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+}

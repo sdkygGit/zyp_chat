@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/blueback" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="修改个人信息"
+            android:textColor="#333"
+            android:textSize="18sp"
+            />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#BBB" />
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="座机"
+            android:textColor="#333"
+            android:textSize="16sp"
+            android:layout_marginLeft="20dp"
+            />
+
+        <EditText
+            android:id="@+id/landline_et"
+            android:layout_marginLeft="20dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:textColor="#808080"
+            android:singleLine="true"
+            android:hint="请输入座机"
+            android:textColorHint="#cecece"
+            android:textSize="16sp"
+            android:maxLength="12"
+            android:inputType="number"
+            android:background="@null"/>
+
+        <ImageView
+            android:id="@+id/landline_clear"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginRight="10dp"
+            android:visibility="invisible"
+            android:src="@drawable/user_edit_cancle_selector"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="#BBB"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="手机"
+            android:textColor="#333"
+            android:textSize="16sp"
+            android:layout_marginLeft="20dp"
+            />
+
+        <EditText
+            android:id="@+id/phone_et"
+            android:layout_marginLeft="20dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:textColor="#808080"
+            android:inputType="phone"
+            android:hint="请输入手机号码"
+            android:textColorHint="#cecece"
+            android:textSize="16sp"
+            android:singleLine="true"
+            android:background="@null"/>
+        <ImageView
+            android:id="@+id/phone_clear"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginRight="10dp"
+            android:visibility="invisible"
+            android:src="@drawable/user_edit_cancle_selector"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="#BBB"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="邮箱"
+            android:textColor="#333"
+            android:textSize="16sp"
+            android:layout_marginLeft="20dp"
+            />
+
+        <EditText
+            android:id="@+id/email_et"
+            android:layout_marginLeft="20dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:textColor="#808080"
+            android:maxLength="25"
+            android:textColorHint="#cecece"
+            android:textSize="16sp"
+            android:hint="请输入邮箱"
+            android:singleLine="true"
+            android:background="@null"/>
+        <ImageView
+            android:id="@+id/email_clear"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:visibility="invisible"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/user_edit_cancle_selector"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="#BBB"/>
+
+    <Button
+        android:id="@+id/commit_btn"
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="确定"
+        android:textSize="18sp"
+        android:background="@drawable/circle_btn_blue"
+        android:textColor="@android:color/white"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"/>
+</LinearLayout>

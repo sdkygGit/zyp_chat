@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" 
+    android:background="@color/white">
+
+    <com.yxst.epic.unifyplatform.apppush.view.FooterTextView_
+        android:id="@+id/viewFooterText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:minHeight="50dp"
+        android:visibility="gone"/>
+
+    <com.yxst.epic.unifyplatform.apppush.view.FooterListView_
+        android:id="@+id/viewFooterList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:minHeight="50dp"
+        android:visibility="gone"/>
+
+</RelativeLayout>

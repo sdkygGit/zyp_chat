@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="hTML5WebView-release-">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/hTML5WebView-release/res" />
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/hTML5WebView-release/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

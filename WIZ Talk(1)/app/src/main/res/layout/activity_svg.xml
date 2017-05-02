@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/activity_svg_layoutForToolBar_up"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#00A0E9">
+
+        <ImageView
+            android:id="@+id/activity_svg_imageView_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:onClick="clickButton"
+            android:src="@drawable/back" />
+
+        <TextView
+            android:id="@+id/activity_svg_textView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="50dp"
+            android:layout_toLeftOf="@+id/activity_svg_imageView_seach"
+            android:layout_toRightOf="@+id/activity_svg_imageView_back"
+            android:gravity="center"
+            android:text="发电机组"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/activity_svg_imageView_seach"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/seach"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <WebView
+        android:id="@+id/svgActivity_webView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

@@ -1,0 +1,52 @@
+package com.yxst.epic.unifyplatform.rest;
+
+
+import com.yxst.epic.unifyplatform.dto.request.CancelShieldMsgRequest;
+import com.yxst.epic.unifyplatform.dto.request.DelQunMemberRequest;
+import com.yxst.epic.unifyplatform.dto.request.GetQunMembersRequest;
+import com.yxst.epic.unifyplatform.dto.request.IsUserShieldAppRequest;
+import com.yxst.epic.unifyplatform.dto.request.SetShieldMsgRequest;
+import com.yxst.epic.unifyplatform.dto.request.UpdateQunTopicRequest;
+import com.yxst.epic.unifyplatform.dto.response.CancelShieldMsgResponse;
+import com.yxst.epic.unifyplatform.dto.response.CreateQunResponse;
+import com.yxst.epic.unifyplatform.dto.response.IsUserShieldAppResponse;
+import com.yxst.epic.unifyplatform.dto.response.PushResponse;
+import com.yxst.epic.unifyplatform.dto.response.SetShieldMsgResponse;
+import com.yxst.epic.unifyplatform.dto.response.UpdateQunTopicResponse;
+
+import org.androidannotations.annotations.rest.Accept;
+import org.androidannotations.annotations.rest.Post;
+import org.androidannotations.annotations.rest.Rest;
+import org.androidannotations.api.rest.MediaType;
+import org.androidannotations.api.rest.RestClientErrorHandling;
+import org.androidannotations.api.rest.RestClientRootUrl;
+import org.androidannotations.api.rest.RestClientSupport;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+
+//@Rest(rootUrl = "http://115.29.107.77:8093/app/client/device", converters = { MappingJackson2HttpMessageConverter.class }, interceptors = { HttpBasicAuthenticatorInterceptor.class })
+// @Rest(rootUrl = "http://115.29.226.14:8093/app/client/device", converters = {
+// MappingJackson2HttpMessageConverter.class }, interceptors = {
+// HttpBasicAuthenticatorInterceptor.class })
+@Rest(rootUrl = "http://10.180.120.63:8093/app/client/device", converters = { MappingJackson2HttpMessageConverter.class }, interceptors = { HttpBasicAuthenticatorInterceptor.class })
+//@Rest(rootUrl = "http://http://10.180.120.157:8093/app/client/device", converters = { MappingJackson2HttpMessageConverter.class }, interceptors = { HttpBasicAuthenticatorInterceptor.class })
+@Accept(MediaType.APPLICATION_JSON)
+public interface Appmsgsrv8093 extends RestClientErrorHandling,
+		RestClientRootUrl, RestClientSupport {
+
+//	void setHeader(String name, String value);
+//
+//	String getHeader(String name);
+
+	@Post("/updateQunTopic")
+	UpdateQunTopicResponse updateQunTopic(UpdateQunTopicRequest request);
+
+
+	@Post("/setShieldMsg")
+	SetShieldMsgResponse setShieldMsg(SetShieldMsgRequest request);
+	
+	@Post("/cancelShieldMsg")
+	CancelShieldMsgResponse cancelShieldMsg(CancelShieldMsgRequest request);
+	
+	@Post("/isUserShieldApp")
+	IsUserShieldAppResponse isUserShieldApp(IsUserShieldAppRequest request);
+}

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:descendantFocusability="blocksDescendants"
+    android:id="@+id/framelayout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <ImageView
+        android:id="@+id/child_image"
+        android:layout_width="fill_parent"
+        android:layout_height="100dip"
+        android:src="@drawable/chat_nopicture"
+        android:scaleType="centerCrop" />
+
+    <CheckBox
+        android:id="@+id/child_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="3dp"
+        android:layout_marginTop="3dp"
+        android:button="@drawable/contact_btn_check" />
+
+</RelativeLayout>

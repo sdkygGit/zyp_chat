@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="48dp">
+    <TextView
+        android:id="@+id/seh_his_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#434343"
+        android:text="历史搜索"
+        android:textSize="15sp"
+        android:gravity="center_vertical"
+        android:paddingLeft="5dp"
+        android:layout_marginRight="30dp"
+        android:maxLines="1"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        />
+    <ImageView
+        android:id="@+id/seh_his_clear"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:src="@mipmap/search_history_clear"
+        android:layout_marginRight="5dp"
+        android:layout_alignParentRight="true"
+        android:focusable="false"
+        android:layout_centerVertical="true"/>
+    <RelativeLayout
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
+        android:gravity="bottom"
+        android:layout_below="@id/seh_his_content">
+
+        <View  android:layout_height="1px"
+            android:layout_width="match_parent"
+            android:background="#C5C5CC"
+            android:gravity="bottom"
+            android:layout_marginBottom="2px"
+        />
+    </RelativeLayout>
+</RelativeLayout>

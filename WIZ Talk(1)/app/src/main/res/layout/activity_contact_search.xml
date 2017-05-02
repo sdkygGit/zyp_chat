@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical" >
+    <include
+        android:id="@+id/common_actionbar"
+        layout="@layout/include_action_bar"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#BBB"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_margin="10dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        >
+
+        <EditText
+            android:id="@+id/etSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:singleLine="true"
+            android:background="@drawable/qun_search_selector"
+            android:textSize="16sp"
+            android:paddingLeft="20dp"
+            android:textColor="#333333"
+            android:maxLength="30"
+           />
+
+
+
+        <ImageButton
+            android:id="@+id/btnSearch"
+            android:layout_width="45dp"
+            android:layout_height="match_parent"
+            android:layout_alignRight="@+id/etSearch"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:src="@drawable/icon_msg_search_selector" />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#C9C9C9"
+            android:layout_toLeftOf="@id/btnSearch"/>
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#909090"/>
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:cacheColorHint="@android:color/transparent"
+        android:divider="@null"
+        android:footerDividersEnabled="false"
+        android:headerDividersEnabled="false"
+        android:scrollbarStyle="outsideOverlay"
+        android:scrollbars="none" />
+
+</LinearLayout>

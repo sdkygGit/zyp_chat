@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="320dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/popwindow_bg"
+    android:orientation="vertical"
+    android:paddingBottom="20dp" >
+    <TextView 
+        android:layout_marginTop="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#444"
+        android:text="配置IP"
+        android:textSize="18sp"/>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="30dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true" >
+
+        <EditText
+            android:id="@+id/popWindow_edit_login"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:drawableLeft="@drawable/create"
+            android:hint="登录服务地址"
+            android:singleLine="true"
+            android:maxLength="15"
+            android:inputType="textPhonetic"
+            android:textColorHint="#666666"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/popWindow_edit_login_port"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="端口号"
+            android:singleLine="true"
+            android:maxLength="5"
+            android:inputType="number"
+            android:textColorHint="#666666"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp" >
+
+        <EditText
+            android:id="@+id/popWindow_edit_config"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:drawableLeft="@drawable/link"
+            android:hint="配置服务地址"
+            android:singleLine="true"
+            android:maxLength="15"
+            android:inputType="textPhonetic"
+            android:textColorHint="#666666"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/popWindow_edit_config_port"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="端口号"
+            android:singleLine="true"
+            android:maxLength="5"
+            android:inputType="number"
+            android:textColorHint="#666666"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/popWindow_button_cancle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_weight="1"
+            android:background="@drawable/pop_btn_bg_selector"
+            android:padding="10dp"
+            android:text="取消"
+            android:textColor="@drawable/pop_btn_textcolor_selector"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/popWindow_button_ok"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="40dp"
+            android:layout_weight="1"
+            android:background="@drawable/pop_btn_bg_selector"
+            android:padding="10dp"
+            android:text="保存"
+            android:textColor="@drawable/pop_btn_textcolor_selector"
+            android:textSize="16sp" />
+    </LinearLayout>
+</LinearLayout>

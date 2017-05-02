@@ -1,0 +1,9 @@
+package com.yxst.epic.unifyplatform.dto.request;
+
+public class UpdateQunTopicRequest extends Request {
+
+	public String ChatRoomName;
+	
+	public String topic;
+	
+}

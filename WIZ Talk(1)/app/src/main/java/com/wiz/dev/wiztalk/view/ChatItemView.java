@@ -1,0 +1,335 @@
+package com.wiz.dev.wiztalk.view;
+
+import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.text.TextUtils;
+import android.util.DisplayMetrics;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.epic.traverse.push.util.L;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageSize;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+import com.wiz.dev.wiztalk.DB.MsgInFo;
+import com.wiz.dev.wiztalk.DB.XmppDbMessage;
+import com.wiz.dev.wiztalk.DB.XmppMessage;
+import com.wiz.dev.wiztalk.DB.XmppMessageContentProvider;
+import com.wiz.dev.wiztalk.DB.XmppMessageDao;
+import com.wiz.dev.wiztalk.MyApplication;
+import com.wiz.dev.wiztalk.R;
+import com.wiz.dev.wiztalk.activity.ContactDetailActivity;
+import com.wiz.dev.wiztalk.activity.ContactDetailActivity_;
+import com.wiz.dev.wiztalk.dto.util.RoundImageView;
+import com.wiz.dev.wiztalk.utils.ImagerLoaderOptHelper;
+import com.wiz.dev.wiztalk.utils.TimeUtils;
+import com.wiz.dev.wiztalk.utils.Utils;
+
+import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.EViewGroup;
+import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.res.DimensionPixelOffsetRes;
+
+/**
+ * Created by Dong on 2015/10/13.
+ */
+@EViewGroup
+public abstract class ChatItemView extends LinearLayout {
+
+    public static final String TAG = ChatItemView.class.getSimpleName();
+
+    protected XmppMessage message;
+
+    protected XmppMessageDao messageDao;
+    protected Context mContext;
+
+    protected View popView;
+    protected PopupWindow popWin;
+
+    @ViewById
+    public TextView tv_time; // 时间
+
+    @ViewById
+    public ImageView iv_avatar;// 头像
+
+    // protected ImageView animView;//动画
+
+    @DimensionPixelOffsetRes(R.dimen.icon_size_bigger)
+    public int sizeBigger;
+
+    @DimensionPixelOffsetRes(R.dimen.icon_size_biggest)
+    public int sizeBiggest;
+
+    @DimensionPixelOffsetRes(R.dimen.icon_size_normal)
+    public int sizeNormal;
+
+    @DimensionPixelOffsetRes(R.dimen.icon_size_small)
+    public int sizeSmall;
+
+    @DimensionPixelOffsetRes(R.dimen.chat_picture_size_width)
+    public int pictureSizeWidth;
+
+    @DimensionPixelOffsetRes(R.dimen.chat_picture_size_height)
+    public int pictureSizeheight;
+
+    public ChatItemView(Context context) {
+        super(context);
+        this.mContext = context;
+        messageDao = MyApplication.getDaoSession(context).getXmppMessageDao();
+    }
+
+    /**
+     * 绑定时间和头像
+     *
+     * @param message
+     */
+    public void bind(XmppMessage message) {
+        this.message = message;
+        //防止子布局中没有这两个
+        if (tv_time != null) {
+            if(message.getShowTime() == null){
+                message.setShowTime(message.getCreateTime());
+            }
+            if (!TextUtils.isEmpty(String.valueOf(message.getShowTime())) ) {
+//                long time = message.getCreateTime();
+
+//                if((time - XchatActivity.msgTime) > (5*1000)){
+
+                if( message.getShowTime() >0)
+                    tv_time.setText(TimeUtils.getChatTime(message.getShowTime()));
+                else
+                    tv_time.setText("");
+//                    XchatActivity.msgTime = time;
+//                }
+
+            }
+        }
+        if (iv_avatar != null) {
+            setIcon(iv_avatar, message);
+        }
+
+        this.bindOther(message);
+    }
+
+    @Click
+    public void iv_avatar(View view) {
+        // username:xxkajkajskfjksa@user
+        String username = null;
+        if (XmppDbMessage.isMessageIn(message)) {
+            username = XmppDbMessage.getRemoteUsername(message);
+        } else {
+            username = MyApplication.getInstance().getLocalMember().UserName;
+        }
+        String type = message.getType();
+
+        int fromWhere = ContactDetailActivity.FROM_WHERE_IS_SIGAL_CHAT;
+
+        if (type.equals(MsgInFo.TYPE_GROUPCHAT)) {
+            fromWhere = ContactDetailActivity.FROM_WHERE_IS_GTOUP_CHAT;
+            ContactDetailActivity_.intent(mContext).userName(username)
+                    .member(XmppDbMessage.isMessageIn(message) ? null : MyApplication.getInstance().getLocalMember())
+                    .fromWhere(fromWhere).start();
+            Activity activity = (Activity) mContext;
+            activity.finish();
+
+        } else {
+            ContactDetailActivity_.intent(mContext).userName(username)
+                    .member(MyApplication.getInstance().getLocalMember())
+                    .fromWhere(fromWhere).start();
+        }
+    }
+
+    /**
+     * 绑定除时间和头像之外的数据
+     *
+     * @param message
+     */
+    public abstract void bindOther(XmppMessage message);
+
+    void setIcon(final ImageView iv_avatar, XmppMessage message) {
+        String username = MyApplication.getInstance().getLocalUserName();
+        if (XmppDbMessage.isMessageIn(message)) {
+            username = XmppDbMessage.getRemoteUsername(message);
+        }
+
+//		final Map<String, Object> params = new HashMap<String, Object>();
+//		params.put("bt", true);
+
+        // TODO: 2015/10/13
+        final String finalUserName = username;
+
+        final String originalUrl = Utils.getAvataUrl(finalUserName, sizeSmall);
+
+        if (iv_avatar != null && iv_avatar.getTag() != null && !TextUtils.isEmpty(iv_avatar.getTag()
+                .toString()) && iv_avatar.getTag()
+                .equals(originalUrl)) {
+
+            return;
+        }
+
+        Bitmap bitmapFromCache = ImagerLoaderOptHelper.getBitmapFromCache(originalUrl, new
+                ImageSize(sizeSmall, sizeSmall));
+        if (bitmapFromCache != null) {
+            Bitmap bitmap = RoundImageView.toRoundBitmap(bitmapFromCache);
+            iv_avatar.setImageBitmap(bitmap);
+            iv_avatar.setTag(originalUrl);
+            L.d(TAG, "display bitmap from cache");
+            return;
+        }
+
+        ImageLoader.getInstance().displayImage(originalUrl, iv_avatar, ImagerLoaderOptHelper.getUserLeftAvatarOpt(), new
+                SimpleImageLoadingListener() {
+                    @Override
+                    public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                        super.onLoadingComplete(imageUri, view, loadedImage);
+//						以username为key
+                        ImagerLoaderOptHelper.putCache(originalUrl, new ImageSize(sizeSmall, sizeSmall), loadedImage);
+                        iv_avatar.setTag(originalUrl);
+                    }
+                });
+    }
+
+    public static ImageSize defineTargetSizeForView(View imageAware, ImageSize maxImageSize) {
+        int width = imageAware.getWidth();
+        if (width <= 0) width = maxImageSize.getWidth();
+
+        int height = imageAware.getHeight();
+        if (height <= 0) height = maxImageSize.getHeight();
+
+        return new ImageSize(width, height);
+    }
+
+    ImageSize getMaxImageSize() {
+        int maxImageWidthForMemoryCache = 0;
+        int maxImageHeightForMemoryCache = 0;
+
+        Resources resources = getResources();
+        DisplayMetrics displayMetrics = resources.getDisplayMetrics();
+
+        int width = maxImageWidthForMemoryCache;
+        if (width <= 0) {
+            width = displayMetrics.widthPixels;
+        }
+        int height = maxImageHeightForMemoryCache;
+        if (height <= 0) {
+            height = displayMetrics.heightPixels;
+        }
+        return new ImageSize(width, height);
+    }
+
+    /**
+     * 显示 图片信息
+     *
+     * @param iv_picture
+     * @param strUrl
+     */
+    protected void displayImagebyUrl(final ImageView iv_picture,
+                                     final String strUrl) {
+
+        // TODO: 2016/4/8
+        if (iv_picture != null && iv_picture.getTag() != null && !TextUtils.isEmpty(iv_picture.getTag()
+                .toString()) && iv_picture.getTag()
+                .equals(strUrl)) {
+            return;
+        }
+
+        Bitmap bitmapFromCache = ImagerLoaderOptHelper.getBitmapFromCache(strUrl, new
+                ImageSize(pictureSizeWidth, pictureSizeheight));
+        if (bitmapFromCache != null) {
+            iv_picture.setImageBitmap(bitmapFromCache);
+            iv_picture.setTag(strUrl);
+            L.d(TAG, "display bitmap from cache");
+            return;
+        }
+
+        ImageLoader.getInstance().displayImage(strUrl, iv_picture,
+                ImagerLoaderOptHelper.getChatImageOpt(), new SimpleImageLoadingListener() {
+                    @Override
+                    public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                        super.onLoadingComplete(imageUri, view, loadedImage);
+                        ImagerLoaderOptHelper.putCache(strUrl, new
+                                ImageSize(pictureSizeWidth, pictureSizeheight), loadedImage);
+                        iv_picture.setTag(strUrl);
+                    }
+                });
+
+    }
+
+    protected void initPopupWindow() {
+        if (popWin == null) {
+            popView = LayoutInflater.from(mContext).inflate(
+                    R.layout.popup_list_item_long_click, null);
+            MyPopuwinOnClickLisentener lisenter = new MyPopuwinOnClickLisentener();
+
+            TextView tvCopy = (TextView) popView.findViewById(R.id.tvCopy);
+            tvCopy.setOnClickListener(lisenter);
+            TextView tvDel = (TextView) popView.findViewById(R.id.tvDel);
+            tvDel.setOnClickListener(lisenter);
+
+            popWin = new PopupWindow(popView,
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT);
+            popWin.setOutsideTouchable(true);
+            popView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    popWin.dismiss();
+                    // todo
+                }
+            });
+            // 如果不设置PopupWindow的背景，无论是点击外部区域还是Back键都无法dismiss弹框
+            // 我觉得这里是API的一个bug
+            popWin.setBackgroundDrawable(new BitmapDrawable());
+        }
+    }
+
+    private class MyPopuwinOnClickLisentener implements OnClickListener {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.tvCopy:
+                    ClipboardManager cm = (ClipboardManager) mContext
+                            .getSystemService(Activity.CLIPBOARD_SERVICE);
+                    cm.setPrimaryClip(ClipData.newPlainText(message.getBody(), message.getBody()));
+                    Toast.makeText(
+                            mContext,
+                            mContext.getResources().getString(
+                                    R.string.popuwin_tips_copy_suc),
+                            Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.tvDel:
+                    messageDao.delete(message);
+                    mContext.getContentResolver().notifyChange(
+                            XmppMessageContentProvider.CONTENT_URI, null);
+                    break;
+                default:
+                    break;
+            }
+            popWin.dismiss();
+        }
+
+    }
+
+    protected void showPopuWindow(View iv) {
+        popView.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED);
+        int popupWidth = popView.getMeasuredWidth();
+        int popupHeight = popView.getMeasuredHeight();
+        int[] location = new int[2];
+        iv.getLocationOnScreen(location);
+        popWin.showAtLocation(iv, Gravity.NO_GRAVITY,
+                (location[0] + iv.getWidth() / 2) - popupWidth / 2, location[1]
+                        - popupHeight);
+    }
+}

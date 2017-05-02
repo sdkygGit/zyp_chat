@@ -1,0 +1,550 @@
+package com.yxst.epic.unifyplatform.activity;
+
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.text.Selection;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.epic.traverse.push.smack.XmppManager;
+import com.epic.traverse.push.util.L;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.skysea.group.Group;
+import com.skysea.group.GroupService;
+import com.yxst.epic.unifyplatform.DB.Member;
+import com.yxst.epic.unifyplatform.DB.MsgInFo;
+import com.yxst.epic.unifyplatform.DB.XmppDbManager;
+import com.yxst.epic.unifyplatform.DB.XmppMessage;
+import com.yxst.epic.unifyplatform.MyApplication;
+import com.yxst.epic.unifyplatform.R;
+import com.yxst.epic.unifyplatform.adapter.ContactSelectAdapter;
+import com.yxst.epic.unifyplatform.fragment.ContactListFragment;
+import com.yxst.epic.unifyplatform.fragment.ContactListFragment_;
+import com.yxst.epic.unifyplatform.fragment.ContactSubListFragment;
+import com.yxst.epic.unifyplatform.fragment.ContactSubListFragment_;
+import com.yxst.epic.unifyplatform.fragment.ReTopicQunDialogFragment;
+import com.yxst.epic.unifyplatform.fragment.ReTopicQunDialogFragment_;
+import com.yxst.epic.unifyplatform.listener.OnMemberCheckedChangedListener;
+import com.yxst.epic.unifyplatform.listener.OnMemberClickListener;
+import com.yxst.epic.unifyplatform.listener.OnMemberDeleteListener;
+import com.yxst.epic.unifyplatform.listener.OnMembersCheckedChangedListener;
+import com.yxst.epic.unifyplatform.public_store.ConstDefine;
+import com.yxst.epic.unifyplatform.public_store.OpenfireConstDefine;
+import com.yxst.epic.unifyplatform.rest.Appmsgsrv8093;
+import com.yxst.epic.unifyplatform.rest.Appmsgsrv8094;
+import com.yxst.epic.unifyplatform.view.HeaderLayout;
+import com.yxst.epic.unifyplatform.view.horizontallistview.HorizontalListView;
+
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Extra;
+import org.androidannotations.annotations.SystemService;
+import org.androidannotations.annotations.UiThread;
+import org.androidannotations.annotations.ViewById;
+import org.jivesoftware.smack.SmackException.NoResponseException;
+import org.jivesoftware.smack.SmackException.NotConnectedException;
+import org.jivesoftware.smack.XMPPException.XMPPErrorException;
+import org.jivesoftware.smackx.xdata.FormField;
+import org.jivesoftware.smackx.xdata.packet.DataForm;
+import org.jivesoftware.smackx.xdata.packet.DataForm.Type;
+
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.List;
+
+@EActivity(R.layout.activity_contact_select)
+public class ContactSelectActivity extends ActionBarActivity implements
+        OnMemberClickListener, OnMemberCheckedChangedListener,
+        OnMembersCheckedChangedListener, OnMemberDeleteListener {
+
+    private static final String TAG = "ContactSelectActivity";
+
+
+    @ViewById(R.id.listContactSelect)
+    HorizontalListView mHorizontalListView;
+
+    @ViewById
+    TextView tvTip;
+
+    // @FragmentById(R.id.fragment_contact_select_top)
+    // ContactSelectTopFragment mContactSelectTopFragment;
+
+    @ViewById(R.id.layout_content)
+    FrameLayout mContentLayout;
+
+    @Bean
+    ContactSelectAdapter mContactSelectAdapter;
+
+    @SystemService
+    LayoutInflater mLayoutInflater;
+
+    Button mCustomView;
+
+    Appmsgsrv8094 mRestClient;
+    Appmsgsrv8093 mAppmsgsrv8093;
+
+    // @Bean
+    // MyErrorHandler myErrorHandler;
+
+    // @InstanceState
+    // int mStackLevel = 1;
+
+    //	@Extra
+    boolean isPickMode;
+    //TODO  这个member对象不能被 gson序列化
+//	@Extra
+    List<Member> lockMembers;
+
+    //	@Extra
+    String localUserName;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
+        isPickMode = intent.getBooleanExtra("isPickMode", false);
+        localUserName = intent.getStringExtra("localUserName");
+        String localMembersStr = intent.getStringExtra("lockMembers");
+
+        if (!TextUtils.isEmpty(localMembersStr)) {
+            ObjectMapper mapper = new ObjectMapper();
+            try {
+                lockMembers = mapper.readValue(localMembersStr, new TypeReference<List<Member>>() {
+                });
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        MyApplication.getInstance().addActivity(this);
+    }
+    @Override
+    protected void onDestroy() {
+        MyApplication.getInstance().removeActivity(this);
+        super.onDestroy();
+    }
+    HeaderLayout mHeaderLayout;
+    public void initTopBarForLeft(String titleName) {
+        mHeaderLayout = (HeaderLayout) findViewById(R.id.common_actionbar);
+        mHeaderLayout.init(HeaderLayout.HeaderStyle.TITLE_DOUBLE_IMAGEBUTTON);
+        mHeaderLayout.setTitleAndLeftImageButton(titleName,
+                R.mipmap.blueback,
+                new HeaderLayout.onLeftImageButtonClickListener() {
+                    @Override
+                    public void onClick() {
+                        if (!popBackStack()) {
+                            finish();
+                        }
+                    }
+                });
+    }
+
+    public void initTopBarForBoth2(String titleName,int leftDrawableId, int rightDrawableId,
+                                   HeaderLayout.onRightImageButtonClickListener listener) {
+        mHeaderLayout = (HeaderLayout)findViewById(R.id.common_actionbar);
+        mHeaderLayout.init(HeaderLayout.HeaderStyle.TITLE_BOTH_IMAGE);
+        mHeaderLayout.setTitleAndLeftImageButton(titleName,
+                leftDrawableId,
+                leftDrawableId < 0 ? null : new HeaderLayout.onLeftImageButtonClickListener() {
+                    @Override
+                    public void onClick() {
+                        if (!popBackStack()) {
+                            finish();
+                        }
+                    }
+                });
+        mHeaderLayout.setTitleAndRightImageButton(titleName, rightDrawableId,
+                listener);
+    }
+    @AfterViews
+    void afterViews() {
+        // TODO: 2016/3/3
+//		initActionBar();
+        final ActionBar bar = getSupportActionBar();
+        bar.hide();
+
+        initTopBarForBoth2("选择联系人",
+                R.mipmap.blueback,
+        R.drawable.base_action_bar_true_bg_n,
+                new HeaderLayout.onRightImageButtonClickListener() {
+                    @Override
+                    public void onClick() {
+                        if (isPickMode) {
+                            Intent data = new Intent();
+                            data.putExtra("members",
+                                    (Serializable) mContactSelectAdapter.getMembers());
+                            setResult(RESULT_OK, data);
+                            finish();
+                        } else if (mContactSelectAdapter.getMembers().size() > 0) {
+                            ReTopicQunDialogFragment f = ReTopicQunDialogFragment_.builder()
+                                    .topic("我的群").type(ReTopicQunDialogFragment.TYPE_SET).build();
+                            f.setOnTopicChangeListener(mOnTopicChangeListener);
+                            f.show(getSupportFragmentManager(),
+                                    ReTopicQunDialogFragment.class.getName());
+                        }
+                    }
+                });
+
+        mContactSelectAdapter.setOnMemberDeleteListener(this);
+        mHorizontalListView.setAdapter(mContactSelectAdapter);
+
+        Log.d(TAG, "afterViews()");
+        ContactListFragment fragment = ContactListFragment_.builder()
+                .localUserName(localUserName).isSelectMode(true).build();
+
+        fragment.setSelectMembers(mContactSelectAdapter.getMembers());
+        fragment.setLockMembers(lockMembers);
+        fragment.setOnMemberClickListener(this);
+        fragment.setOnMemberCheckedChangedListener(this);
+        fragment.setOnMembersCheckedChangedListener(this);
+        addFragment(fragment);
+
+    }
+
+    private void initActionBar() {
+        View root = mLayoutInflater.inflate(R.layout.abc_view_contact_select,
+                new LinearLayout(this), false);
+        mCustomView = (Button) root.findViewById(R.id.btn_abc_ensure);
+        mCustomView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isPickMode) {
+                    Intent data = new Intent();
+                    data.putExtra("members",
+                            (Serializable) mContactSelectAdapter.getMembers());
+                    setResult(RESULT_OK, data);
+                    finish();
+                } else {
+//					doInBackground(mContactSelectAdapter.getMembers());
+//                    ReTopicQunDialogFragment f = ReTopicQunDialogFragment_.builder()
+//                            .topic("我的群").type(ReTopicQunDialogFragment.TYPE_SET).build();
+//                    f.setOnTopicChangeListener(mOnTopicChangeListener);
+//                    f.show(getSupportFragmentManager(),
+//                            ReTopicQunDialogFragment.class.getName());
+
+
+
+                }
+AlertDialog.Builder builder = new AlertDialog.Builder(ContactSelectActivity.this)
+                            .setTitle("设置群名称");
+                    final EditText et = new EditText(ContactSelectActivity.this);
+                    et.setText("群名称");
+                    builder.setView(et);
+                    builder.setNegativeButton("取消", null);
+                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            String newTopic = et.getText().toString();
+                            if (!TextUtils.isEmpty(newTopic) && newTopic.trim().length() != 0) {
+                                doInBackground(mContactSelectAdapter.getMembers(), newTopic);
+                            }
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();            }
+        });
+
+        mCustomView.setEnabled(false);
+        mCustomView.setText("确定(0)");
+
+        final ActionBar bar = getSupportActionBar();
+
+        // 设置可以显示自定义的view
+        bar.setDisplayOptions(bar.getDisplayOptions() | ActionBar.DISPLAY_HOME_AS_UP, ActionBar.DISPLAY_HOME_AS_UP);
+
+        ActionBar.LayoutParams lp = new ActionBar.LayoutParams(
+                LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+//		lp.gravity = lp.gravity & ~Gravity.HORIZONTAL_GRAVITY_MASK
+//				| Gravity.RIGHT;
+        bar.setCustomView(root, lp);
+    }
+
+    private ReTopicQunDialogFragment.OnTopicChangeListener mOnTopicChangeListener = new ReTopicQunDialogFragment.OnTopicChangeListener() {
+
+        @Override
+        public void onTopicChange(String topic) {
+            L.d(TAG, " mOnTopicChangeListener  onTopicChange() " + topic);
+            doInBackground(mContactSelectAdapter.getMembers(), topic);
+        }
+    };
+
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        if (!popBackStack()) {
+            finish();
+        }
+        // return super.onSupportNavigateUp();
+        return true;
+    }
+
+    private void addFragment(Fragment newFragment) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.add(R.id.layout_content, newFragment).commit();
+    }
+
+    private void addFragmentToStack(Fragment newFragment) {
+        // Add the fragment to the activity, pushing this transaction
+        // on to the back stack.
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.layout_content, newFragment, null);
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        ft.addToBackStack(null);
+        ft.commit();
+    }
+
+    private boolean popBackStack() {
+        FragmentManager fm = getSupportFragmentManager();
+        if (fm.getBackStackEntryCount() > 0) {
+            fm.popBackStack();
+            return true;
+            // return fm.popBackStackImmediate();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.activity_contact_select, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.btnEnsure:
+                if (isPickMode) {
+                    Intent data = new Intent();
+                    data.putExtra("members",
+                            (Serializable) mContactSelectAdapter.getMembers());
+                    setResult(RESULT_OK, data);
+                    finish();
+                } else if (mContactSelectAdapter.getMembers().size() > 0) {
+                    ReTopicQunDialogFragment f = ReTopicQunDialogFragment_.builder()
+                            .topic("我的群").type(ReTopicQunDialogFragment.TYPE_SET).build();
+                    f.setOnTopicChangeListener(mOnTopicChangeListener);
+                    f.show(getSupportFragmentManager(),
+                            ReTopicQunDialogFragment.class.getName());
+
+
+
+                }
+                break;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onMemberClick(Member member) {
+        if (member.isTypeOrg() || member.isTypeTenant()) {
+            ContactSubListFragment fragment = ContactSubListFragment_.builder()
+                    .isSelectMode(true).member(member).build();
+            fragment.setSelectMembers(mContactSelectAdapter.getMembers());
+            fragment.setLockMembers(lockMembers);
+            fragment.setOnMemberClickListener(this);
+            fragment.setOnMemberCheckedChangedListener(this);
+            fragment.setOnMembersCheckedChangedListener(this);
+            addFragmentToStack(fragment);
+        } else if (member.isTypeUser()) {
+            ContactDetailActivity_.intent(this).userName(member.UserName)
+                    .member(member).start();
+        }
+    }
+
+    @Override
+    public void onMemberCheckedChanged(Member member, boolean isChecked) {
+        if (isChecked) {
+            mContactSelectAdapter.addMember(member);
+        } else {
+            mContactSelectAdapter.removeMember(member);
+        }
+//		updateBtnSubmit();
+		updateFragment();
+    }
+
+    @Override
+    public void onMembersCheckedChanged(List<Member> members, boolean isChecked) {
+        if (isChecked) {
+            mContactSelectAdapter.addMembers(members);
+        } else {
+            mContactSelectAdapter.removeMembers(members);
+        }
+
+//		updateBtnSubmit();
+		updateFragment();
+    }
+
+    @Override
+    public void onMemberDelete(Member member) {
+        mContactSelectAdapter.removeMember(member);
+
+//		updateBtnSubmit();
+		updateFragment();
+    }
+
+    private void updateFragment() {
+        FragmentManager fm = getSupportFragmentManager();
+        Fragment f = fm.findFragmentById(R.id.layout_content);
+
+        if (f instanceof ContactListFragment) {
+            ((ContactListFragment) f).notifyDataSetChanged();
+        } else if (f instanceof ContactSubListFragment) {
+            ((ContactSubListFragment) f).notifyDataSetChanged();
+        }
+    }
+
+    private void updateBtnSubmit() {
+        int size = mContactSelectAdapter.getMembers().size();
+        mCustomView.setEnabled(size != 0);
+        mCustomView.setText("确定(" + size + ")");
+
+        tvTip.setVisibility(size == 0 ? View.VISIBLE : View.INVISIBLE);
+    }
+
+    private DataForm getCreateForm(String topic) {
+        // 和4.0.1版本中有点区别
+        final DataForm form = new DataForm(Type.submit);
+        FormField field = new FormField("name");
+        field.addValue(TextUtils.isEmpty(topic) ? "我的群" : topic);
+        form.addField(field);
+
+        field = new FormField("subject");
+        field.addValue("subject");
+        form.addField(field);
+
+        field = new FormField("description");
+        field.addValue("description");
+        form.addField(field);
+
+        field = new FormField("category");
+        field.addValue("1");
+        form.addField(field);
+
+        field = new FormField("openness");
+
+        // 和4.0.1版本中有点区别
+        field.setType(FormField.Type.text_single);
+        field.addValue("AFFIRM_REQUIRED"); // PUBLIC //AFFIRM_REQUIRED //PRIVATE
+        form.addField(field);
+        return form;
+    }
+
+    @Background
+    void doInBackground(List<Member> list, String topic) {
+        onPreExecute();
+
+        try {
+            GroupService gService = XmppManager.getInstance().getGroupService(OpenfireConstDefine.OPENFIRE_SERVER_NAME);
+            String groupJid;
+            String groupNickname = null;
+            //TODO
+            Group group = gService.create(getCreateForm(topic));
+            groupNickname = topic;
+            groupJid = group.getJid();
+            String localUserNickname = MyApplication.getInstance().getLocalMember().NickName;
+            group.changeNickname(localUserNickname);
+            // 创建群成功的消息。
+            XmppMessage msg = new XmppMessage();
+            msg.setTo_(groupJid);
+            msg.setFrom_(MyApplication.getInstance().getOpenfireJid());
+            msg.setType(MsgInFo.TYPE_GROUPCHAT);
+
+            msg.setBody("群 ".concat(groupNickname).concat(" 成功创建！"));
+            msg.setMold(MsgInFo.MOLD_TIPS);
+            msg.setType(MsgInFo.TYPE_GROUPCHAT);
+            msg.setDirect(MsgInFo.INOUT_IN);
+            msg.setStatus(MsgInFo.STATUS_PENDING);
+            msg.setReadStatus(MsgInFo.READ_TRUE);
+            msg.setCreateTime(System.currentTimeMillis());
+
+            msg.setExtLocalDisplayName(MyApplication.getInstance().getLocalMember().NickName);
+            msg.setExtLocalUserName(MyApplication.getInstance().getOpenfireJid());
+
+            msg.setExtRemoteUserName(groupJid);
+            msg.setExtRemoteDisplayName(groupNickname);
+
+            XmppDbManager.getInstance(this).insertMessageWithNotify(
+                    msg);
+
+            for (Member member : list) {
+                if (TextUtils.isEmpty(member.Uid)) {
+                    continue;
+                }
+                String userName = member.Uid;
+                group.inviteToJoin(userName, member.NickName);
+                L.d(TAG, "inivte :" + userName);
+            }
+
+            onPostExecute(groupJid, groupNickname);
+        } catch (Exception e) {
+            e.printStackTrace();
+            // TODO 处理错误
+            onPostExecute(null, null);
+        }
+
+    }
+
+    private void closeProgressDialog() {
+        if (mProgressDialog != null) {
+            mProgressDialog.dismiss();
+            mProgressDialog = null;
+        }
+    }
+
+    private ProgressDialog mProgressDialog;
+
+    @UiThread
+    void onPreExecute() {
+        mProgressDialog = ProgressDialog.show(this, "提示", "正在创建群...");
+    }
+
+    @UiThread
+    void onPostExecute(String groupJid, String groupNickname) {
+        L.d(TAG, "onPostExecute() response:" + groupJid);
+        closeProgressDialog();
+        if (groupJid == null || groupNickname == null) {
+            Toast.makeText(
+                    ContactSelectActivity.this,
+                    getResources().getString(
+                            R.string.toast_tips_operation_failed),
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        XchatActivity_.intent(this).remoteUserName(groupJid)
+                .remoteUserNick(groupNickname)
+                .chatType(MsgInFo.TYPE_GROUPCHAT).start();
+
+        finish();
+    }
+
+}

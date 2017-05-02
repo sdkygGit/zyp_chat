@@ -1,0 +1,13 @@
+package com.yxst.epic.unifyplatform.apppush;
+
+import com.yxst.epic.unifyplatform.apppush.entity.AppPushEntity;
+
+import java.util.List;
+
+
+public interface OnOperationClickListener {
+
+	void onOperationClick(AppPushEntity.ObjectContentEntity.OperationsEntity operation);
+
+	void onOperationsClick(List<AppPushEntity.ObjectContentEntity.OperationsEntity> operations);
+}

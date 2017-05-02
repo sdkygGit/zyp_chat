@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+     >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#FFF">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textColor="#333"
+                android:layout_centerInParent="true"
+                android:text="方式是否"/>
+
+            <ImageView
+                android:id="@+id/right_btn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/contact_detail_selector"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
+                />
+        </RelativeLayout>
+
+        <com.wiz.dev.wiztalk.view.xlist.XListView
+            android:id="@+id/mListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:cacheColorHint="@android:color/transparent"
+            android:divider="@null"
+            android:fadingEdgeLength="0dp"
+            android:fastScrollEnabled="true"
+            android:listSelector="@android:color/transparent"
+            android:paddingBottom="10dp"
+            android:stackFromBottom="false"
+            android:transcriptMode="normal" />
+
+        <LinearLayout
+            android:id="@+id/chat_normal_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            >
+
+            <!-- <ImageButton
+                 android:id="@+id/btn_changedto_appmenu"
+                 android:layout_width="50dp"
+                 android:layout_height="50dp"
+                 android:background="@null"
+                 android:src="@drawable/mmfooter_texttolisticon"
+                 android:visibility="visible" />-->
+
+            <include
+                layout="@layout/include_chat_bottom_bar"
+                />
+        </LinearLayout>
+        <!-- <com.yxst.epic.unifyplatform.apppush.view.FooterListView_
+             android:id="@+id/chat_appmenu_layout"
+             android:layout_width="match_parent"
+             android:layout_height="50dp"
+             android:minHeight="50dp"
+             />-->
+
+        <!--  微信自定义菜单-->
+        <LinearLayout
+            android:id="@+id/chat_appmenu_layout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:background="@color/white">
+
+            <ImageButton
+                android:id="@+id/btn_mmfooter_listtotext"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@null"
+                android:src="@drawable/mmfooter_listtotexticon"
+                android:visibility="visible" />
+
+            <View
+                android:id="@+id/viewDivider"
+                style="@style/divider_vertical" />
+
+            <LinearLayout
+                android:id="@+id/layout_custommenu"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal" >
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/tips_send_img_lay"
+        android:layout_width="64dp"
+        android:layout_height="140dp"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:background="@drawable/tip_send_img_bg"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="130dp"
+        android:layout_marginRight="3dp"
+        android:visibility="invisible">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="你可能发送的图片"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:textColor="#333" />
+        <ImageView
+            android:layout_marginBottom="4dp"
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:scaleType="fitXY"
+            android:src="@mipmap/bg_login"/>
+    </LinearLayout>
+    
+</RelativeLayout>

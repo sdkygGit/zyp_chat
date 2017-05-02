@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!-- 圆角 -->
+    <corners
+        android:bottomLeftRadius="9dp"
+        android:bottomRightRadius="9dp"
+        android:radius="9dp"
+        android:topLeftRadius="9dp"
+        android:topRightRadius="9dp" />
+    <!-- 设置圆角半径 -->
+
+
+    <!-- 间隔 -->
+    <padding
+        android:bottom="9dp"
+        android:left="9dp"
+        android:right="9dp"
+        android:top="9dp" />
+    <!-- 各方向的间隔 -->
+
+
+    <!-- 大小 -->
+    <size
+        android:height="@dimen/btn_green_h"
+        android:width="@dimen/btn_green_h" />
+    <!-- 宽度和高度 -->
+
+
+    <!-- 填充 -->
+    <solid android:color="#EEEEEE" />
+    <!-- 填充的颜色 -->
+
+
+    <!-- 描边 -->
+    <stroke
+        android:dashGap="0dp"
+        android:dashWidth="0dp"
+        android:width="0dp"
+        android:color="#EEEEEE" />
+
+</shape>

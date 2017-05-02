@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/message_top_height"
+                xmlns:tool="http://schemas.android.com/tools"
+                android:background="@drawable/list_selector"
+                android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="65dp"
+        android:paddingBottom="5.0dip"
+        android:paddingTop="5.0dip" >
+
+        <ImageView
+            android:id="@+id/iv_group_avatar"
+            style="@style/Dong.ImageView.Photo_Middle"
+            android:layout_alignParentLeft="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/head" />
+
+        <TextView
+            android:id="@+id/tv_group_name"
+            android:layout_width="wrap_content"
+            android:layout_height="24.0dip"
+            android:layout_toRightOf="@id/iv_group_avatar"
+            android:paddingLeft="8.0dip"
+            android:ellipsize="end"
+            android:gravity="left|center"
+            android:singleLine="true"
+            tool:text="jid"
+            android:textSize="14dp"
+            android:textColor="@drawable/recent_name_text_color_selector" />
+
+        <TextView
+            android:id="@+id/tv_group_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/iv_group_avatar"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:paddingLeft="6.0dip"
+            android:paddingRight="6.0dip"
+            android:singleLine="true"
+            tool:text="群简介"
+            android:textColor="@drawable/recent_message_text_color_selector"
+            android:textSize="15.0sp" />
+
+        <!--<TextView
+            android:id="@+id/tv_group_operate_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/iv_group_avatar"
+            android:layout_alignLeft="@+id/tv_group_msg"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:paddingLeft="6.0dip"
+            android:paddingRight="6.0dip"
+            android:singleLine="true"
+            tool:text="邀请人:"
+            android:textColor="@drawable/recent_message_text_color_selector"
+            android:textSize="15.0sp" />-->
+
+        <Button
+            android:id="@+id/btn_group_join"
+            android:layout_width="48dp"
+            android:layout_height="32dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="18dp"
+            android:background="@drawable/btn_group_small"
+            android:padding="0dp"
+            android:text="加入"
+            android:textColor="@android:color/white"
+            android:textSize="12sp"
+            />
+
+       <!-- <TextView
+            android:id="@+id/tv_group_operate_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="17dp"
+            android:text="已同意"
+            android:textColor="@drawable/recent_message_text_color_selector"
+            android:visibility="gone" />-->
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base_line_width_1"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/base_horizontal_line" 
+        >
+    </View>
+
+</RelativeLayout>

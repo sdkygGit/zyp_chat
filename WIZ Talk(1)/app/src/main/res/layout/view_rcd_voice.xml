@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/rcd_size"
+    android:layout_height="@dimen/rcd_size"
+    android:background="@drawable/rcd_bg"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/rcd_voice" />
+
+        <ImageView
+            android:id="@+id/ivAmp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/amp1" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvRcd"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/rcd_cancel_bg_h"
+        android:gravity="center"
+        android:text="@string/rcd_to_cancel"
+        android:textColor="@android:color/white" />
+
+</LinearLayout>

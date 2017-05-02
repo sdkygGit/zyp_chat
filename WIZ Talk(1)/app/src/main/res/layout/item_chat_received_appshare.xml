@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="13dp" >
+
+    <TextView
+        android:id="@+id/tv_time"
+        style="@style/chat_text_date_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:textSize="12sp"
+        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_chat_top"
+        android:layout_marginLeft="10dp">
+
+        <ImageView
+            android:id="@+id/iv_avatar"
+            android:layout_width="@dimen/base_scrollview_top_height"
+            android:layout_height="@dimen/base_scrollview_top_height"
+            android:background="@android:color/transparent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:contentDescription="@string/add_avator"
+            android:scaleType="fitXY" />
+
+        <LinearLayout
+            android:id="@+id/lay_localname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_chat_top"
+            android:layout_marginRight="20dp"
+            android:layout_toRightOf="@id/iv_avatar"
+            android:gravity="left|center"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="horizontal"
+            android:background="@drawable/chat_left_qp">
+
+            <ImageView
+                android:id="@+id/img_local"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/ic_default_location"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxWidth="225.0dip"
+                android:minWidth="50dp"
+                android:minHeight="50dp"
+                android:paddingLeft="5dp"
+                android:orientation="vertical"
+                android:gravity="center_vertical|left">
+                <TextView
+                    android:id="@+id/tv_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="2dp"
+                    android:textColor="#ff000000"
+                    android:textSize="14sp"
+                    android:gravity="left"
+                    android:text="云谷一期"
+                    />
+                <TextView
+                    android:id="@+id/tv_street"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="2dp"
+                    android:textColor="#ff807060"
+                    android:textSize="12sp"
+                    android:gravity="left"
+                    android:layout_marginTop="5dp"
+                    android:text="红花岭红花岭红花岭红花岭"
+                    android:visibility="gone"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <View
+        android:id="@+id/viewDividerBar"
+        style="@style/divider_bar" 
+        android:background="@color/windowBackground"/>
+
+    <ImageView
+        android:id="@+id/viewDivider"
+        style="@style/divider"
+        android:layout_below="@+id/viewDividerBar"
+        android:layout_marginLeft="@dimen/spacing_horizontal"
+        android:layout_marginRight="@dimen/spacing_horizontal"
+        android:background="@android:color/white"
+        android:src="@android:color/darker_gray" />
+
+    <TextView
+        android:id="@+id/tv"
+        style="@style/me_item"
+        android:layout_below="@+id/viewDivider"
+        android:layout_marginTop="0dp"
+        android:background="@drawable/list_selector"
+        android:clickable="false"
+        android:drawableLeft="@drawable/app_panel_fav_icon"
+        android:duplicateParentState="true"
+        android:text="关于" />
+
+    <View
+        android:id="@+id/viewGroupLineUp"
+        style="@style/divider"
+        android:layout_alignTop="@+id/tv"
+        android:background="@color/group_line" />
+
+    <View
+        android:id="@+id/viewGroupLineDown"
+        style="@style/divider"
+        android:layout_alignBottom="@+id/tv"
+        android:background="@color/group_line" />
+    
+</RelativeLayout>

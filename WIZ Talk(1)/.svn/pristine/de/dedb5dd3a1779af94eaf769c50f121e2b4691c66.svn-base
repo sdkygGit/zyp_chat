@@ -1,0 +1,15 @@
+package com.yxst.epic.unifyplatform.dto.response;
+
+import com.yxst.epic.unifyplatform.apppush.entity.AppPushEntity;
+
+import java.util.List;
+
+
+public class GetAppOperationListResponse extends Response {
+
+	private static final long serialVersionUID = 3281405056415312352L;
+
+	public int operationCount;
+	
+	public List<AppPushEntity.ObjectContentEntity.OperationsEntity> operationList;
+}

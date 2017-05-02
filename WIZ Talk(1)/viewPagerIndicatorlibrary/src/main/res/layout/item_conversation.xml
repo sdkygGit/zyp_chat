@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" 
+    android:gravity="center"
+    >
+
+        <TextView
+            android:id="@+id/tv_tab_title"
+            android:layout_width="wrap_content"
+            android:layout_height="25.0dip"
+            android:layout_marginLeft="3.0dip"
+            android:layout_marginRight="3.0dip"
+            android:ellipsize="end"
+            android:gravity="left|center"
+            android:singleLine="true"
+            android:textSize="14.0sp"
+            android:text="督办"
+            android:textColor="#ff777777"
+            />
+
+        <TextView
+            android:id="@+id/tv_tab_unread"
+            android:layout_width="wrap_content"
+            android:layout_height="16.0dip"
+            android:minWidth="16.0dip"
+            android:background="@drawable/list_newmessage2"
+            android:textColor="#ffffffff"
+            android:textSize="10.0sp"
+            android:gravity="center"
+            android:text="20"/>
+</LinearLayout>

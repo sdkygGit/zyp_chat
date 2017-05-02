@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true" >
+        <shape  >
+            <!-- 圆角 -->
+            <corners
+                android:radius="30dp"/>
+            <!-- 间隔 -->
+            <padding
+                android:bottom="9dp"
+                android:left="9dp"
+                android:right="9dp"
+                android:top="9dp" />
+            <!-- 各方向的间隔 -->
+
+            <!-- 大小 -->
+            <size
+                android:height="@dimen/btn_green_h"
+                android:width="@dimen/btn_green_h" />
+            <!-- 宽度和高度 -->
+
+
+            <!-- 填充 -->
+            <solid android:color="#d64229" />
+            <!-- 填充的颜色 -->
+        </shape>
+    </item>
+
+
+    <item >
+        <shape  >
+            <!-- 圆角 -->
+            <corners
+                android:radius="30dp"/>
+            <!-- 间隔 -->
+            <padding
+                android:bottom="9dp"
+                android:left="9dp"
+                android:right="9dp"
+                android:top="9dp" />
+            <!-- 各方向的间隔 -->
+
+            <!-- 大小 -->
+            <size
+                android:height="@dimen/btn_green_h"
+                android:width="@dimen/btn_green_h" />
+            <!-- 宽度和高度 -->
+
+
+            <!-- 填充 -->
+            <solid android:color="#f05339" />
+            <!-- 填充的颜色 -->
+        </shape>
+    </item>
+</selector>

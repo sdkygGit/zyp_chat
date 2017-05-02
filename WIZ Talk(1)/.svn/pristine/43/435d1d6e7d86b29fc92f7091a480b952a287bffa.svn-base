@@ -1,0 +1,11 @@
+package com.yxst.epic.unifyplatform.apppush;
+
+
+import com.yxst.epic.unifyplatform.dto.request.BaseRequest;
+
+public class ServiceRequest {
+
+	public BaseRequest baseRequest;
+	
+	public Long mid;
+}

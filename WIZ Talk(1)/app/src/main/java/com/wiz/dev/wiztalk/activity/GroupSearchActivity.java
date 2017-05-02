@@ -1,0 +1,353 @@
+package com.wiz.dev.wiztalk.activity;
+
+import android.app.ProgressDialog;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.View;
+import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import com.epic.traverse.push.smack.XmppManager;
+import com.epic.traverse.push.util.L;
+import com.skysea.group.Group;
+import com.skysea.group.GroupService;
+import com.skysea.group.packet.GroupSearch;
+import com.skysea.group.packet.RSMPacket;
+import com.wiz.dev.wiztalk.DB.Member;
+import com.wiz.dev.wiztalk.MyApplication;
+import com.wiz.dev.wiztalk.R;
+import com.wiz.dev.wiztalk.adapter.base.BaseAdapterHelper;
+import com.wiz.dev.wiztalk.adapter.base.QuickAdapter;
+import com.wiz.dev.wiztalk.dto.model.GroupEntity;
+import com.wiz.dev.wiztalk.public_store.OpenfireConstDefine;
+import com.wiz.dev.wiztalk.view.ContactItemFooterView;
+import com.wiz.dev.wiztalk.view.ContactItemFooterView_;
+import com.wiz.dev.wiztalk.view.HeaderLayout;
+
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ItemClick;
+import org.androidannotations.annotations.UiThread;
+import org.androidannotations.annotations.ViewById;
+import org.jivesoftware.smackx.xdata.FormField;
+import org.jivesoftware.smackx.xdata.packet.DataForm;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * group search
+ */
+@EActivity(R.layout.activity_contact_search)
+public class GroupSearchActivity extends ActionBarActivity implements
+        OnScrollListener {
+
+    private static final String TAG = "ContactSearchActivity";
+
+    @ViewById
+    EditText etSearch;
+
+    @ViewById
+    ImageButton btnSearch;
+
+    @ViewById(android.R.id.list)
+    ListView mListView;
+
+    //	@Bean
+    QuickAdapter<GroupEntity> mAdapter;
+
+    private ContactItemFooterView mFooterView;
+    
+    private GroupService groupService;
+
+    HeaderLayout mHeaderLayout;
+    public void initTopBarForLeft(String titleName) {
+        mHeaderLayout = (HeaderLayout) findViewById(R.id.common_actionbar);
+        mHeaderLayout.init(HeaderLayout.HeaderStyle.TITLE_DOUBLE_IMAGEBUTTON);
+        mHeaderLayout.setTitleAndLeftImageButton(titleName,
+                R.drawable.blueback,
+                new  HeaderLayout.onLeftImageButtonClickListener (){
+                    @Override
+                    public void onClick() {
+                        finish();
+                    }
+                });
+        //R.drawable.base_action_bar_back_bg_selector
+    }
+    @AfterViews
+    void afterViews() {
+        final ActionBar bar = getSupportActionBar();
+        bar.hide();
+        initTopBarForLeft("搜索群");
+
+        mListView.setOnScrollListener(this);
+
+        ContactItemFooterView footerView = ContactItemFooterView_.build(this);
+        mFooterView = footerView;
+
+        mAdapter = new QuickAdapter<GroupEntity>(
+                this,
+                R.layout.list_item_group_list
+        ) {
+            @Override
+            protected void convert(BaseAdapterHelper helper, final GroupEntity item) {
+                helper.setText(R.id.tv_group_name, item.getName());
+                helper.setText(R.id.tv_group_description, item.getDescription());
+                helper.setOnClickListener(R.id.btn_group_join, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // TODO: 2016/3/10      
+                        doInbackgroundJodinGroup(item);
+                    }
+                });
+            }
+        };
+        
+        
+
+        setAdapter();
+        mFooterView.hide();
+
+//		etSearch.setText("刘");
+        MyApplication.getInstance().addActivity(this);
+    }
+    @Override
+    protected void onDestroy() {
+        MyApplication.getInstance().removeActivity(this);
+        super.onDestroy();
+
+    }
+
+    private ProgressDialog mProgressDialog;
+    
+    @UiThread
+    public void onPreJoinOperate(){
+        mProgressDialog = ProgressDialog.show(this, "提示", "正在申请加入群..."); 
+    }
+    
+    @UiThread
+    public void onPostJoinOperate(boolean  flag) {
+        if (mProgressDialog != null) {
+            mProgressDialog.dismiss();
+        }
+        if (flag) {
+            Toast.makeText(
+                    GroupSearchActivity.this,
+                    getResources().getString(
+                            R.string.toast_tips_operation_suc),
+                    Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(
+                    GroupSearchActivity.this,
+                    getResources().getString(
+                            R.string.toast_tips_operation_failed),
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+    
+    
+    @Background
+    public void doInbackgroundJodinGroup(GroupEntity item) {
+
+        onPreJoinOperate();
+        try {
+            Group group = groupService.getGroup(item.getJid());
+            String nickname = MyApplication.getInstance().getLocalMember().NickName;
+            group.applyToJoin(nickname, "申请加入群");
+            onPostJoinOperate(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            onPostJoinOperate(false);
+        } 
+    }
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
+
+    private void setAdapter() {
+        mAdapter.clear();
+        mListView.removeFooterView(mFooterView);
+        mListView.addFooterView(mFooterView);
+        mListView.setAdapter(mAdapter);
+    }
+
+    private String searchKey;
+
+    @Click(R.id.btnSearch)
+    void onClickBtnSearch(View v) {
+        Log.d(TAG, "onClickBtnSearch() searchKey:" + searchKey);
+        searchKey = etSearch.getText().toString();
+        if (!TextUtils.isEmpty(searchKey)) {
+            mAdapter.clear();
+            setAdapter();
+            mFooterView.show();
+            doInBackground(searchKey, 0);
+        }
+    }
+
+    int lastVisibleItem = 0;
+
+    @Override
+    public void onScrollStateChanged(AbsListView view, int scrollState) {
+        Log.d(TAG, "onScrollStateChanged()");
+        Log.d(TAG, "onScrollStateChanged() lastVisibleItem:" + lastVisibleItem);
+        Log.d(TAG,
+                "onScrollStateChanged() mAdapter.getCount():"
+                        + mAdapter.getCount());
+        if (scrollState == OnScrollListener.SCROLL_STATE_IDLE
+                && lastVisibleItem == mAdapter.getCount()) {
+            doInBackground(searchKey, mAdapter.getCount());
+        }
+    }
+
+    private int Count;
+
+    @Override
+    public void onScroll(AbsListView view, int firstVisibleItem,
+                         int visibleItemCount, int totalItemCount) {
+        Log.d(TAG, "onScroll()");
+        Log.d(TAG, "onScroll() totalItemCount:" + totalItemCount);
+        Log.d(TAG, "onScroll() Count:" + Count);
+        // 计算最后可见条目的索引
+        lastVisibleItem = firstVisibleItem + visibleItemCount - 1;
+
+        // 所有的条目已经和最大条数相等，则移除底部的View
+        // if (totalItemCount == Count + 1) {
+        // mListView.removeFooterView(mFooterView);
+        // }
+    }
+
+    /**
+     * 根据群名字 和 简介搜索群
+     *
+     * @param searchKey
+     * @param offset
+     */
+    @Background
+    void doInBackground(String searchKey, int offset) {
+        Log.d(TAG, "doInBackground() ");
+        onPreExecute();
+        List<GroupEntity> groupList = new ArrayList<GroupEntity>();
+        try {
+            groupService = XmppManager.getInstance().getGroupService(OpenfireConstDefine.OPENFIRE_SERVER_NAME);
+            
+            // 搜索条件
+            DataForm searchForm = getCreateForm(searchKey);
+            // 分页信息
+            RSMPacket rsm = new RSMPacket();
+            rsm.setIndex(0);
+            rsm.setMax(5);
+            // Act
+            GroupSearch search = new GroupSearch(searchForm, rsm);
+            // TODO: 2016/3/13  
+            GroupSearch result = groupService.search(search);
+            DataForm resultForm = result.getDataForm();
+            for (DataForm.Item item : resultForm.getItems()) {
+                groupList.add(mapFields(item));
+            }
+            onPostExecute(groupList);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            onPostExecute(null);
+        }
+        //	onPostExecute(response);
+    }
+    private GroupEntity mapFields(DataForm.Item item) {
+        GroupEntity entity = new GroupEntity();
+        for (FormField field : item.getFields()) {
+            if (field.getVariable().equals("jid")) {
+                entity.setJid(field.getValues().get(0));
+            }
+            if (field.getVariable().equals("name")) {
+                entity.setName(field.getValues().get(0));
+            } 
+            if (field.getVariable().equals("subject")) {
+            	entity.setDescription(field.getValues().get(0));//返回的数据有问题
+            }
+        }
+        return entity;
+    }
+
+
+    private DataForm getCreateForm(String topic) {
+        // 和4.0.1版本中有点区别
+        final DataForm form = new DataForm(DataForm.Type.submit);
+        FormField field = new FormField("name");
+        field.addValue(topic);
+        form.addField(field);
+
+        field = new FormField("subject");
+        field.addValue("");
+        form.addField(field);
+
+        field = new FormField("description");
+        field.addValue(topic);
+        form.addField(field);
+
+        field = new FormField("category");
+        field.addValue("");
+        form.addField(field);
+
+        field = new FormField("openness");
+        // 和4.0.1版本中有点区别
+        field.setType(FormField.Type.text_single);
+        field.addValue(""); // PUBLIC //AFFIRM_REQUIRED //PRIVATE
+        form.addField(field);
+        return form;
+    }
+
+    @UiThread
+    void onPreExecute() {
+        mFooterView.setVisibility(View.VISIBLE);
+    }
+
+    @UiThread
+    void onPostExecute(List<GroupEntity> response) {
+        L.d(TAG, "onPostExecute() response:" + response);
+        if (response == null ) {
+            Toast.makeText(this, "暂无查询结果",
+                    Toast.LENGTH_LONG).show();
+            mListView.removeFooterView(mFooterView);
+            return;
+        }
+        
+        Count = response.size();
+        if (Count == 0) {
+            mListView.removeFooterView(mFooterView);
+            Toast.makeText(this, "暂无搜索结果",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+        
+//        mAdapter.addMembers(response.MemberList);
+
+        if (mAdapter.getCount() == Count) {
+            mListView.removeFooterView(mFooterView);
+        }
+
+        if (Count > 0) {
+            mListView.removeFooterView(mFooterView);
+            mAdapter.addAll(response);
+            mAdapter.notifyDataSetChanged();
+            Toast.makeText(this, "数据全部加载完毕", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @ItemClick(android.R.id.list)
+    void onItemClick(Member member) {
+//		ContactDetailActivity_.intent(this).member(member)
+//				.userName(member.UserName).start();
+    }
+
+}

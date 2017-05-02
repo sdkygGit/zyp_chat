@@ -1,0 +1,293 @@
+package com.wiz.dev.wiztalk.adapter;
+
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.fanning.library.FNTools;
+import com.wiz.dev.wiztalk.R;
+import com.wiz.dev.wiztalk.public_store.PublicTools;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+
+/**
+ * Created by kuang4u on 2015/4/29.
+ */
+public class MyAppsAdapter extends BaseAdapter {
+
+    private static final int curpagecount  = 8;
+    public ArrayList<HashMap<String, Object>> dataArray;
+    MyAppsCallBack  nbCallback;
+
+    Context context;
+
+
+    public interface MyAppsCallBack {
+        void    TVClick(View v);
+    }
+
+    private LayoutInflater mInflater;
+
+    public int getCount() {
+        int size = dataArray.size();
+        if ((size % curpagecount ) ==0 )
+            return size / curpagecount;
+        return  size/curpagecount + 1;
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return position;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        viewHolder  holder = null;
+
+        if(convertView == null)
+        {
+            convertView = mInflater.inflate(R.layout.myapp_page, parent, false);
+
+            holder = new viewHolder();
+            holder.icon11 = (View)convertView.findViewById(R.id.appcell11);
+            holder.icon12 = (View)convertView.findViewById(R.id.appcell12);
+            holder.icon13 = (View)convertView.findViewById(R.id.appcell13);
+            holder.icon14 = (View)convertView.findViewById(R.id.appcell14);
+
+            holder.icon21 = (View)convertView.findViewById(R.id.appcell21);
+            holder.icon22 = (View)convertView.findViewById(R.id.appcell22);
+            holder.icon23 = (View)convertView.findViewById(R.id.appcell23);
+            holder.icon24 = (View)convertView.findViewById(R.id.appcell24);
+
+            holder.icon11.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    nbCallback.TVClick(v);
+                }
+            });
+
+            holder.icon12.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    nbCallback.TVClick(v);
+                }
+            });
+
+            holder.icon13.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    nbCallback.TVClick(v);
+                }
+            });
+
+            holder.icon14.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    nbCallback.TVClick(v);
+                }
+            });
+
+            holder.icon21.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    nbCallback.TVClick(v);
+                }
+            });
+
+            holder.icon22.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    nbCallback.TVClick(v);
+                }
+            });
+
+            holder.icon23.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    nbCallback.TVClick(v);
+                }
+            });
+
+            holder.icon24.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    nbCallback.TVClick(v);
+                }
+            });
+
+            convertView.setTag(holder);
+        }
+        else
+        {
+            holder = (viewHolder) convertView.getTag();
+        }
+
+        position = position * curpagecount ;
+
+        TextView  appname;
+        ImageView appicon ;
+        View curview = null;
+        int size = dataArray.size();
+        HashMap<String, Object> map;
+
+        for (int i = 0 ;i < curpagecount; i ++)
+        {
+            curview = null;
+            switch (i)
+            {
+                case 0:
+                    curview = holder.icon11;
+                    break;
+                case 1:
+                    curview = holder.icon12;
+                    break;
+                case 2:
+                    curview = holder.icon13;
+                    break;
+                case 3:
+                    curview = holder.icon14;
+                    break;
+                case 4:
+                    curview = holder.icon21;
+                    break;
+                case 5:
+                    curview = holder.icon22;
+                    break;
+                case 6:
+                    curview = holder.icon23;
+                    break;
+                case 7:
+                    curview = holder.icon24;
+                    break;
+                default:
+                    break;
+            }
+            if (curview == null) continue;
+            curview.setTag(position + i);
+
+            appname = (TextView)curview.findViewById(R.id.appsname);
+            appicon = (ImageView)curview.findViewById(R.id.appsicon);
+
+            //+号
+            if (position + i + 1 == size)
+            {
+                appname.setVisibility(View.INVISIBLE);
+                appicon.setVisibility(View.VISIBLE);
+                appicon.setImageResource(R.mipmap.plus);
+            }
+            else if (position + i + 1 < size)
+            {//app
+                map = dataArray.get(position+i);
+                appname.setVisibility(View.VISIBLE);
+                appicon.setVisibility(View.VISIBLE);
+                appname.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
+                String appid = PublicTools.getMapedString(map, "appid");
+
+                if (FNTools.emptyString(appid))
+                {
+                    appname.setText("未命名AP");
+                    appicon.setImageResource(R.mipmap.appicon);
+                }
+                else
+                {
+                    appname.setText(map.get("appname").toString());
+                    appicon.setImageDrawable((Drawable) map.get("appicon"));
+                }
+            }
+            else
+            {
+                appname.setVisibility(View.INVISIBLE);
+                appicon.setVisibility(View.INVISIBLE);
+            }
+        }
+
+        return convertView;
+    }
+
+
+    public MyAppsAdapter(Context context, MyAppsCallBack  nbCallback )
+    {
+        this.nbCallback = nbCallback;
+        this.context = context;
+        this.mInflater = LayoutInflater.from(context);
+        dataArray = new ArrayList<HashMap<String, Object>>();
+    }
+
+
+    public void reload() {
+
+        ArrayList<String> appslist;
+        String appid;
+
+        dataArray.clear();
+        appslist = PublicTools.getCommonAppsList(context, null);
+        boolean changeflag = false;
+
+        for (int i=0 ; appslist != null && i < appslist.size(); i ++)
+        {
+            appid = appslist.get(i);
+            if (!FNTools.emptyString(appid))
+            {
+                if (!FNTools.appIsInstalled(context, appid))
+                {
+                    changeflag = true;
+                    continue;
+                }
+
+                HashMap<String, Object> map = new HashMap<String, Object>();
+                String name = PublicTools.getAppName(context, appid);
+                if (FNTools.emptyString(name))
+                    continue;
+                Drawable drawable = PublicTools.getAppIcon(context, appid);
+                if (drawable == null)
+                    continue;;
+                map.put("appid",appid);
+                map.put("appname", name);
+                map.put("appicon", drawable);
+                dataArray.add(map);
+            }
+        }
+
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        map.put("appname", "$addapp$");
+
+        dataArray.add(map);
+
+        if (changeflag)
+        {
+            PublicTools.updateAppsList(context);
+        }
+
+        this.notifyDataSetChanged();
+        return ;
+    }
+
+    private class viewHolderCell{
+        ImageView appicon;
+        TextView  appname;
+    }
+
+    private class viewHolder{
+        View  icon11;
+        View  icon12;
+        View  icon13;
+        View  icon14;
+        View  icon21;
+        View  icon22;
+        View  icon23;
+        View  icon24;
+    }
+}

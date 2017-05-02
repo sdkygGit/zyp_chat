@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
+    android:paddingBottom="@dimen/spacing_vertical" 
+    android:paddingLeft="@dimen/spacing_horizontal"
+    android:background="@drawable/list_selector">
+
+    <View
+        android:id="@+id/viewDivider"
+        style="@style/divider" 
+		android:layout_alignLeft="@+id/tv_name"
+		/>
+
+    <ImageView
+        android:id="@+id/iv_icon"
+        android:layout_width="@dimen/icon_size_small"
+        android:layout_height="@dimen/icon_size_small"
+        android:layout_marginRight="@dimen/spacing_horizontal"
+        android:layout_marginTop="@dimen/spacing_vertical"
+        android:scaleType="fitXY"
+        android:src="@drawable/mini_avatar" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/iv_icon"
+		android:textColor="@color/captiontxtcolor"
+        android:text="tv_name" />
+
+    <TextView
+        android:id="@+id/tvOrgName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:gravity="right|center_vertical"
+        android:textColor="@android:color/darker_gray"
+        android:layout_marginRight="20dp"
+        android:layout_alignParentRight="true"
+        android:text="tvOrgName" />
+    
+    <RelativeLayout 
+        android:id="@+id/layoutRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true">
+        <CheckBox
+	        android:id="@+id/cb"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerInParent="true"
+            android:button="@drawable/contact_btn_check"
+            android:layout_marginRight="12dp"
+            android:layout_alignParentRight="true"
+	        android:visibility="gone" />
+        <ImageView
+	        android:id="@+id/ivRight"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentRight="true"
+	        android:src="@drawable/go_next_selector"
+	        android:visibility="gone"/>
+    </RelativeLayout>
+    
+</RelativeLayout>

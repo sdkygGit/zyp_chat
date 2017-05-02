@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@color/base_actionbar_bg" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btn_mmfooter_listtotext"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@null"
+            android:src="@drawable/mmfooter_listtotexticon"
+            android:visibility="visible" />
+
+        <View
+            android:id="@+id/viewDivider"
+            style="@style/divider_vertical" />
+
+        <com.wiz.dev.wiztalk.view.horizontallistview.HorizontalListView
+            android:id="@+id/listOperations"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:cacheColorHint="@android:color/transparent"
+            android:divider="#DFDFDF"
+            android:fadingEdge="none"
+            android:focusable="false"
+            app:dividerWidth="1px" />
+    </LinearLayout>
+
+</RelativeLayout>

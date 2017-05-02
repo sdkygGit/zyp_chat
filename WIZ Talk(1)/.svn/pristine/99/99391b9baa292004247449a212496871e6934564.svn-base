@@ -1,0 +1,53 @@
+package com.yxst.epic.unifyplatform.view;
+
+import android.content.Context;
+import android.widget.TextView;
+
+import com.epic.traverse.push.util.L;
+import com.yxst.epic.unifyplatform.DB.XmppMessage;
+import com.yxst.epic.unifyplatform.R;
+import com.yxst.epic.unifyplatform.utils.SmileyParser;
+
+import org.androidannotations.annotations.EViewGroup;
+import org.androidannotations.annotations.LongClick;
+import org.androidannotations.annotations.ViewById;
+
+/**
+ * Created by Dong on 2015/10/13.
+ */
+@EViewGroup(R.layout.item_chat_sent_message)
+public class ChatItemSendTextView extends ChatItemSendView {
+	
+    @ViewById
+    TextView tv_message;//文本
+    
+    Context mContext;
+
+    public ChatItemSendTextView(Context context) {
+        super(context);
+        this.mContext = context;
+    }
+
+    @Override
+    public void bindOther(XmppMessage message) {
+        super.bindOther(message);
+        try {
+//          转换表情
+            /*SpannableString spannableString = FaceTextUtils
+                    .toSpannableString(mContext, message.getBody());
+            tv_message.setText(spannableString);*/
+        	tv_message.setText(SmileyParser.getInstance().addSmileySpans(message.getBody()));
+            
+        } catch (Exception e) {
+        	
+        }
+    }
+    @LongClick(R.id.tv_message)
+	void tvMessageLongClick() {
+		L.d(TAG, "tv_message()");
+		initPopupWindow();
+		showPopuWindow(tv_message);
+		
+	}
+    
+}

@@ -1,0 +1,278 @@
+package com.yxst.epic.unifyplatform.activity;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.view.View;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.EditText;
+
+import com.epic.traverse.push.smack.XmppManager;
+import com.fanning.library.FNHttp;
+import com.fanning.library.FNTools;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.json.JsonGeneratorImpl;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.google.gson.Gson;
+import com.yxst.epic.unifyplatform.DB.Member;
+import com.yxst.epic.unifyplatform.DB.XmppDbManager;
+import com.yxst.epic.unifyplatform.MyApplication;
+import com.yxst.epic.unifyplatform.R;
+import com.yxst.epic.unifyplatform.dto.response.LoginResponse;
+import com.yxst.epic.unifyplatform.preference.CachePrefs_;
+import com.yxst.epic.unifyplatform.preference.LoginPrefs_;
+import com.yxst.epic.unifyplatform.public_store.ConstDefine;
+import com.yxst.epic.unifyplatform.public_store.OpenfireConstDefine;
+import com.yxst.epic.unifyplatform.public_store.PublicTools;
+
+import org.afinal.simplecache.ACache;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.sharedpreferences.Pref;
+import org.jivesoftware.smack.SmackException;
+import org.jivesoftware.smackx.iqregister.AccountManager;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.HashMap;
+
+@EActivity
+public class LoginActivity extends Activity {
+    
+    @Pref
+    CachePrefs_ mCachePrefs;
+    
+    @Pref
+    LoginPrefs_ mLoginPrefs;
+    
+    //private String userName, userCode;
+    //private String loginCode;
+
+    EditText ulogincode;
+    EditText psdtv;
+    CheckBox jzmm,zddl;
+    Button loginbt;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.activity_login);
+
+        ulogincode = (EditText)findViewById(R.id.etloginCode);
+        psdtv = (EditText)findViewById(R.id.etPassword);
+        jzmm=(CheckBox)findViewById(R.id.cbRememberPassword);
+        zddl=(CheckBox)findViewById(R.id.cbAutoLogin);
+        loginbt = (Button)findViewById(R.id.btnLogin);
+
+        TextWatcher tw = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                onTextChange();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        };
+
+        ulogincode.addTextChangedListener(tw);
+        psdtv.addTextChangedListener(tw);
+
+
+        zddl.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    jzmm.setChecked(true);
+                }
+            }
+        });
+
+        jzmm.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (!b) {
+                    zddl.setChecked(false);
+                }
+            }
+        });
+        MyApplication.getInstance().addActivity(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        MyApplication.getInstance().removeActivity(this);
+        super.onDestroy();
+        
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        ReadLoginInfo();
+    }
+
+    void onTextChange() {
+        if (FNTools.emptyString(ulogincode.getText().toString())
+                || FNTools.emptyString(psdtv.getText().toString())) {
+            loginbt.setEnabled(false);
+        } else {
+            loginbt.setEnabled(true);
+        }
+    }
+
+
+    public void onLoginBtnClick(View view)
+    {
+        if (FNTools.emptyString(ulogincode.getText().toString()))
+        {
+            PublicTools.showStackBarInfo(LoginActivity.this, "请输入登录用户！");
+            return;
+        }
+
+        String psd = psdtv.getText().toString();
+        
+        if (FNTools.emptyString(psd))
+        {
+            PublicTools.showStackBarInfo(LoginActivity.this, "请输入密码！");
+            return;
+        }
+
+        if (true)
+            VerifyEntry();
+        else
+        {
+            FNTools.openActivity(LoginActivity.this, MainActivity_.class, null);
+            LoginActivity.this.finish();
+        }
+    }
+
+    //读取最近使用的信息
+    public void ReadLoginInfo()
+    {
+        jzmm.setChecked(PublicTools.loadLocalBoolean(LoginActivity.this, "jzmm"));
+        zddl.setChecked(PublicTools.loadLocalBoolean(LoginActivity.this, "zddl"));
+
+        String loginCode = PublicTools.loadLocalString(LoginActivity.this, "logincode");
+
+        String psd = PublicTools.loadLocalString(LoginActivity.this, "password", true);
+
+        if (!FNTools.emptyString(loginCode))
+            ulogincode.setText(loginCode);
+
+        if (jzmm.isChecked())
+        {
+            psdtv.setText(psd);
+            if (zddl.isChecked())
+            {
+                loginbt.performClick();
+            }
+        }
+    }
+
+    //登录验证
+    public void VerifyEntry()   {
+        HashMap<String, String> map = new HashMap<String, String>();
+        map.put("userName", ulogincode.getText().toString().trim());
+        map.put("password", psdtv.getText().toString());
+
+        PublicTools.syncHttpPostWithProgress(
+                this,
+                MsgHwnd,
+                "Login",
+                "/login",
+                map, "正在登录系统，请稍候...");
+    }
+
+
+    //保存信息
+    public void SaveLoginInfo()
+    {
+        PublicTools.saveLocalString(this, "logincode", ulogincode.getText().toString());
+
+        PublicTools.saveLocalString(this, "password", psdtv.getText().toString(), true);
+        PublicTools.saveLocalBoolean(this, "jzmm", jzmm.isChecked());
+        PublicTools.saveLocalBoolean(this, "zddl", zddl.isChecked());
+    }
+
+    Handler MsgHwnd = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            Bundle data = msg.getData();
+
+            if (PublicTools.checkHttpResponse(LoginActivity.this, data, "登录失败，请确认用户名或密码是否正确！"))
+            {
+                String str = (FNHttp.getRequestResult(data));
+
+                Member member;
+                try
+                {
+                    JSONObject jsonObj = new JSONObject(str);
+                    ConstDefine.uid = jsonObj.getString("uid");
+                    ConstDefine.token = jsonObj.getString("token");
+                    ConstDefine.PaasBaseUrl = jsonObj.optString("paasBaseUrl");
+                    String memberstr = jsonObj.optString("member");
+//                    member = new Gson().fromJson(memberstr, Member.class);
+//                    FNTools.FLog(member.toString());
+                    
+                    SaveLoginInfo();
+
+                    JSONObject memberJson = jsonObj.getJSONObject("member");
+
+                    String uid = memberJson.getString("uid");
+                    mCachePrefs.uid().put(uid);
+                    mCachePrefs.token().put(jsonObj.getString("token"));
+
+                    String jid = uid;
+                    if (!TextUtils.isEmpty(uid)) {
+                        // TODO: 2016/3/14  
+                        jid = uid.concat("@").concat(OpenfireConstDefine.OPENFIRE_SERVER_NAME);
+                        mLoginPrefs.openfireJid().put(jid);
+                        mLoginPrefs.openfirePwd().put("1");
+                    }
+
+                    ObjectMapper mapper = new ObjectMapper();
+                    LoginResponse loginResponse = mapper.readValue(str, LoginResponse.class);
+                    MyApplication.getInstance().putLoginResponse(loginResponse);
+
+                    FNTools.openActivity(LoginActivity.this, MainActivity_.class, null);
+                    LoginActivity.this.finish();
+
+                }
+                catch (JSONException e)
+                {
+
+                } catch (JsonParseException e) {
+                    e.printStackTrace();
+                } catch (JsonMappingException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    };
+    private void register(String uname, String upassword) throws Exception {
+        AccountManager acc = AccountManager.getInstance(XmppManager.getInstance().getConnection());
+        acc.createAccount(uname, upassword);
+    }
+    
+}

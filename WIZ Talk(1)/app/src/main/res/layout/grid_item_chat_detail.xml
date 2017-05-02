@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
+    android:paddingLeft="@dimen/spacing_vertical_small"
+    android:paddingRight="@dimen/spacing_vertical_small" >
+
+    <ImageView
+        android:id="@+id/iv_icon"
+        android:layout_width="@dimen/icon_size_bigger"
+        android:layout_height="@dimen/icon_size_bigger"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/spacing_vertical_small"
+        android:scaleType="fitXY"
+        android:src="@drawable/mini_avatar" 
+       />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/iv_icon"
+        android:layout_alignRight="@+id/iv_icon"
+        android:layout_below="@+id/iv_icon"
+        android:layout_marginBottom="@dimen/spacing_vertical_small"
+        android:ellipsize="marquee"
+        android:gravity="center"
+        android:singleLine="true"
+        android:text="联系人"
+        android:textSize="12sp" />
+
+    <ImageView
+        android:id="@+id/ivDel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/iv_icon"
+        android:layout_alignTop="@+id/iv_icon"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="3dp"
+        android:src="@drawable/appitem_del_btn"
+        android:visibility="gone" />
+
+</RelativeLayout>

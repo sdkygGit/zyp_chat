@@ -1,0 +1,77 @@
+package com.wiz.dev.wiztalk.view;
+
+import org.androidannotations.annotations.EViewGroup;
+import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.res.DimensionPixelOffsetRes;
+
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.util.AttributeSet;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.epic.traverse.push.util.L;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageSize;
+import com.skysea.group.MemberInfo;
+import com.wiz.dev.wiztalk.R;
+import com.wiz.dev.wiztalk.dto.util.RoundImageView;
+import com.wiz.dev.wiztalk.utils.ImagerLoaderOptHelper;
+import com.wiz.dev.wiztalk.utils.Utils;
+
+@EViewGroup(R.layout.grid_item_chat_detail)
+public class XChatDetialItem extends RelativeLayout {
+
+    public static final String TAG = XChatDetialItem.class.getSimpleName();
+
+	@ViewById(R.id.iv_icon)
+	public ImageView mIconView;
+
+	@ViewById(R.id.tv_name)
+	public TextView mTextView;
+
+	@ViewById
+	public ImageView ivDel;
+	
+	@DimensionPixelOffsetRes(R.dimen.icon_size_small)
+	int sizeSmall;
+	
+	public XChatDetialItem(Context context) {
+		super(context);
+	}
+
+	public XChatDetialItem(Context context, AttributeSet attrs) {
+		super(context, attrs);
+	}
+
+	public XChatDetialItem(Context context, AttributeSet attrs, int defStyle) {
+		super(context, attrs, defStyle);
+	}
+
+	public void bind(MemberInfo memberInfo, boolean isDelMode) {
+		if (memberInfo == null) {
+			return;
+		}
+		mTextView.setText(memberInfo.getNickname());
+
+		ivDel.setVisibility(isDelMode ? View.VISIBLE : View.GONE);
+
+        String avataUrl = Utils.getAvataUrl(memberInfo.getUserName().concat("@user"), sizeSmall);
+        
+        Bitmap bitmapFromCache = ImagerLoaderOptHelper.getBitmapFromCache(avataUrl, new
+                ImageSize(sizeSmall, sizeSmall));
+        if (bitmapFromCache != null) {
+            mIconView.setImageBitmap(RoundImageView.toRoundBitmap(bitmapFromCache));
+            L.d(TAG,"display bitmap from cache");
+            return;
+        }
+        
+        DisplayImageOptions options = ImagerLoaderOptHelper.getUserLeftAvatarOpt();
+        ImageLoader.getInstance().displayImage(avataUrl, mIconView,
+                options, null);
+    }
+	
+}

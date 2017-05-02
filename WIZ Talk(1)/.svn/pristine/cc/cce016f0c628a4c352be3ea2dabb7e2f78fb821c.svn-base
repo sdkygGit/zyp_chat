@@ -1,0 +1,7 @@
+package com.yxst.epic.unifyplatform.dto.request;
+
+public class GetQunMembersRequest extends Request {
+
+	public String userName;
+	
+}

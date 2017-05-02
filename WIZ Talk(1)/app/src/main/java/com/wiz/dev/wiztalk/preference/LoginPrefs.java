@@ -1,0 +1,23 @@
+package com.wiz.dev.wiztalk.preference;
+
+import org.androidannotations.annotations.sharedpreferences.SharedPref;
+
+@SharedPref(value=SharedPref.Scope.UNIQUE)
+public interface LoginPrefs {
+
+	String userName();
+	
+	String password();
+	
+	boolean isRemenberPwd();
+	
+	boolean isAutoLogin();
+	
+	String paasBaseUrl();
+	
+	String openfireJid();
+	String openfirePwd();
+	
+	boolean isLogout();
+	
+}

@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="apply.Activity_ChoseEquip">
+
+    <RelativeLayout
+        android:id="@+id/MainActivity_layoutForToolBar_up"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/colorAction">
+
+
+        <ImageView
+            android:id="@+id/MainActivity_imageView_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/back" />
+
+        <TextView
+            android:id="@+id/MainActivity_textView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/MainActivity_imageView_edit"
+            android:layout_toRightOf="@+id/MainActivity_imageView_back"
+            android:gravity="center"
+            android:text="基本属性"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:id="@+id/MainActivity_imageView_edit"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/MainActivity_imageView_refresh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_action_refresh"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/MainActivity_layoutForFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/MainActivity_layoutForToolBar_down"
+        android:layout_below="@+id/MainActivity_layoutForToolBar_up" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="63dp"
+        android:background="#c3c3c3" />
+
+    <LinearLayout
+        android:id="@+id/MainActivity_layoutForToolBar_down"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="3dp"
+        android:background="#ffffff">
+
+        <LinearLayout
+            android:id="@+id/down_tab0"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:onClick="clickButton"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageView_baseinfo"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/baseinfo_selector" />
+
+            <TextView
+                android:id="@+id/textView_baseinfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="基本属性"
+                android:textColor="@color/textcolor_selector"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/down_tab1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:onClick="clickButton"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageView_equipinfo"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/equip_info_selector" />
+
+            <TextView
+                android:id="@+id/textView_equipinfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="设备模型"
+                android:textColor="@color/textcolor_selector"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/down_tab3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:onClick="clickButton"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageView_equipdata"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/realtime_data_selector" />
+
+            <TextView
+                android:id="@+id/textView_equipdata"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="实时数据"
+                android:textColor="@color/textcolor_selector"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/down_tab4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:onClick="clickButton"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageView_equipdocument"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/document_selector" />
+
+            <TextView
+                android:id="@+id/textView_equipdocument"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="关联文档"
+                android:textColor="@color/textcolor_selector"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/down_tab2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:onClick="clickButton"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageView_equipaccount"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/equip_account_selector" />
+
+            <TextView
+                android:id="@+id/textView_equipaccount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="设备台帐"
+                android:textColor="@color/textcolor_selector"
+                android:textSize="10sp" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>
